@@ -74,4 +74,9 @@ public class Match {
         Match match = (Match) o;
         return matchId == match.matchId;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matchId);
+    }
 }
