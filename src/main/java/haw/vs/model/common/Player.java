@@ -4,6 +4,7 @@ import haw.vs.common.Coordinate;
 import haw.vs.common.PlayerConfigData;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Player {
     private long playerId;
@@ -58,5 +59,10 @@ public class Player {
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
         return playerId == player.playerId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerId);
     }
 }
