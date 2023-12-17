@@ -12,36 +12,36 @@ public class GameViewUpdate implements IGameViewUpdate {
 
     @Override
     public void startGame(long playerId, IGameState gameState) {
-        viewFacade.startGame(gameState);
+        viewFacade.startGame(playerId, gameState);
     }
 
     @Override
     public void updateView(long playerId, IGameState gameState) {
-        viewFacade.update(gameState);
+        viewFacade.update(playerId, gameState);
     }
 
     @Override
     public void playerWon(long playerId, IGameState gameState) {
-        viewFacade.playerWon(gameState);
+        viewFacade.playerWon(playerId, gameState);
     }
 
     @Override
     public void playerLost(long playerId, IGameState gameState) {
-        viewFacade.playerLost(gameState);
+        viewFacade.playerLost(playerId, gameState);
     }
 
     @Override
     public void updatePlayerCountView(long playerId, int playerCount, int targetPlayerCount) {
-        viewFacade.updatePlayerCountView(playerCount, targetPlayerCount);
+        viewFacade.updatePlayerCountView(playerId, playerCount, targetPlayerCount);
     }
 
     @Override
     public void showMainMenu(long playerId) {
-        viewFacade.showMainMenu();
+        viewFacade.showMainMenu(playerId);
     }
 
     @Override
     public void setMatchId(long playerId, long matchId) {
-        viewFacade.setMatchId(matchId);
+        viewFacade.setMatchId(playerId, matchId);
     }
 }
