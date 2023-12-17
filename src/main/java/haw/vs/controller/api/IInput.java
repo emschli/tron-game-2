@@ -8,8 +8,8 @@ public interface IInput {
     void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData);
 
     // Ein Spieler bricht das Warten ab
-    void cancelWait(long playerId, long matchId, int noOfPlayers);
+    void cancelWait(long playerId);
 
     // Verarbeitet die Spielaktion eines Spielers
-    void handleGameAction(long playerId,long matchId, Direction dir);
+    void handleGameAction(long playerId, Direction dir);
 }
