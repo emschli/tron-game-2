@@ -67,6 +67,10 @@ public class Match {
         this.players = players;
     }
 
+    public boolean isFull() {
+        return numberOfPlayers == players.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
