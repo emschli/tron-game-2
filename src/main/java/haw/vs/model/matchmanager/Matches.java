@@ -1,5 +1,6 @@
 package haw.vs.model.matchmanager;
 
+import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
@@ -9,6 +10,7 @@ import haw.vs.model.common.PlayerState;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Matches {
@@ -16,12 +18,20 @@ public class Matches {
     private static Matches INSTANCE;
     public static int MAX_NUMBER_OF_PLAYERS = 4;
 
-    Map<Integer, Queue<Match>> waitingQueues;
-    Map<Long, Match> runningMatches;
-    ReentrantLock runningMatchesMutex = new ReentrantLock();
+    private Map<Integer, Queue<Match>> waitingQueues;
+    private Map<Long, Match> runningMatches;
 
-    BlockingQueue<Match> matchesReadyForViewUpdate;
-    BlockingQueue<MenuEvent> menuEvents;
+
+    private BlockingQueue<Match> matchesReadyForViewUpdate;
+    private BlockingQueue<MenuEvent> menuEvents;
+
+    private ReentrantLock runningMatchesMutex = new ReentrantLock();
+
+    public ReentrantLock inputLock = new ReentrantLock();
+    public ReentrantLock updateLock = new ReentrantLock();
+    public ReentrantLock viewUpdateLock = new ReentrantLock();
+    public Condition startWork = viewUpdateLock.newCondition();
+    public Condition cleanupDone = viewUpdateLock.newCondition();
 
 
     private Matches() {
@@ -79,9 +89,9 @@ public class Matches {
         waitingQueues.get(match.getNumberOfPlayers()).remove(match);
         match.setState(MatchState.READY);
 
-        runningMatchesMutex.lock();
-        runningMatches.put(match.getMatchId(), match);
-        runningMatchesMutex.unlock();
+        inputLock.lock();
+        putRunningMatch(match);
+        inputLock.unlock();
     }
 
     public List<Match> getRunningMatches() {
@@ -90,6 +100,52 @@ public class Matches {
         matches = runningMatches.values().stream().toList();
         runningMatchesMutex.unlock();
         return matches;
+    }
+
+    public Match getNextMatchForViewUpdate() throws InterruptedException {
+        return matchesReadyForViewUpdate.take();
+    }
+
+    public boolean hasNextMatchForViewUpdate() {
+        return !matchesReadyForViewUpdate.isEmpty();
+    }
+
+    public void updateMatch(Match match) {
+        updateLock.lock();
+        Match matchToUpdate = getRunningMatch(match.getMatchId());
+        matchToUpdate.setState(match.getState());
+        matchToUpdate.setMaxGridX(match.getMaxGridX());
+        matchToUpdate.setMaxGridY(match.getMaxGridY());
+        matchToUpdate.setPlayers(match.getPlayers());
+        matchesReadyForViewUpdate.add(matchToUpdate);
+        updateLock.unlock();
+    }
+
+    public void removeEndedMatch(Match match) {
+        runningMatchesMutex.lock();
+        runningMatches.remove(match.getMatchId());
+        runningMatchesMutex.unlock();
+    }
+
+    public void makePlayerMove(long playerId, long matchId, Direction direction) {
+        inputLock.lock();
+        Match match = getRunningMatch(matchId);
+        Player player = match.getPlayerById(playerId);
+        player.setDirection(direction);
+        inputLock.unlock();
+    }
+
+    private Match getRunningMatch(long matchId) {
+        runningMatchesMutex.lock();
+        Match match = runningMatches.get(matchId);
+        runningMatchesMutex.unlock();
+        return match;
+    }
+
+    private void putRunningMatch(Match match) {
+        runningMatchesMutex.lock();
+        runningMatches.put(match.getMatchId(), match);
+        runningMatchesMutex.unlock();
     }
 
     private Player createNewPlayer(long playerId, PlayerConfigData configData) {

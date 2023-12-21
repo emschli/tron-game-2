@@ -1,8 +1,12 @@
 package haw.vs.model.matchmanager;
 
+import haw.vs.common.IGameState;
 import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.model.common.Match;
+import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
+
+import java.util.ArrayList;
 
 public class MatchUpdateHandler implements IMatchUpdateHandler {
     private IGameViewUpdate gameViewUpdate;
@@ -15,7 +19,53 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
 
     @Override
     public void updateView(Match match) {
+        switch (match.getState()){
+            case READY -> startGame(match);
+            case RUNNING -> updateRunningGame(match);
+            case ENDED -> updateEndedGame(match);
+            default -> {
+                throw new IllegalArgumentException("Invalid Match State!");
+            }
+        }
+    }
 
+    private void startGame(Match match) {
+        IGameState gameState = GameStateCreator.createGameState(match);
+        for (Player player : match.getPlayers()) {
+            gameViewUpdate.startGame(player.getPlayerId(), gameState);
+        }
+        match.setState(MatchState.RUNNING);
+    }
+
+    private void updateRunningGame(Match match) {
+        IGameState gameState = GameStateCreator.createGameState(match);
+        for (Player player : new ArrayList<>(match.getPlayers())) {
+            switch (player.getState()) {
+                case DEAD -> {
+                    gameViewUpdate.playerLost(player.getPlayerId(), gameState);
+                    match.removePlayer(player);
+                }
+                case PLAYING -> {
+                    gameViewUpdate.updateView(player.getPlayerId(), gameState);
+                }
+            }
+        }
+    }
+
+    private void updateEndedGame(Match match) {
+        IGameState gameState = GameStateCreator.createGameState(match);
+        for (Player player: match.getPlayers()) {
+            switch (player.getState()) {
+                case DEAD -> {
+                    gameViewUpdate.playerLost(player.getPlayerId(), gameState);
+                }
+                case WON -> {
+                    gameViewUpdate.playerWon(player.getPlayerId(), gameState);
+                }
+            }
+        }
+
+        matches.removeEndedMatch(match);
     }
 
     @Override

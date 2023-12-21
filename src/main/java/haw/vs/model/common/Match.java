@@ -8,7 +8,7 @@ public class Match {
     private MatchState state;
     private int numberOfPlayers;
     private int maxGridX;
-    private int getMaxGridY;
+    private int maxGridY;
     private List<Player> players;
 
     public void addPlayer(Player player) {
@@ -17,6 +17,10 @@ public class Match {
 
     public void removePlayer(Player player) {
         players.remove(player);
+    }
+
+    public Player getPlayerById(long playerId) {
+        return players.stream().filter(player -> player.getPlayerId() == playerId).findFirst().orElse(null);
     }
 
     public void removePlayer(long playerId) {
@@ -55,12 +59,12 @@ public class Match {
         this.maxGridX = maxGridX;
     }
 
-    public int getGetMaxGridY() {
-        return getMaxGridY;
+    public int getMaxGridY() {
+        return maxGridY;
     }
 
-    public void setGetMaxGridY(int getMaxGridY) {
-        this.getMaxGridY = getMaxGridY;
+    public void setMaxGridY(int maxGridY) {
+        this.maxGridY = maxGridY;
     }
 
     public List<Player> getPlayers() {

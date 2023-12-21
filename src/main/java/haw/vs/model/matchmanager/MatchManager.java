@@ -25,6 +25,6 @@ public class MatchManager implements IMatchController {
 
     @Override
     public void movePlayer(long playerId, long matchId, Direction direction) {
-
+        matches.makePlayerMove(playerId, matchId, direction);
     }
 }

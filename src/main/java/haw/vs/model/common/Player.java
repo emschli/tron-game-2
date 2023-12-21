@@ -1,6 +1,7 @@
 package haw.vs.model.common;
 
 import haw.vs.common.Coordinate;
+import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class Player {
     private String color;
     private List<Coordinate> trace;
     private PlayerConfigData configData;
+    private Direction direction;
 
     public long getPlayerId() {
         return playerId;
@@ -51,6 +53,14 @@ public class Player {
 
     public void setConfigData(PlayerConfigData configData) {
         this.configData = configData;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     @Override
