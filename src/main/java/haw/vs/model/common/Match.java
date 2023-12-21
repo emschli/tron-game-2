@@ -19,6 +19,10 @@ public class Match {
         players.remove(player);
     }
 
+    public void removePlayer(long playerId) {
+        players.removeIf(player -> player.getPlayerId() == playerId);
+    }
+
     public long getMatchId() {
         return matchId;
     }
