@@ -36,7 +36,12 @@ public class TickHandler implements ITickHandler {
         long elapsedTime = System.currentTimeMillis() - startTime;
 
         //Sleep for the rest of the computation Interval
-        Thread.sleep(COMPUTATION_INTERVAL - elapsedTime);
+        long sleepInterval = COMPUTATION_INTERVAL - elapsedTime;
+        if (sleepInterval >= 0) {
+            Thread.sleep(sleepInterval);
+        } else {
+            System.err.printf("Sending of Matches took too long! +%s ms\n", Math.abs(sleepInterval));
+        }
 
         long startTime2 = System.currentTimeMillis();
         matches.updateLock.lock();
@@ -47,8 +52,14 @@ public class TickHandler implements ITickHandler {
             matches.cleanupDone.await();
         }
         matches.viewUpdateLock.unlock();
+
         long elapsedTime2 = System.currentTimeMillis() - startTime2;
-        Thread.sleep(MARGIN - elapsedTime2); //Sleep for rest of Margin
+        long sleepInterval2 = MARGIN - elapsedTime2;
+        if (sleepInterval2 >= 0) {
+            Thread.sleep(sleepInterval2); //Sleep for rest of Margin
+        } else {
+            System.err.printf("Clean up Took too long! + %s ms", Math.abs(sleepInterval2));
+        }
 
         matches.inputLock.unlock(); // allow Inputs again
     }

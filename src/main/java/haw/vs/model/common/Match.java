@@ -91,4 +91,16 @@ public class Match {
     public int hashCode() {
         return Objects.hash(matchId);
     }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "matchId=" + matchId +
+                ", state=" + state +
+                ", numberOfPlayers=" + numberOfPlayers +
+                ", maxGridX=" + maxGridX +
+                ", maxGridY=" + maxGridY +
+                ", players=" + players +
+                '}';
+    }
 }
