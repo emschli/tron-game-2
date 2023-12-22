@@ -1,10 +1,11 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.viewupdate;
 
 import haw.vs.model.common.Match;
+import haw.vs.model.matchmanager.state.Matches;
 
 public class GameUpdateThread implements Runnable {
-    IMatchUpdateHandler matchUpdateHandler;
-    Matches matches;
+    private final IMatchUpdateHandler matchUpdateHandler;
+    private final Matches matches;
 
     public GameUpdateThread(IMatchUpdateHandler matchUpdateHandler, Matches matches) {
         this.matchUpdateHandler = matchUpdateHandler;

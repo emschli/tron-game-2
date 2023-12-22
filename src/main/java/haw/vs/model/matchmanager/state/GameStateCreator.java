@@ -1,4 +1,4 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.state;
 
 import haw.vs.common.Coordinate;
 import haw.vs.common.GameState;

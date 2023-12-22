@@ -1,8 +1,11 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.viewupdate;
+
+import haw.vs.model.matchmanager.state.Matches;
+import haw.vs.model.matchmanager.state.MenuEvent;
 
 public class MenuUpdateThread implements Runnable {
-    private Matches matches;
-    private IMatchUpdateHandler matchUpdateHandler;
+    private final Matches matches;
+    private final IMatchUpdateHandler matchUpdateHandler;
 
     public MenuUpdateThread(Matches matches, IMatchUpdateHandler matchUpdateHandler) {
         this.matches = matches;

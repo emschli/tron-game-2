@@ -1,18 +1,19 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.tick;
 
 import haw.vs.model.common.Match;
 import haw.vs.model.gamelogic.api.IGameStateProcessor;
+import haw.vs.model.matchmanager.state.Matches;
 
 public class TickHandler implements ITickHandler {
-    private Matches matches;
-    private IGameStateProcessor gameStateProcessor;
+    private final Matches matches;
+    private final IGameStateProcessor gameStateProcessor;
 
-    private static int TICKS_PER_SECOND = 30;
-    private static long TICK_LENGTH = 1000 / TICKS_PER_SECOND;
-    private static long INPUT_INTERVAL = TICK_LENGTH / 2;
-    private static float MARGIN_PERCENTAGE = 0.2f;
-    private static long MARGIN = (long) (INPUT_INTERVAL * MARGIN_PERCENTAGE);
-    private static long COMPUTATION_INTERVAL = INPUT_INTERVAL - MARGIN;
+    private static final int TICKS_PER_SECOND = 30;
+    private static final long TICK_LENGTH = 1000 / TICKS_PER_SECOND;
+    private static final long INPUT_INTERVAL = TICK_LENGTH / 2;
+    private static final float MARGIN_PERCENTAGE = 0.2f;
+    private static final long MARGIN = (long) (INPUT_INTERVAL * MARGIN_PERCENTAGE);
+    private static final long COMPUTATION_INTERVAL = INPUT_INTERVAL - MARGIN;
 
     public TickHandler(Matches matches, IGameStateProcessor gameStateProcessor) {
         this.matches = matches;

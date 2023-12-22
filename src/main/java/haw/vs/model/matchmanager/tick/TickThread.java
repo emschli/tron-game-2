@@ -1,9 +1,11 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.tick;
+
+import haw.vs.model.matchmanager.state.Matches;
 
 public class TickThread implements Runnable {
-    private ITickHandler tickHandler;
-    private Thread gameUpdateThread;
-    private Matches matches;
+    private final ITickHandler tickHandler;
+    private final Thread gameUpdateThread;
+    private final Matches matches;
 
     public TickThread(ITickHandler tickHandler, Thread gameUpdateThread, Matches matches) {
         this.tickHandler = tickHandler;

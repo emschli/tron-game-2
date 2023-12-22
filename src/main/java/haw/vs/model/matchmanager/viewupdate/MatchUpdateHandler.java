@@ -1,16 +1,19 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.viewupdate;
 
 import haw.vs.common.IGameState;
 import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
+import haw.vs.model.matchmanager.state.GameStateCreator;
+import haw.vs.model.matchmanager.state.Matches;
+import haw.vs.model.matchmanager.state.MenuEvent;
 
 import java.util.ArrayList;
 
 public class MatchUpdateHandler implements IMatchUpdateHandler {
-    private IGameViewUpdate gameViewUpdate;
-    private Matches matches;
+    private final IGameViewUpdate gameViewUpdate;
+    private final Matches matches;
 
     public MatchUpdateHandler(IGameViewUpdate gameViewUpdate, Matches matches) {
         this.gameViewUpdate = gameViewUpdate;
@@ -23,9 +26,21 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
             case READY -> startGame(match);
             case RUNNING -> updateRunningGame(match);
             case ENDED -> updateEndedGame(match);
-            default -> {
-                throw new IllegalArgumentException("Invalid Match State!");
-            }
+            default -> throw new IllegalArgumentException("Invalid Match State!");
+        }
+    }
+
+    @Override
+    public void updateView(MenuEvent event) {
+        switch (event.eventType()){
+            case ADD_PLAYER:
+                addPlayer(event);
+                break;
+            case PLAYER_CANCELED:
+                removePlayer(event);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid Menu Event!");
         }
     }
 
@@ -45,9 +60,7 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
                     gameViewUpdate.playerLost(player.getPlayerId(), gameState);
                     match.removePlayer(player);
                 }
-                case PLAYING -> {
-                    gameViewUpdate.updateView(player.getPlayerId(), gameState);
-                }
+                case PLAYING -> gameViewUpdate.updateView(player.getPlayerId(), gameState);
             }
         }
     }
@@ -56,35 +69,17 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
         IGameState gameState = GameStateCreator.createGameState(match);
         for (Player player: match.getPlayers()) {
             switch (player.getState()) {
-                case DEAD -> {
-                    gameViewUpdate.playerLost(player.getPlayerId(), gameState);
-                }
-                case WON -> {
-                    gameViewUpdate.playerWon(player.getPlayerId(), gameState);
-                }
+                case DEAD -> gameViewUpdate.playerLost(player.getPlayerId(), gameState);
+                case WON -> gameViewUpdate.playerWon(player.getPlayerId(), gameState);
             }
         }
 
         matches.removeEndedMatch(match);
     }
 
-    @Override
-    public void updateView(MenuEvent event) {
-        switch (event.getEventType()){
-            case ADD_PLAYER:
-                addPlayer(event);
-                break;
-            case PLAYER_CANCELED:
-                removePlayer(event);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid Menu Event!");
-        }
-    }
-
     private void addPlayer(MenuEvent event) {
-        Match match = matches.addPlayerToMatch(event.getPlayerId(), event.getNumberOfPlayers(), event.getConfigData());
-        gameViewUpdate.setMatchId(event.getPlayerId(), match.getMatchId());
+        Match match = matches.addPlayerToMatch(event.playerId(), event.numberOfPlayers(), event.configData());
+        gameViewUpdate.setMatchId(event.playerId(), match.getMatchId());
 
        updateWaitingScreen(match);
 
@@ -95,7 +90,7 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
     }
 
     private void removePlayer(MenuEvent event) {
-        Match match = matches.removePlayerFromMatch(event.getPlayerId(), event.getMatchId(), event.getNumberOfPlayers());
+        Match match = matches.removePlayerFromMatch(event.playerId(), event.matchId(), event.numberOfPlayers());
         if (match != null) {
             updateWaitingScreen(match);
         }

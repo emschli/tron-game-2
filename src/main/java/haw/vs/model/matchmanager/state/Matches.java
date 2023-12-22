@@ -1,4 +1,4 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.state;
 
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
@@ -18,14 +18,14 @@ public class Matches {
     private static Matches INSTANCE;
     public static int MAX_NUMBER_OF_PLAYERS = 4;
 
-    private Map<Integer, Queue<Match>> waitingQueues;
-    private Map<Long, Match> runningMatches;
+    private final Map<Integer, Queue<Match>> waitingQueues;
+    private final Map<Long, Match> runningMatches;
 
 
-    private BlockingQueue<Match> matchesReadyForViewUpdate;
-    private BlockingQueue<MenuEvent> menuEvents;
+    private final BlockingQueue<Match> matchesReadyForViewUpdate;
+    private final BlockingQueue<MenuEvent> menuEvents;
 
-    private ReentrantLock runningMatchesMutex = new ReentrantLock();
+    private final ReentrantLock runningMatchesMutex = new ReentrantLock();
 
     public ReentrantLock inputLock = new ReentrantLock();
     public ReentrantLock updateLock = new ReentrantLock();

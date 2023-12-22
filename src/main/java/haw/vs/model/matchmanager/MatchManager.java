@@ -3,9 +3,12 @@ package haw.vs.model.matchmanager;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.model.matchmanager.api.IMatchController;
+import haw.vs.model.matchmanager.state.Matches;
+import haw.vs.model.matchmanager.state.MenuEvent;
+import haw.vs.model.matchmanager.state.MenuEventType;
 
 public class MatchManager implements IMatchController {
-    private Matches matches;
+    private final Matches matches;
 
     public MatchManager(Matches matches) {
         this.matches = matches;
