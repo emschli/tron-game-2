@@ -31,7 +31,7 @@ public class TickHandler implements ITickHandler {
         matches.startWork.signalAll();
         matches.viewUpdateLock.unlock();
         for (Match match : matches.getRunningMatches()) {
-            gameStateProcessor.addTask(match);
+            gameStateProcessor.addTask(match.copy());
         }
         long elapsedTime = System.currentTimeMillis() - startTime;
 
@@ -58,7 +58,7 @@ public class TickHandler implements ITickHandler {
         if (sleepInterval2 >= 0) {
             Thread.sleep(sleepInterval2); //Sleep for rest of Margin
         } else {
-            System.err.printf("Clean up Took too long! + %s ms", Math.abs(sleepInterval2));
+            System.err.printf("Clean up Took too long! + %s ms\n", Math.abs(sleepInterval2));
         }
 
         matches.inputLock.unlock(); // allow Inputs again

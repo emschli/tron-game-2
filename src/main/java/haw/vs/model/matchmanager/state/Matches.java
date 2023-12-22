@@ -65,12 +65,15 @@ public class Matches {
 
         Match match = getFirstNotFullMatch(numberOfPlayers);
         match.addPlayer(player);
-        int playerNumber = match.getPlayers().indexOf(player) + 1;
-        player.setColor(Colors.getColor(playerNumber));
+        applyColors(match);
 
         return match;
     }
 
+    /**
+     * Removes Player from waiting Match
+     * @return The Match the player was removed from or null if there was no match or the Player was the last one in the match
+     */
     public Match removePlayerFromMatch(long playerId, long matchId, int numberOfPlayers) {
         Match match = waitingQueues.get(numberOfPlayers)
                 .stream()
@@ -80,6 +83,11 @@ public class Matches {
 
         if (match != null) {
             match.removePlayer(playerId);
+            applyColors(match);
+            if (match.getPlayers().isEmpty()) {
+                waitingQueues.get(numberOfPlayers).remove(match);
+                match = null;
+            }
         }
 
         return match;
@@ -153,7 +161,6 @@ public class Matches {
         player.setPlayerId(playerId);
         player.setConfigData(configData);
         player.setState(PlayerState.WAITING);
-        player.setTrace(new ArrayList<>());
         return player;
     }
 
@@ -161,10 +168,16 @@ public class Matches {
         Match match = new Match();
         match.setMatchId(MATCH_ID_COUNTER);
         MATCH_ID_COUNTER += 1;
-        match.setPlayers(new LinkedList<>());
         match.setNumberOfPlayers(numberOfPlayers);
         match.setState(MatchState.WAITING);
         return match;
+    }
+
+    private void applyColors(Match match) {
+        for (int i = 0; i < match.getPlayers().size(); i++) {
+            Player player = match.getPlayers().get(i);
+            player.setColor(Colors.getColor(i + 1));
+        }
     }
 
     //Get first not full match or create new one

@@ -5,6 +5,7 @@ import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
+import haw.vs.model.common.PlayerState;
 import haw.vs.model.matchmanager.state.GameStateCreator;
 import haw.vs.model.matchmanager.state.Matches;
 import haw.vs.model.matchmanager.state.MenuEvent;
@@ -47,6 +48,7 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
     private void startGame(Match match) {
         IGameState gameState = GameStateCreator.createGameState(match);
         for (Player player : match.getPlayers()) {
+            player.setState(PlayerState.PLAYING);
             gameViewUpdate.startGame(player.getPlayerId(), gameState);
         }
         match.setState(MatchState.RUNNING);
@@ -91,6 +93,7 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
 
     private void removePlayer(MenuEvent event) {
         Match match = matches.removePlayerFromMatch(event.playerId(), event.matchId(), event.numberOfPlayers());
+        gameViewUpdate.showMainMenu(event.playerId());
         if (match != null) {
             updateWaitingScreen(match);
         }
