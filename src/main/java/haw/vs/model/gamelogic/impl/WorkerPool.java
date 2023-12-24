@@ -49,7 +49,7 @@ public class WorkerPool implements IWorkerPool {
         // wrap match in a runnable
         Runnable task = () -> {
             gameLogic.processMatch(match);
-            gameStateProcessedHandler.updateMatch(match);
+            //gameStateProcessedHandler.updateMatch(match);
         };
         // add runnable to Queue
         try {
