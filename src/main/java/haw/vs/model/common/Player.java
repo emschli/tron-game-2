@@ -1,6 +1,7 @@
 package haw.vs.model.common;
 
 import haw.vs.common.Coordinate;
+import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 
 import java.util.List;
@@ -12,6 +13,35 @@ public class Player {
     private String color;
     private List<Coordinate> trace;
     private PlayerConfigData configData;
+
+    // The direction, the player is currently heading to
+    // (which is the same direction the player made a step into in the last tick).
+    private Direction currentDirection;
+
+    // The direction the player wants to move into - by default,
+    // this is the current direction, if the player made an input during the tick,
+    // it is changed
+    private Direction nextDirection;
+
+    public Direction getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public void setCurrentDirection(Direction currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
+    public Direction getNextDirection() {
+        return nextDirection;
+    }
+
+    public void setNextDirection(Direction nextDirection) {
+        this.nextDirection = nextDirection;
+    }
+
+
+
+
 
     public long getPlayerId() {
         return playerId;

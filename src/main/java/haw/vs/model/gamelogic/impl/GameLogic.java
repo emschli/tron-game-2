@@ -29,9 +29,14 @@ public class GameLogic implements IGameLogic {
 
     private void movePlayers(Match match) {
         // gehe durch die vorhandenen Player
-        // nimm die direction
-        // prüfe ob ok (nicht "zurück")
-        // füge die Koordinate der geünschten Richtung der trace hinzu
+        for (Player player : match.getPlayers()){
+            // nimm die direction
+
+            // prüfe ob ok (nicht "zurück")
+            // füge die Koordinate der geünschten Richtung der trace hinzu
+        }
+
+
     }
     private void checkCollisions(Match match) {
         // prüfe ob noch in boundaries
