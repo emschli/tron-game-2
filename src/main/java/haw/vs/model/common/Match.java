@@ -2,6 +2,7 @@ package haw.vs.model.common;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Match {
     private long matchId;
@@ -69,6 +70,12 @@ public class Match {
 
     public boolean isFull() {
         return numberOfPlayers == players.size();
+    }
+
+    public List<Player> getAlivePlayers() {
+        return players.stream()
+                .filter(Player::isAlive)
+                .collect(Collectors.toList());
     }
 
     @Override

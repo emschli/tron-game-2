@@ -23,25 +23,13 @@ public class Player {
     // it is changed
     private Direction nextDirection;
 
-    public Direction getCurrentDirection() {
-        return currentDirection;
-    }
+    public Direction getCurrentDirection() {return currentDirection;}
 
-    public void setCurrentDirection(Direction currentDirection) {
-        this.currentDirection = currentDirection;
-    }
+    public void setCurrentDirection(Direction currentDirection) {this.currentDirection = currentDirection;}
 
-    public Direction getNextDirection() {
-        return nextDirection;
-    }
+    public Direction getNextDirection() {return nextDirection;}
 
-    public void setNextDirection(Direction nextDirection) {
-        this.nextDirection = nextDirection;
-    }
-
-
-
-
+    public void setNextDirection(Direction nextDirection) {this.nextDirection = nextDirection;}
 
     public long getPlayerId() {
         return playerId;
@@ -82,6 +70,12 @@ public class Player {
     public void setConfigData(PlayerConfigData configData) {
         this.configData = configData;
     }
+
+    public boolean isAlive() {
+        return this.state == PlayerState.PLAYING;
+    }
+
+    public Coordinate getHead(){ return trace.get(trace.size()-1);}
 
     @Override
     public boolean equals(Object o) {
