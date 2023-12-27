@@ -73,4 +73,7 @@ public class ViewApp extends Application implements IViewApp{
 
     }
 
+    public static void main(String[] args) {
+        ViewApp.launch(args);
+    }
 }
