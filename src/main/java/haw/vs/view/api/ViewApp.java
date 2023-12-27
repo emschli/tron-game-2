@@ -1,7 +1,6 @@
-package haw.vs.view.impl;
+package haw.vs.view.api;
 
 public class ViewApp {
     //TODO
-    //edu import im maven
     //siehe lokales Projekt
 }
