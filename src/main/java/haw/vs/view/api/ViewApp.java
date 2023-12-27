@@ -69,9 +69,8 @@ public class ViewApp extends Application implements IViewApp{
     @Override
     public void startApp() {
 //TODO
-    }
-    public static void main(String[] args) {
-        launch(args);
+        Application.launch();
+
     }
 
 }
