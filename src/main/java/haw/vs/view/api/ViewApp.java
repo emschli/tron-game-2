@@ -1,28 +1,20 @@
 package haw.vs.view.api;
 
 
-import edu.cads.bai5.vsp.tron.view.ITronView;
-import edu.cads.bai5.vsp.tron.view.TronView;
-import haw.vs.view.javafx.GameModelTest;
-import haw.vs.view.javafx.StartMenuTest;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
  * Der Startpunkt für die Player um die App zu starten
  */
 public class ViewApp extends Application implements IViewApp{
-    public final static String VIEW_CONFIG_FILE = "view_custom.properties";
-    private final double TARGET_FPS = 60.0;
-    private final double TARGET_FRAME_TIME = 1.0 / TARGET_FPS;
+ //   public final static String VIEW_CONFIG_FILE = "view_custom.properties";
+ //   private final double TARGET_FPS = 60.0;
+ //   private final double TARGET_FRAME_TIME = 1.0 / TARGET_FPS;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        ITronView view = new TronView(VIEW_CONFIG_FILE);
+    public void start(Stage stage) {
+      /**  ITronView view = new TronView(VIEW_CONFIG_FILE);
 
         // Build and register start menu
         StartMenuTest startMenuTest = new StartMenuTest("menu.css", view);
@@ -71,6 +63,7 @@ public class ViewApp extends Application implements IViewApp{
         }.start();
 
         stage.show();
+            */
     }
 
     @Override

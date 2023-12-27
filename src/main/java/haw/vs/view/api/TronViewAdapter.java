@@ -1,7 +1,10 @@
 package haw.vs.view.api;
 
+import edu.cads.bai5.vsp.tron.view.Coordinate;
 import edu.cads.bai5.vsp.tron.view.ITronView;
+import javafx.scene.paint.Color;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,7 +22,12 @@ public class TronViewAdapter implements IView{
 
     @Override
     public void draw(List<Integer> bike, String color) {
-//TODO
+        //TODO Liste von Integers???
+
+        List<Coordinate> coordinates = new LinkedList<>();
+   //TODO klappt das?
+    Color bikeColor = Color.valueOf(color);
+    tronView.draw(coordinates, bikeColor);
     }
 
     @Override
@@ -34,12 +42,15 @@ public class TronViewAdapter implements IView{
 
     @Override
     public void highlightCell(int x, int y) {
-//TODO
+//TODO testen
+        Coordinate coordinate = new Coordinate(x,y);
+        tronView.highlightCell(coordinate);
     }
 
     @Override
     public void setWindowSize(int width, int height) {
 //TODO
+
     }
 
     @Override
