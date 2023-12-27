@@ -1,0 +1,16 @@
+.label {
+    -fx-font: bold 20px "Sans";
+    -fx-text-fill: #ffefd5;
+}
+
+.button {
+    -fx-font: bold 14px "Sans";
+    -fx-text-fill: #ffefd5;
+    -fx-border-color: #ffefd5;
+    -fx-border-width: 2px;
+    -fx-background-color: transparent;
+}
+
+.button:pressed {
+    -fx-background-color: #575149;
+}
