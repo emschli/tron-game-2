@@ -14,6 +14,7 @@ public class TronViewAdapter implements IView{
     @Override
     public void clear() {
         //TODO
+        tronView.clear();
     }
 
     @Override

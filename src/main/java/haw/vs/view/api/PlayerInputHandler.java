@@ -2,6 +2,7 @@ package haw.vs.view.api;
 
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
+import haw.vs.controller.api.IInput;
 
 /**
  * Klasse die die Player Inputs verarbeitet
@@ -9,9 +10,8 @@ import edu.cads.bai5.vsp.tron.view.ITronView;
 public class PlayerInputHandler implements IPlayerInputHandler{
 
     private ITronView tronView;
-    //TODO
-    //Controller Factory benutzen??
-    // private IInput inputController;
+
+    private IInput inputController;
 
 
     @Override
