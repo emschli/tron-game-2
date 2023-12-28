@@ -2,6 +2,7 @@ package haw.vs.model.matchmanager;
 
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
+import haw.vs.common.properties.PropertiesException;
 import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
@@ -15,7 +16,7 @@ import haw.vs.model.matchmanager.state.Colors;
 import java.util.ArrayList;
 
 public class MatchManagerTest {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, PropertiesException {
         MatchManagerApp app = new MatchManagerApp();
         app.startApp();
 

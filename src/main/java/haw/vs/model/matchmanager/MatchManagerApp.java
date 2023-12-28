@@ -1,5 +1,7 @@
 package haw.vs.model.matchmanager;
 
+import haw.vs.common.properties.PropertiesException;
+import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.model.matchmanager.state.Matches;
 import haw.vs.model.matchmanager.tick.TickHandlerFactory;
 import haw.vs.model.matchmanager.tick.TickThread;
@@ -8,8 +10,14 @@ import haw.vs.model.matchmanager.viewupdate.MatchUpdateHandlerFactory;
 import haw.vs.model.matchmanager.viewupdate.MenuUpdateThread;
 
 public class MatchManagerApp {
-    public void startApp() {
-        //TODO: make dependent on properties file
+    public void startApp() throws PropertiesException {
+        switch (PropertiesHelper.getAppType()) {
+            case STANDALONE ->  startStandalone();
+            case DISTRIBUTED -> startDistributed();
+        }
+    }
+
+    private void startStandalone() {
         MenuUpdateThread menuUpdateThread = new MenuUpdateThread(Matches.getInstance(), MatchUpdateHandlerFactory.getMatchUpdateHandler());
         Thread menuUpdateThreadThread = new Thread(menuUpdateThread, "MenuUpdateThread");
 
@@ -22,5 +30,9 @@ public class MatchManagerApp {
         menuUpdateThreadThread.start();
         gameUpdateThreadThread.start();
         tickThreadThread.start();
+    }
+
+    private void startDistributed() throws PropertiesException {
+
     }
 }

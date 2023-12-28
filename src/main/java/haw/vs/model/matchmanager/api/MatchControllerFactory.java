@@ -1,14 +1,22 @@
 package haw.vs.model.matchmanager.api;
 
+import haw.vs.common.properties.PropertiesException;
+import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.model.matchmanager.MatchManager;
 import haw.vs.model.matchmanager.mock.MockMatchController;
 import haw.vs.model.matchmanager.state.Matches;
 
 public class MatchControllerFactory {
-    public static IMatchController getMatchController() {
-//        return new MockMatchController();
+    public static IMatchController getMatchController() throws PropertiesException {
 
-        //TODO: make dependent on Properties-File
-        return new MatchManager(Matches.getInstance());
+        switch (PropertiesHelper.getAppType()) {
+            case STANDALONE -> {
+                return new MatchManager(Matches.getInstance());
+            }
+            default -> {
+                return new MockMatchController();
+            }
+        }
+
     }
 }

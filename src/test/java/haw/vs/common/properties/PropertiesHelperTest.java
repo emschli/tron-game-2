@@ -8,7 +8,7 @@ public class PropertiesHelperTest {
     @Test
     public void testGetAppType() {
         AppType appType = assertDoesNotThrow(PropertiesHelper::getAppType);
-        assertEquals(appType, AppType.DISTRIBUTED);
+        assertEquals(appType, AppType.STANDALONE);
     }
 
     @Test
