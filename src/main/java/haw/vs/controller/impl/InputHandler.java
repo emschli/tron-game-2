@@ -19,12 +19,15 @@ public class InputHandler implements IInput {
     }
 
     @Override
-    public void cancelWait(long playerId) {
+    public void cancelWait(long playerId, long matchId) {
+
+        //brauchen wir hier überhaupt noOfPlayers?
+        int noOfPlayers = 4;
         matchController.deletePlayerFromMatch(playerId, matchId, noOfPlayers );
     }
 
     @Override
-    public void handleGameAction(long playerId, Direction dir) {
+    public void handleGameAction(long playerId, long matchId, Direction dir) {
         matchController.movePlayer(playerId, matchId, dir);
     }
 }

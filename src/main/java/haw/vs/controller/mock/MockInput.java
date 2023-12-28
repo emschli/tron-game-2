@@ -11,12 +11,13 @@ public class MockInput implements IInput {
     }
 
     @Override
-    public void cancelWait(long playerId) {
+    public void cancelWait(long playerId, long matchId) {
 
     }
 
     @Override
-    public void handleGameAction(long playerId, Direction dir) {
+    public void handleGameAction(long playerId, long matchId, Direction dir) {
 
     }
+
 }
