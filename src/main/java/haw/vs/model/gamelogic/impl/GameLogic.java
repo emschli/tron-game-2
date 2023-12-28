@@ -3,6 +3,7 @@ package haw.vs.model.gamelogic.impl;
 import haw.vs.common.Coordinate;
 import haw.vs.common.Direction;
 import haw.vs.model.common.Match;
+import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.gamelogic.IGameLogic;
@@ -23,14 +24,36 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void processMatch(Match match) {
-        // process Game
-        movePlayers(match);
-        manageCollisions(match);
-        //return to matchManager
-        //gameStateProcessedHandler.updateMatch(match);
+        if (match.getState().equals(MatchState.READY)) {
+            positionPlayersForStart(match);
+        } else {//check notwendig?
+            movePlayers(match);
+            manageCollisions(match);
+            checkMatchState(match);
+            //return to matchManager
+            //gameStateProcessedHandler.updateMatch(match);
+        }
     }
 
-    //TODO - wo sollen Checks über MatchState stattfinden?
+    /**
+     * Checks if a match has ended and sets MatchState and PlayerState accordingly.
+     *
+     * @param match
+     */
+    private void checkMatchState(Match match) {
+        int alivePlayerCount = match.getAlivePlayers().size();
+        if (alivePlayerCount == 1) {
+            match.getAlivePlayers().get(0).setState(PlayerState.WON);
+        }
+        if (alivePlayerCount <= 1) {
+            match.setState(MatchState.ENDED);
+        }
+    }
+
+    private void positionPlayersForStart(Match match) {
+        //TODO position players on the grid according to count of players and size of grid
+    }
+
 
     /**
      * Takes the nextDirection of the players and adds them to their trace.
@@ -94,7 +117,6 @@ public class GameLogic implements IGameLogic {
 //        }
 //        killPlayers(toKill);
 //    }
-
     private void manageCollisions(Match match) {
         Set<Player> toKill = new HashSet<>();
         Map<Coordinate, Player> headMap = new HashMap<>();
@@ -113,7 +135,7 @@ public class GameLogic implements IGameLogic {
             }
             // check for collision with traces of other players
             for (Player otherPlayer : match.getAlivePlayers()) {
-                if (otherPlayer != player && isColliding(player.getHead(), otherPlayer.getTrace().subList(0, otherPlayer.getTrace().size()-1))) {
+                if (otherPlayer != player && isColliding(player.getHead(), otherPlayer.getTrace().subList(0, otherPlayer.getTrace().size() - 1))) {
                     toKill.add(player);
                     break;
                 }
@@ -125,7 +147,6 @@ public class GameLogic implements IGameLogic {
         }
         killPlayers(toKill);
     }
-
 
 
     private boolean isCollidingWithOtherTraces(Player currentPlayer, List<Player> allPlayers) {
