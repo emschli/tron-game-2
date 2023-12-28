@@ -9,6 +9,16 @@ public class PropertiesHelper {
 
     private static Properties PROPERTIES = new Properties();
 
+    public static void setPropertiesFile(String filename) {
+        PROPERTIES_FILE = filename;
+    }
+
+    public static boolean isTest(ComponentType componentType) throws PropertiesException {
+        load();
+        String isTestString = PROPERTIES.getProperty(componentType.toString().toLowerCase() + "_test");
+        return Boolean.parseBoolean(isTestString);
+    }
+
     /**
      * Get AppType of App
      * @return the AppType
@@ -52,12 +62,10 @@ public class PropertiesHelper {
     }
 
     private static void load() throws PropertiesException {
-        if (PROPERTIES.isEmpty()) {
-            try {
-                PROPERTIES.load(new FileInputStream(getCompletePath()));
-            } catch (IOException e) {
-                throw new PropertiesException("Properties File not found!");
-            }
+        try {
+            PROPERTIES.load(new FileInputStream(getCompletePath()));
+        } catch (IOException e) {
+            throw new PropertiesException("Properties File not found!");
         }
     }
     private static String getCompletePath() {
