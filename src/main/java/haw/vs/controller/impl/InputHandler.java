@@ -4,6 +4,7 @@ package haw.vs.controller.impl;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.controller.api.IInput;
+import haw.vs.model.matchmanager.api.IMatchController;
 
 public class InputHandler implements IInput {
     private final IMatchController matchController;
