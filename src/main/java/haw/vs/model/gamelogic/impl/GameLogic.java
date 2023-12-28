@@ -27,7 +27,7 @@ public class GameLogic implements IGameLogic {
         movePlayers(match);
         manageCollisions(match);
         //return to matchManager
-        gameStateProcessedHandler.updateMatch(match);
+        //gameStateProcessedHandler.updateMatch(match);
     }
 
     //TODO - wo sollen Checks über MatchState stattfinden?
@@ -43,10 +43,10 @@ public class GameLogic implements IGameLogic {
             if (player.getNextDirection() == player.getCurrentDirection().backwards()) {
                 player.setNextDirection(player.getCurrentDirection());
             }
-            // add coordinate to trace
+            // add coordinate to trace and set current direction
             Coordinate newHead = getNextCoordinate(player.getNextDirection(), player.getHead());
             player.getTrace().add(newHead);
-
+            player.setCurrentDirection(player.getNextDirection());
         }
     }
 
@@ -59,8 +59,8 @@ public class GameLogic implements IGameLogic {
      */
     private Coordinate getNextCoordinate(Direction going, Coordinate head) {
         return switch (going) {
-            case UP -> head.add(new Coordinate(0, 1)); // y++
-            case DOWN -> head.add(new Coordinate(0, -1)); // y--
+            case UP -> head.add(new Coordinate(0, -1)); // y--
+            case DOWN -> head.add(new Coordinate(0, 1)); // y++
             case LEFT -> head.add(new Coordinate(-1, 0)); // x--
             case RIGHT -> head.add(new Coordinate(1, 0)); // x++
             //default -> new Coordinate(0, 0);
@@ -74,55 +74,74 @@ public class GameLogic implements IGameLogic {
      * @param match - the current match containing the players in question
      */
     //TODO entweder liste zurückgeben oder zum schluss kollisionen löschen
+
 //    private void manageCollisions(Match match) {
-//        List<Player> toKill = new ArrayList<>();
+//        Set<Player> toKill = new HashSet<>();
 //        Map<Coordinate, Player> headMap = new HashMap<>();
 //
 //        for (Player player : match.getAlivePlayers()) {
-//            // check if within boundaries
-//            if (!inBoundaries(player.getHead(), match.getMaxGridX(), match.getMaxGridY())) {
+//            Coordinate head = player.getHead();
+//
+//            if (!inBoundaries(head, match.getMaxGridX(), match.getMaxGridY()) ||
+//                    headMap.containsKey(head) ||
+//                    match.getAlivePlayers().stream().anyMatch(otherPlayer ->
+//                            otherPlayer != player &&
+//                                    (isColliding(head, otherPlayer.getTrace()) || isCollidingWithOwnTrace(player)))) {
 //                toKill.add(player);
-//            }
-//            // check for collision with other players head-on (bc both have to be killed)
-//            if (headMap.containsKey(player.getHead())) {
-//                toKill.add(player);
-//                toKill.add(headMap.get(player.getHead()));
 //            } else {
-//                headMap.put(player.getHead(), player);
-//            }
-//            // check for collision with traces of other players
-//            for (Player otherPlayer : match.getAlivePlayers()) {
-//                if (otherPlayer != player && isColliding(player.getHead(), otherPlayer.getTrace())) {
-//                    toKill.add(player);
-//                    break;
-//                }
-//            }
-//            // check for collision of own trace
-//            if (isCollidingWithOwnTrace(player, player.getTrace())) {
-//                toKill.add(player);
+//                headMap.put(head, player);
 //            }
 //        }
 //        killPlayers(toKill);
 //    }
+
     private void manageCollisions(Match match) {
         Set<Player> toKill = new HashSet<>();
         Map<Coordinate, Player> headMap = new HashMap<>();
 
         for (Player player : match.getAlivePlayers()) {
-            Coordinate head = player.getHead();
-
-            if (!inBoundaries(head, match.getMaxGridX(), match.getMaxGridY()) ||
-                    headMap.containsKey(head) ||
-                    match.getAlivePlayers().stream().anyMatch(otherPlayer ->
-                            otherPlayer != player &&
-                                    (isColliding(head, otherPlayer.getTrace()) || isCollidingWithOwnTrace(player)))) {
+            // check if within boundaries
+            if (!inBoundaries(player.getHead(), match.getMaxGridX(), match.getMaxGridY())) {
                 toKill.add(player);
+            }
+            // check for collision with other players head-on (bc both have to be killed)
+            if (headMap.containsKey(player.getHead())) {
+                toKill.add(player);
+                toKill.add(headMap.get(player.getHead()));
             } else {
-                headMap.put(head, player);
+                headMap.put(player.getHead(), player);
+            }
+            // check for collision with traces of other players
+            for (Player otherPlayer : match.getAlivePlayers()) {
+                if (otherPlayer != player && isColliding(player.getHead(), otherPlayer.getTrace().subList(0, otherPlayer.getTrace().size()-1))) {
+                    toKill.add(player);
+                    break;
+                }
+            }
+            // check for collision of own trace
+            if (isCollidingWithOwnTrace(player)) {
+                toKill.add(player);
             }
         }
         killPlayers(toKill);
     }
+
+
+
+    private boolean isCollidingWithOtherTraces(Player currentPlayer, List<Player> allPlayers) {
+        Coordinate currentHead = currentPlayer.getHead();
+
+        for (Player otherPlayer : allPlayers) {
+            if (otherPlayer != currentPlayer) {
+                List<Coordinate> otherPlayerTrace = otherPlayer.getTrace();
+                if (isColliding(currentHead, otherPlayerTrace.subList(0, otherPlayerTrace.size() - 1))) {
+                    return true; // Collision detected with other player's trace
+                }
+            }
+        }
+        return false; // No collision with other player's trace
+    }
+
 
     /**
      * Sets the player state of a given set of players to dead
@@ -158,6 +177,7 @@ public class GameLogic implements IGameLogic {
 
     /**
      * Checks, if player is driving out of the gridbounds.
+     *
      * @param newHead - the coordinate added to the trace last
      * @param maxX
      * @param maxY
