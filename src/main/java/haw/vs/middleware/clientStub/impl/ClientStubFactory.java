@@ -3,13 +3,13 @@ package haw.vs.middleware.clientStub.impl;
 import haw.vs.middleware.clientStub.api.IClientStub;
 
 public class ClientStubFactory {
-    private IClientStub clientStub;
+    private static IClientStub clientStub;
 
     public ClientStubFactory(IClientStub clientStub) {
         this.clientStub = clientStub;
     }
 
-    public IClientStub getClientStub() {
+    public static IClientStub getClientStub() {
         return clientStub;
     }
 }

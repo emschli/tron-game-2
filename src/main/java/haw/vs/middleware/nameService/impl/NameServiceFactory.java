@@ -3,14 +3,14 @@ package haw.vs.middleware.nameService.impl;
 import haw.vs.middleware.nameService.api.INameService;
 
 public class NameServiceFactory {
-    private INameService nameService;
+    private static INameService nameService;
 
 
     public NameServiceFactory(INameService nameService) {
         this.nameService = nameService;
     }
 
-    public  INameService getNameService() {
+    public static  INameService getNameService() {
         return nameService;
     }
 }
