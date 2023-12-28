@@ -10,5 +10,10 @@ app_type=STANDALONE
 # view_port= ...
 # controller_port= ...
 
+# For Testing Purposes:
+# Set Component-Factory to Return Mock
+# controller_test=true
+# game_logic_test=true
+
 ````
 
