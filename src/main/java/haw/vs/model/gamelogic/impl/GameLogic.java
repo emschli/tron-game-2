@@ -31,28 +31,42 @@ public class GameLogic implements IGameLogic {
             manageCollisions(match);
             checkMatchState(match);
             //return to matchManager
-            //gameStateProcessedHandler.updateMatch(match);
+            gameStateProcessedHandler.updateMatch(match);
         }
     }
 
-    /**
-     * Checks if a match has ended and sets MatchState and PlayerState accordingly.
-     *
-     * @param match
-     */
-    private void checkMatchState(Match match) {
-        int alivePlayerCount = match.getAlivePlayers().size();
-        if (alivePlayerCount == 1) {
-            match.getAlivePlayers().get(0).setState(PlayerState.WON);
-        }
-        if (alivePlayerCount <= 1) {
-            match.setState(MatchState.ENDED);
-        }
-    }
 
     private void positionPlayersForStart(Match match) {
-        //TODO position players on the grid according to count of players and size of grid
+        List<Player> players = match.getPlayers();
+        int numberOfPlayers = match.getNumberOfPlayers();
+
+        Player p1 = players.get(0);
+        p1.getTrace().add(new Coordinate(match.getMaxGridX() / 2, 0));
+        p1.setCurrentDirection(Direction.DOWN);
+        p1.setNextDirection(Direction.DOWN);
+
+        Player p2 = players.get(1);
+        p2.getTrace().add(new Coordinate(match.getMaxGridX() / 2, match.getMaxGridY()));
+        p2.setCurrentDirection(Direction.UP);
+        p2.setNextDirection(Direction.UP);
+
+        if (numberOfPlayers >= 3) {
+            Player p3 = players.get(2);
+            p3.getTrace().add(new Coordinate(0, match.getMaxGridY() / 2));
+            p3.setCurrentDirection(Direction.RIGHT);
+            p3.setNextDirection(Direction.RIGHT);
+        }
+
+        if (numberOfPlayers == 4) {
+            Player p4 = players.get(3);
+            p4.getTrace().add(new Coordinate(match.getMaxGridX(), match.getMaxGridY() / 2));
+            p4.setCurrentDirection(Direction.LEFT);
+            p4.setNextDirection(Direction.LEFT);
+        }
     }
+
+
+    //TODO position players on the grid according to count of players and size of grid
 
 
     /**
@@ -206,6 +220,21 @@ public class GameLogic implements IGameLogic {
      */
     private boolean inBoundaries(Coordinate newHead, int maxX, int maxY) {
         return newHead.x >= 0 && newHead.x <= maxX && newHead.y >= 0 && newHead.y <= maxY;
+    }
+
+    /**
+     * Checks if a match has ended and sets MatchState and PlayerState accordingly.
+     *
+     * @param match
+     */
+    private void checkMatchState(Match match) {
+        int alivePlayerCount = match.getAlivePlayers().size();
+        if (alivePlayerCount == 1) {
+            match.getAlivePlayers().get(0).setState(PlayerState.WON);
+        }
+        if (alivePlayerCount <= 1) {
+            match.setState(MatchState.ENDED);
+        }
     }
 
     public static void main(String[] args) {
