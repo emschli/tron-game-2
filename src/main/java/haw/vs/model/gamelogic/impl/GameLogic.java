@@ -26,16 +26,13 @@ public class GameLogic implements IGameLogic {
     public void processMatch(Match match) {
         if (match.getState().equals(MatchState.READY)) {
             positionPlayersForStart(match);
-            gameStateProcessedHandler.updateMatch(match);
         } else {//TODO stateCheck notwendig?
             movePlayers(match);
             manageCollisions(match);
             checkMatchState(match);
-            //return to matchManager
-            gameStateProcessedHandler.updateMatch(match);
         }
+        gameStateProcessedHandler.updateMatch(match);
     }
-
 
     /**
      * Sets the first coordinate in players trace and their directions so the match can beginn.
@@ -198,13 +195,6 @@ public class GameLogic implements IGameLogic {
     public static void main(String[] args) {
 
         GameLogic gl = new GameLogic();
-
-        Coordinate c11 = new Coordinate(1, 1);
-
-        Coordinate neueKoord = gl.getNextCoordinate(Direction.RIGHT, c11);
-
-        System.out.println(neueKoord);
-
 
     }
 

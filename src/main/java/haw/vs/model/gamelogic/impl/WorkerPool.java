@@ -5,7 +5,6 @@ import haw.vs.model.gamelogic.IWorkerPool;
 import haw.vs.model.gamelogic.IGameStateProcessedHandler;
 import haw.vs.model.gamelogic.api.GameLogicFactory;
 
-import java.util.Objects;
 import java.util.concurrent.*;
 
 public class WorkerPool implements IWorkerPool {
