@@ -9,6 +9,11 @@ public class PropertiesHelper {
 
     private static Properties PROPERTIES = new Properties();
 
+    /**
+     * Get AppType of App
+     * @return the AppType
+     * @throws PropertiesException if properties file cannot be found or there is no valid value
+     */
     public static AppType getAppType() throws PropertiesException {
         load();
         String appType = PROPERTIES.getProperty("app_type");
@@ -23,65 +28,27 @@ public class PropertiesHelper {
         }
     }
 
-    public static ComponentType getComponentType() throws PropertiesException {
+    /**
+     * Use to get Port for componentType
+     * @param componentType of Component to get Port for
+     * @return the port number or null if there is no entry
+     * @throws PropertiesException if properties file cannot be found
+     */
+    public static String getPort(ComponentType componentType) throws PropertiesException {
         load();
-        String componentType = PROPERTIES.getProperty("component_type");
-        if (componentType == null) {
-            throw new PropertiesException("No property named component_type!");
-        }
-
-        try {
-            return ComponentType.valueOf(componentType);
-        } catch (IllegalArgumentException e) {
-            throw new PropertiesException("Invalid Value for Property component_type");
-        }
-    }
-
-    public static int getPort() throws PropertiesException {
-        return getPort(null);
+        String portKey = componentType.toString().toLowerCase() + "_port";
+        return PROPERTIES.getProperty(portKey);
     }
 
     /**
-     * Use Only if the AppType is STANDALONE_WITH_MIDDLEWARE
-     * @param componentType of Component to get Port for
-     * @return the port number
-     * @throws PropertiesException if properties file cannot be found or port property is missing
+     * Get Property for Key
+     * @param key
+     * @return Property for key or null if there is no entry
+     * @throws PropertiesException if properties file cannot be found
      */
-    public static int getPort(ComponentType componentType) throws PropertiesException {
+    public static String getProperty(String key) throws PropertiesException {
         load();
-        AppType appType = getAppType();
-        int port;
-        String portKey = "port";
-        if (appType == AppType.STANDALONE_WITH_MIDDLEWARE) {
-            portKey = componentType.toString().toLowerCase() + "_port";
-        }
-
-        String portString = PROPERTIES.getProperty(portKey);
-        if (portString != null) {
-            port = Integer.parseInt(portString);
-        } else {
-            throw new PropertiesException(String.format("No property named %s!", portKey));
-        }
-        return port;
-    }
-
-    public static String getNameServiceIp() throws PropertiesException {
-        load();
-        String nameServiceIp = PROPERTIES.getProperty("nameservice_ip");
-        if (nameServiceIp == null) {
-            throw new PropertiesException("No Property named nameservice_ip");
-        }
-        return nameServiceIp;
-    }
-
-    public static int getNameServicePort() throws PropertiesException {
-        load();
-        String nameServicePortString = PROPERTIES.getProperty("nameservice_port");
-        if (nameServicePortString != null) {
-            return Integer.parseInt(nameServicePortString);
-        } else {
-            throw new PropertiesException("No Property named namservice_port");
-        }
+        return PROPERTIES.getProperty(key);
     }
 
     private static void load() throws PropertiesException {
