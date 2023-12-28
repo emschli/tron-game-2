@@ -7,6 +7,6 @@ public class MockGameStateUpdater implements IGameStateUpdater {
 
     @Override
     public void update(Match match) {
-        System.out.println("DiesdasAnanas");
+        System.err.println("updateMatch mit " + match.getMatchId() + " auf MockGameStateUpdater aufgerufen.");
     }
 }

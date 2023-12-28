@@ -1,7 +1,7 @@
 package haw.vs.model.gamelogic.impl;
 
 import haw.vs.model.common.Match;
-import haw.vs.model.gamelogic.IGameStateProcessedHandler;
+import haw.vs.model.gamelogic.api.IGameStateProcessedHandler;
 import haw.vs.model.gamelogic.mock.MockGameStateUpdaterFactory;
 import haw.vs.model.matchmanager.api.IGameStateUpdater;
 

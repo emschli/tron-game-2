@@ -7,26 +7,26 @@ import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.gamelogic.IGameLogic;
-import haw.vs.model.gamelogic.IGameStateProcessedHandler;
-import haw.vs.model.gamelogic.api.GameLogicFactory;
+import haw.vs.model.gamelogic.api.IGameStateProcessedHandler;
+import haw.vs.model.gamelogic.api.GameStateProcessedHandlerFactory;
 
 import java.util.*;
 
 public class GameLogic implements IGameLogic {
 
     private IGameStateProcessedHandler gameStateProcessedHandler;
-    private GameLogicFactory glf;
+    private GameStateProcessedHandlerFactory gameStateProcessedHandlerFactory;
 
     public GameLogic() {
-        this.glf = new GameLogicFactory();
-        this.gameStateProcessedHandler = glf.getGameStateProcessedHandler();
+        this.gameStateProcessedHandlerFactory = new GameStateProcessedHandlerFactory();
+        this.gameStateProcessedHandler = gameStateProcessedHandlerFactory.getGameStateProcessedHandler();
     }
 
     @Override
     public void processMatch(Match match) {
         if (match.getState().equals(MatchState.READY)) {
             positionPlayersForStart(match);
-        } else {//TODO stateCheck notwendig?
+        } else {
             movePlayers(match);
             manageCollisions(match);
             checkMatchState(match);
