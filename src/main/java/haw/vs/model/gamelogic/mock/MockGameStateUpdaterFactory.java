@@ -4,7 +4,7 @@ import haw.vs.model.matchmanager.api.IGameStateUpdater;
 
 public class MockGameStateUpdaterFactory {
 
-    public IGameStateUpdater getGameStateUpdater() {
+    public static IGameStateUpdater getGameStateUpdater() {
         return new MockGameStateUpdater();
     }
 

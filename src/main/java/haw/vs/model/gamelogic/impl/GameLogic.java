@@ -8,18 +8,17 @@ import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.gamelogic.IGameLogic;
 import haw.vs.model.gamelogic.api.IGameStateProcessedHandler;
-import haw.vs.model.gamelogic.api.GameStateProcessedHandlerFactory;
 
 import java.util.*;
 
+import static haw.vs.model.gamelogic.api.GameStateProcessedHandlerFactory.getGameStateProcessedHandler;
+
 public class GameLogic implements IGameLogic {
 
-    private IGameStateProcessedHandler gameStateProcessedHandler;
-    private GameStateProcessedHandlerFactory gameStateProcessedHandlerFactory;
+    private final IGameStateProcessedHandler gameStateProcessedHandler;
 
     public GameLogic() {
-        this.gameStateProcessedHandlerFactory = new GameStateProcessedHandlerFactory();
-        this.gameStateProcessedHandler = gameStateProcessedHandlerFactory.getGameStateProcessedHandler();
+        this.gameStateProcessedHandler = getGameStateProcessedHandler();
     }
 
     @Override
