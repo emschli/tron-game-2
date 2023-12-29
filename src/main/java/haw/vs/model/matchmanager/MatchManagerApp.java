@@ -17,7 +17,7 @@ public class MatchManagerApp {
         }
     }
 
-    private void startStandalone() {
+    private void startStandalone() throws PropertiesException {
         MenuUpdateThread menuUpdateThread = new MenuUpdateThread(Matches.getInstance(), MatchUpdateHandlerFactory.getMatchUpdateHandler());
         Thread menuUpdateThreadThread = new Thread(menuUpdateThread, "MenuUpdateThread");
 

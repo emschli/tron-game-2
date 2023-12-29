@@ -139,7 +139,7 @@ public class Matches {
         inputLock.lock();
         Match match = getRunningMatch(matchId);
         Player player = match.getPlayerById(playerId);
-        player.setDirection(direction);
+        player.setNextDirection(direction);
         inputLock.unlock();
     }
 

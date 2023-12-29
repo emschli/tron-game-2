@@ -11,7 +11,7 @@ public class Match {
     private int numberOfPlayers;
     private int maxGridX;
     private int maxGridY;
-    private List<Player> players;
+    private List<Player> players = new ArrayList<>();
 
     public void addPlayer(Player player) {
         players.add(player);

@@ -99,7 +99,8 @@ public class Player {
                 ", color='" + color + '\'' +
                 ", trace=" + trace +
                 ", configData=" + configData +
-                ", direction=" + direction +
+                ", currentDirection=" + currentDirection +
+                ", nextDirection=" + nextDirection +
                 '}';
     }
 
@@ -114,7 +115,8 @@ public class Player {
         }
         player.setTrace(trace);
         player.setConfigData(this.configData.copy());
-        player.setDirection(this.direction);
+        player.setCurrentDirection(this.currentDirection);
+        player.setNextDirection(this.nextDirection);
         return player;
     }
 }
