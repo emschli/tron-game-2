@@ -1,13 +1,15 @@
 package haw.vs.view.api;
 
 
+import haw.vs.common.Coordinate;
+
 import java.util.List;
 
 public interface IView {
 
     public void clear();
 
-    public void draw(List<Integer> bike,String color);
+    public void draw(List<Coordinate> bike, String color);
 
     public void showOverlay(String name);
 

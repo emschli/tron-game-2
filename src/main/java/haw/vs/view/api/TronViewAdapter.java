@@ -10,51 +10,48 @@ import java.util.List;
 /**
  * Unser Adapter, der die Methoden des Interfaces ITronView benutzt um unsere Methoden umzusetzen
  */
-public class TronViewAdapter implements IView{
+public class TronViewAdapter implements IView {
 
     private ITronView tronView;
 
     @Override
     public void clear() {
-        //TODO
         tronView.clear();
     }
 
     @Override
-    public void draw(List<Integer> bike, String color) {
-        //TODO Liste von Integers???
-
+    public void draw(List<haw.vs.common.Coordinate> bike, String color) {
         List<Coordinate> coordinates = new LinkedList<>();
-   //TODO klappt das?
-    Color bikeColor = Color.valueOf(color);
-    tronView.draw(coordinates, bikeColor);
+        Color bikeColor = Color.valueOf(color);
+        tronView.draw(coordinates, bikeColor);
     }
 
     @Override
     public void showOverlay(String name) {
-//TODO
+        tronView.showOverlay(name);
     }
 
     @Override
     public void hideOverlay() {
-//TODO
+        tronView.hideOverlays();
     }
 
     @Override
     public void highlightCell(int x, int y) {
-//TODO testen
-        Coordinate coordinate = new Coordinate(x,y);
+        Coordinate coordinate = new Coordinate(x, y);
         tronView.highlightCell(coordinate);
     }
 
     @Override
     public void setWindowSize(int width, int height) {
-//TODO
-
+        tronView.getScene().getWindow().setHeight(width);
+        tronView.getScene().getWindow().setHeight(height);
     }
 
     @Override
     public void setGridSize(int columns, int rows) {
-//TODO
+        tronView.getScene().getWindow().setX(columns);
+        tronView.getScene().getWindow().setY(rows);
+        //TODO ist das wirklich das Grid?
     }
 }
