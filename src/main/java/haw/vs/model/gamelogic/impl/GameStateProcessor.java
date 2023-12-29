@@ -3,14 +3,13 @@ package haw.vs.model.gamelogic.impl;
 import haw.vs.model.common.Match;
 import haw.vs.model.gamelogic.IWorkerPool;
 import haw.vs.model.gamelogic.api.IGameStateProcessor;
-import haw.vs.model.gamelogic.impl.WorkerPool;
 
 public class GameStateProcessor implements IGameStateProcessor {
 
     private final IWorkerPool workerPool;
 
-    public GameStateProcessor() {
-        this.workerPool = new WorkerPool();
+    public GameStateProcessor(IGameStateProcessedHandler gameStateProcessedHandler) {
+        this.workerPool = new WorkerPool(gameStateProcessedHandler);
     }
 
     @Override

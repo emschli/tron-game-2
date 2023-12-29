@@ -4,6 +4,7 @@ import haw.vs.common.Coordinate;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ public class Player {
     private long playerId;
     private PlayerState state;
     private String color;
-    private List<Coordinate> trace;
+    private List<Coordinate> trace = new ArrayList<>();
     private PlayerConfigData configData;
 
     // The direction, the player is currently heading to
@@ -88,5 +89,34 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(playerId);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId=" + playerId +
+                ", state=" + state +
+                ", color='" + color + '\'' +
+                ", trace=" + trace +
+                ", configData=" + configData +
+                ", currentDirection=" + currentDirection +
+                ", nextDirection=" + nextDirection +
+                '}';
+    }
+
+    public Player copy() {
+        Player player = new Player();
+        player.setPlayerId(this.playerId);
+        player.setState(this.state);
+        player.setColor(this.color);
+        List<Coordinate> trace = new ArrayList<>();
+        for (Coordinate coordinate : this.trace) {
+            trace.add(coordinate.copy());
+        }
+        player.setTrace(trace);
+        player.setConfigData(this.configData.copy());
+        player.setCurrentDirection(this.currentDirection);
+        player.setNextDirection(this.nextDirection);
+        return player;
     }
 }

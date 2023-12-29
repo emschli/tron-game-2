@@ -7,18 +7,17 @@ import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.gamelogic.IGameLogic;
-import haw.vs.model.gamelogic.api.IGameStateProcessedHandler;
 
 import java.util.*;
 
-import static haw.vs.model.gamelogic.api.GameStateProcessedHandlerFactory.getGameStateProcessedHandler;
+import static haw.vs.model.gamelogic.impl.GameStateProcessedHandlerFactory.getGameStateProcessedHandler;
 
 public class GameLogic implements IGameLogic {
 
     private final IGameStateProcessedHandler gameStateProcessedHandler;
 
-    public GameLogic() {
-        this.gameStateProcessedHandler = getGameStateProcessedHandler();
+    public GameLogic(IGameStateProcessedHandler gameStateProcessedHandler) {
+        this.gameStateProcessedHandler = gameStateProcessedHandler;
     }
 
     @Override
@@ -190,11 +189,4 @@ public class GameLogic implements IGameLogic {
             match.setState(MatchState.ENDED);
         }
     }
-
-    public static void main(String[] args) {
-
-        GameLogic gl = new GameLogic();
-
-    }
-
 }

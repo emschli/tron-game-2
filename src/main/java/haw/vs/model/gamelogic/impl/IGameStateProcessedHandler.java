@@ -1,4 +1,4 @@
-package haw.vs.model.gamelogic.api;
+package haw.vs.model.gamelogic.impl;
 
 import haw.vs.model.common.Match;
 

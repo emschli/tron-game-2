@@ -12,8 +12,8 @@ public class WorkerPool implements IWorkerPool {
     private GameLogic gameLogic;
 
 
-    public WorkerPool() {
-        this.gameLogic = new GameLogic();
+    public WorkerPool(IGameStateProcessedHandler gameStateProcessedHandler) {
+        this.gameLogic = new GameLogic(gameStateProcessedHandler);
         this.queue = new ArrayBlockingQueue<Runnable>(5);
         this.threadPoolExecutor = new ThreadPoolExecutor(
                 3,

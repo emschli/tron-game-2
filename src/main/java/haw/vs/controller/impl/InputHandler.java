@@ -19,10 +19,10 @@ public class InputHandler implements IInput {
     }
 
     @Override
-    public void cancelWait(long playerId, long matchId) {
+    public void cancelWait(long playerId, long matchId, int noOfPlayers) {
 
         //brauchen wir hier überhaupt noOfPlayers?
-        int noOfPlayers = 4;
+        //int noOfPlayers = 4;
         matchController.deletePlayerFromMatch(playerId, matchId, noOfPlayers );
     }
 

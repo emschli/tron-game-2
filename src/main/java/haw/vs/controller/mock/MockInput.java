@@ -11,8 +11,8 @@ public class MockInput implements IInput {
     }
 
     @Override
-    public void cancelWait(long playerId, long matchId) {
-        System.out.printf("InputHandler:   cancelWait(%s, %s)\n", playerId, matchId);
+    public void cancelWait(long playerId, long matchId, int noOfPlayers) {
+        System.out.printf("InputHandler:   cancelWait(%s, %s, %s)\n", playerId, matchId, noOfPlayers);
     }
 
     @Override

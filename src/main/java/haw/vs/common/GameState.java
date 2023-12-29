@@ -18,4 +18,11 @@ public class GameState implements IGameState {
     public void setPlayerPositionMap(Map<String, List<Coordinate>> playerPositionMap) {
         this.playerPositionMap = playerPositionMap;
     }
+
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "playerPositionMap=" + playerPositionMap +
+                '}';
+    }
 }

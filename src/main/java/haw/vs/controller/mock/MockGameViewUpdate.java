@@ -17,27 +17,23 @@ public class MockGameViewUpdate implements IGameViewUpdate {
     @Override
     public void playerWon(long playerId, IGameState gameState) {
         System.out.printf("GameViewUpdate:   playerWon(%s, %s)\n", playerId, gameState);
-
-
     }
 
     @Override
     public void playerLost(long playerId, IGameState gameState) {
         System.out.printf("GameViewUpdate:   playerLost(%s, %s)\n", playerId, gameState);
-
-
     }
 
     @Override
     public void updatePlayerCountView(long playerId, int playerCount, int targetPlayerCount) {
         System.out.printf("GameViewUpdate:  updatePlayerCountView(%s, %s, %s)\n", playerId, playerCount, targetPlayerCount);
 
-
     }
 
     @Override
     public void showMainMenu(long playerId) {
         System.out.printf("GameViewUpdate:  showMainMenu(%s)\n", playerId);
+
     }
 
     @Override

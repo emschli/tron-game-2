@@ -2,6 +2,8 @@ package haw.vs.model.gamelogic.impl;
 
 import haw.vs.common.Coordinate;
 import haw.vs.common.Direction;
+import haw.vs.common.properties.PropertiesException;
+import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
@@ -21,8 +23,9 @@ class GameLogicTest {
     private Match match2;
 
     @BeforeEach
-    public void init() {
-        gameLogic = new GameLogic();
+    public void init() throws PropertiesException {
+        PropertiesHelper.setPropertiesFile("model/gamelogic/game_logic_test.properties");
+        gameLogic = new GameLogic(GameStateProcessedHandlerFactory.getGameStateProcessedHandler());
 
         Player zadie = new Player();
         zadie.setPlayerId(102983);
