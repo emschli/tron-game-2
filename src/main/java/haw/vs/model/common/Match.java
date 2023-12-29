@@ -2,13 +2,14 @@ package haw.vs.model.common;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Match {
     private long matchId;
     private MatchState state;
     private int numberOfPlayers;
     private int maxGridX;
-    private int getMaxGridY;
+    private int maxGridY;
     private List<Player> players;
 
     public void addPlayer(Player player) {
@@ -51,12 +52,12 @@ public class Match {
         this.maxGridX = maxGridX;
     }
 
-    public int getGetMaxGridY() {
-        return getMaxGridY;
+    public int getMaxGridY() {
+        return maxGridY;
     }
 
-    public void setGetMaxGridY(int getMaxGridY) {
-        this.getMaxGridY = getMaxGridY;
+    public void setMaxGridY(int maxGridY) {
+        this.maxGridY = maxGridY;
     }
 
     public List<Player> getPlayers() {
@@ -69,6 +70,12 @@ public class Match {
 
     public boolean isFull() {
         return numberOfPlayers == players.size();
+    }
+
+    public List<Player> getAlivePlayers() {
+        return players.stream()
+                .filter(Player::isAlive)
+                .collect(Collectors.toList());
     }
 
     @Override
