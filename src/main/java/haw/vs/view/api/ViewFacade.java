@@ -1,6 +1,7 @@
 package haw.vs.view.api;
 
 import haw.vs.common.GameState;
+import haw.vs.view.javafx.TronViewAdapter;
 
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;

@@ -21,13 +21,7 @@ public class ViewApp extends Application implements IViewApp{
     private final double TARGET_FPS = 60.0;
     private final double TARGET_FRAME_TIME = 1.0 / TARGET_FPS;
 
-    public final ITronView tronView;
 
-    public ViewApp(ITronView tronView) {
-        this.tronView = tronView;
-    }
-
-    //TODO
     @Override
     public void start(Stage stage) throws Exception {
         ITronView view = new TronView(VIEW_CONFIG_FILE);
