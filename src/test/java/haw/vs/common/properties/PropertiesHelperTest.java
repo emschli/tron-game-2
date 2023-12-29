@@ -8,12 +8,12 @@ public class PropertiesHelperTest {
 
     @Before
      public void setup() {
-        PropertiesHelper.setPropertiesFile("properties_helper_test.properties");
+        PropertiesHelper.setPropertiesFile("common/properties_helper_test.properties");
     }
     @Test
     public void testGetAppType() {
         AppType appType = assertDoesNotThrow(PropertiesHelper::getAppType);
-        assertEquals(appType, AppType.STANDALONE);
+        assertEquals(appType, AppType.DISTRIBUTED);
     }
 
     @Test
