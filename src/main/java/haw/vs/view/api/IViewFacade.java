@@ -1,18 +1,16 @@
 package haw.vs.view.api;
 
+import haw.vs.common.GameState;
+
 public interface IViewFacade {
 
-    //TODO GameState Typ machen
-    //public void startGame(GameState gameState);
+    public void startGame(GameState gameState);
 
-    //TODO GameState Typ machen
-    //public void update(GameState gameState);
+    public void update(GameState gameState);
 
-    //TODO GameState Typ machen
-    //public void playerLost(GameState gameState);
+    public void playerLost(GameState gameState);
 
-    //TODO GameState Typ machen
-    //public void playerWon(GameState gameState);
+    public void playerWon(GameState gameState);
 
     public void updatePlayerCountView(int playerCount, int targetPlayerCount);
 
