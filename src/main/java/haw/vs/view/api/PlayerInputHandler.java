@@ -18,21 +18,29 @@ public class PlayerInputHandler implements IPlayerInputHandler{
      */
     @Override
     public void onGameStart() {
-//TODO
+//
+
+        System.out.println("onGameStart pressed");
     }
 
     @Override
     public void onKeyPressed() {
 //TODO
+        System.out.println("onKeyPressPressed");
+
     }
 
     @Override
     public void onCancel() {
 //TODO
+        System.out.println("onCancel pressed");
+
     }
 
     @Override
     public void onBackToMain() {
+
+        System.out.println("BackToMain");
 //TODO
     }
 

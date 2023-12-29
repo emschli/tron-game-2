@@ -12,7 +12,10 @@ import java.util.List;
  */
 public class TronViewAdapter implements IView {
 
+
     private ITronView tronView;
+
+
 
     @Override
     public void clear() {
@@ -54,4 +57,5 @@ public class TronViewAdapter implements IView {
         tronView.getScene().getWindow().setY(rows);
         //TODO ist das wirklich das Grid?
     }
+
 }
