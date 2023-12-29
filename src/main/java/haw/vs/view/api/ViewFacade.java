@@ -2,7 +2,12 @@ package haw.vs.view.api;
 
 import haw.vs.common.GameState;
 
-public class ViewFacade extends TronViewAdapter implements IViewFacade {
+public class ViewFacade implements IViewFacade {
+    private final IView tronViewAdapter;
+
+    public ViewFacade() {
+        this.tronViewAdapter = new TronViewAdapter();
+    }
 
     @Override
     public void startGame(GameState gameState) {
