@@ -10,11 +10,11 @@ import haw.vs.model.gamelogic.IGameLogic;
 
 import java.util.*;
 
-import static haw.vs.model.gamelogic.impl.GameStateProcessedHandlerFactory.getGameStateProcessedHandler;
-
 public class GameLogic implements IGameLogic {
 
     private final IGameStateProcessedHandler gameStateProcessedHandler;
+    private static int MAX_X = 500;
+    private  static int MAX_Y = 500;
 
     public GameLogic(IGameStateProcessedHandler gameStateProcessedHandler) {
         this.gameStateProcessedHandler = gameStateProcessedHandler;
@@ -38,6 +38,8 @@ public class GameLogic implements IGameLogic {
      * @param match
      */
     private void positionPlayersForStart(Match match) {
+        match.setMaxGridX(MAX_X);
+        match.setMaxGridY(MAX_Y);
         List<Player> players = match.getPlayers();
         int numberOfPlayers = match.getNumberOfPlayers();
 
