@@ -1,4 +1,4 @@
-package haw.vs.view.common;
+package haw.vs.view.api;
 
 /**
  * Datenstruktur um die Playerinfo zu haben
