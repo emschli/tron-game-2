@@ -3,6 +3,7 @@ package haw.vs.model.common;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Match {
     private long matchId;
@@ -10,7 +11,7 @@ public class Match {
     private int numberOfPlayers;
     private int maxGridX;
     private int maxGridY;
-    private List<Player> players = new ArrayList<>();
+    private List<Player> players;
 
     public void addPlayer(Player player) {
         players.add(player);
@@ -78,6 +79,12 @@ public class Match {
 
     public boolean isFull() {
         return numberOfPlayers == players.size();
+    }
+
+    public List<Player> getAlivePlayers() {
+        return players.stream()
+                .filter(Player::isAlive)
+                .collect(Collectors.toList());
     }
 
     @Override
