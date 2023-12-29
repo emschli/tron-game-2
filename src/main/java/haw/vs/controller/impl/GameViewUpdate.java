@@ -2,6 +2,7 @@ package haw.vs.controller.impl;
 
 import haw.vs.common.IGameState;
 import haw.vs.controller.api.IGameViewUpdate;
+import haw.vs.view.api.IViewFacade;
 
 public class GameViewUpdate implements IGameViewUpdate {
     private final IViewFacade viewFacade;
