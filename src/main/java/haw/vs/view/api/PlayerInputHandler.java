@@ -2,6 +2,7 @@ package haw.vs.view.api;
 
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
+import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.controller.api.IInput;
 
@@ -9,9 +10,8 @@ import static haw.vs.view.api.PlayerInfo.getPlayerId;
 
 /**
  * Klasse die die Player Inputs verarbeitet und dem Controller Bescheid gibt
- *
  */
-public class PlayerInputHandler implements IPlayerInputHandler{
+public class PlayerInputHandler implements IPlayerInputHandler {
 
     private ITronView tronView;
 
@@ -25,7 +25,7 @@ public class PlayerInputHandler implements IPlayerInputHandler{
      */
     @Override
     public void onGameStart() {
-        PlayerConfigData configData = new PlayerConfigData(600,600);
+        PlayerConfigData configData = new PlayerConfigData(600, 600);
         //TODO Frage: wie komme ich an die noOfPlayers die der Player eingegeben hat? übergeben?
         //inputController.joinGame(getPlayerId(), noOfPlayers, configData);
         System.out.println("onGameStart pressed");
@@ -48,5 +48,25 @@ public class PlayerInputHandler implements IPlayerInputHandler{
 
         System.out.println("BackToMain");
 //TODO
+    }
+
+    private Direction getDirectionFromString(String string) {
+        //TODO default direction? wie komme ich gegebenenfalls an die direction des players?
+        Direction direction = null;
+        switch (string) {
+            case "LEFT":
+                direction = Direction.LEFT;
+                break;
+            case "RIGHT":
+                direction = Direction.RIGHT;
+                break;
+            case "UP":
+                direction = Direction.UP;
+                break;
+            case "DOWN":
+                direction = Direction.DOWN;
+                break;
+        }
+        return direction;
     }
 }
