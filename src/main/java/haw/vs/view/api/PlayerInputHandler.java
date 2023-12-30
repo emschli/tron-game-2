@@ -45,7 +45,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     private Direction getDirectionFromString(String string) {
         //TODO default direction? wie komme ich gegebenenfalls an die direction des players?
-        Direction direction = null;
+        Direction direction = null; //TODO Exception
         switch (string) {
             case "LEFT":
                 direction = Direction.LEFT;

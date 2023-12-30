@@ -3,7 +3,7 @@ package haw.vs.view.javafx;
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.TronView;
 import haw.vs.view.test.GameModelTest;
-import haw.vs.view.test.PlayerCountViewTest;
+import haw.vs.view.test.MainMenu;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -23,8 +23,8 @@ public class JavaFXApp extends Application {
         tronView = new TronView(VIEW_CONFIG_FILE);
 
         // Build and register start menu
-        PlayerCountViewTest playerCountViewTest = new PlayerCountViewTest("menu.css", tronView);
-        tronView.registerOverlay("count", playerCountViewTest);
+        MainMenu playerCountView = new MainMenu("menu.css", tronView);
+        tronView.registerOverlay("count", playerCountView);
 
         // init view and show start menu
         tronView.init();
@@ -44,12 +44,7 @@ public class JavaFXApp extends Application {
             }
         });
 
-        tronView.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                gameModelTest.onKeyReleased(event.getCode().toString());
-            }
-        });
+        tronView.getScene().setOnKeyReleased(event -> gameModelTest.onKeyReleased(event.getCode().toString()));
 
         //Eigentlicher Game-Loop
         new AnimationTimer()

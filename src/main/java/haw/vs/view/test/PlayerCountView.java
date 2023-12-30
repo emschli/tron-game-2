@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class PlayerCountViewTest extends VBox {
+public class PlayerCountView extends VBox {
     private final Label labelCount;
 
     //private final Button btnCancel;
@@ -17,7 +17,7 @@ public class PlayerCountViewTest extends VBox {
 
     private int count;
 
-    public PlayerCountViewTest(String stylesheet, ITronView view) {
+    public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
@@ -31,8 +31,8 @@ public class PlayerCountViewTest extends VBox {
             labelCount.setText("Waiting for more players to join the game.\nThere are " + count + " Players waiting.");
             if(count>=4){
                 view.hideOverlays();
-                StartMenuTest startMenuTest = new StartMenuTest("menu.css", view);
-                view.registerOverlay("start", startMenuTest);
+                StartMenu startMenu = new StartMenu("menu.css", view);
+                view.registerOverlay("start", startMenu);
             }
         });
 

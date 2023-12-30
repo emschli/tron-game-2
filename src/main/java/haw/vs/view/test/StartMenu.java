@@ -8,11 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class StartMenuTest extends VBox {
+public class StartMenu extends VBox {
     private final Label labelReady;
     private final Button btnStart;
 
-    public StartMenuTest(String stylesheet, ITronView view) {
+    public StartMenu(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
