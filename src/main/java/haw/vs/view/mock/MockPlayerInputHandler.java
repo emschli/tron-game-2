@@ -9,7 +9,7 @@ public class MockPlayerInputHandler implements IPlayerInputHandler {
     }
 
     @Override
-    public void onKeyPressed() {
+    public void onKeyPressed(String pressedKey) {
 
     }
 

@@ -32,7 +32,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
     }
 
     @Override
-    public void onKeyPressed() {
+    public void onKeyPressed(String pressedKey) {
         //TODO Frage: wie komme ich hier an den Key / Key Event ran? müsste mit übergeben werden, oder?
         System.out.println("onKey pressed");
     }

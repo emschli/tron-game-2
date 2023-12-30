@@ -4,7 +4,7 @@ public interface IPlayerInputHandler {
 
     public void onGameStart();
 
-    public void onKeyPressed();
+    public void onKeyPressed(String pressedKey);
 
     public void onCancel();
 
