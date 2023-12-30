@@ -4,7 +4,7 @@ import haw.vs.view.api.IPlayerInputHandler;
 
 public class MockPlayerInputHandler implements IPlayerInputHandler {
     @Override
-    public void onGameStart() {
+    public void onGameStart(int numOfPlayers) {
 
     }
 

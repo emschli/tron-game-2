@@ -2,7 +2,7 @@ package haw.vs.view.api;
 
 public interface IPlayerInputHandler {
 
-    public void onGameStart();
+    public void onGameStart(int numOfPlayers);
 
     public void onKeyPressed(String pressedKey);
 

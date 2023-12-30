@@ -24,7 +24,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
      *
      */
     @Override
-    public void onGameStart() {
+    public void onGameStart(int numOfPlayers) {
         PlayerConfigData configData = new PlayerConfigData(600, 600);
         //TODO Frage: wie komme ich an die noOfPlayers die der Player eingegeben hat? übergeben?
         //inputController.joinGame(getPlayerId(), noOfPlayers, configData);
