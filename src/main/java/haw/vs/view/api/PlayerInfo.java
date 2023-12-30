@@ -33,5 +33,6 @@ public class PlayerInfo {
     public static void setMatchId(long matchId) {
         PlayerInfo.matchId = matchId;
     }
+
 }
 
