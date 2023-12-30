@@ -17,8 +17,6 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     private IInput inputController;
 
-    private PlayerInfo playerInfo;
-
     @Override
     public void onGameStart(int numOfPlayers) {
         //TODO ConfigData?

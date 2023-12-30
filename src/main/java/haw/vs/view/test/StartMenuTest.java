@@ -22,7 +22,6 @@ public class StartMenuTest extends VBox {
 
         btnStart = new Button("Start Game");
         btnStart.setOnAction(event -> {
-            System.out.println("click!");
             view.hideOverlays();
         });
 

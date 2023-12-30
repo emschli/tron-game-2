@@ -28,8 +28,12 @@ public class PlayerCountViewTest extends VBox {
         btnCount = new Button("Increase Count");
         btnCount.setOnAction(event -> {
             count++;
-            System.out.println("Hey, count");
             labelCount.setText("Waiting for more players to join the game.\nThere are " + count + " Players waiting.");
+            if(count>=4){
+                view.hideOverlays();
+                StartMenuTest startMenuTest = new StartMenuTest("menu.css", view);
+                view.registerOverlay("start", startMenuTest);
+            }
         });
 
       //  btnCancel = new Button("Cancel");

@@ -20,31 +20,31 @@ public class JavaFXApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        ITronView view = new TronView(VIEW_CONFIG_FILE);
+        tronView = new TronView(VIEW_CONFIG_FILE);
 
         // Build and register start menu
-        PlayerCountViewTest startMenuTest = new PlayerCountViewTest("menu.css", view);
-        view.registerOverlay("start", startMenuTest);
+        PlayerCountViewTest playerCountViewTest = new PlayerCountViewTest("menu.css", tronView);
+        tronView.registerOverlay("count", playerCountViewTest);
 
         // init view and show start menu
-        view.init();
-        view.showOverlay("start");
+        tronView.init();
+        tronView.showOverlay("count");
 
         // configure and show stage
         stage.setTitle("TRON - Light Cycles");
-        stage.setScene(view.getScene());
+        stage.setScene(tronView.getScene());
 
         GameModelTest gameModelTest = new GameModelTest(40, 40);
 
         //set event handlers for user input
-        view.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+        tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 gameModelTest.onKeyPressed(event.getCode().toString());
             }
         });
 
-        view.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+        tronView.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 gameModelTest.onKeyReleased(event.getCode().toString());
@@ -61,8 +61,8 @@ public class JavaFXApp extends Application {
 
                 if (elapsedSeconds >= TARGET_FRAME_TIME) {
                     gameModelTest.update();
-                    view.clear();
-                    view.draw(gameModelTest.getCurrentPosition(), Color.BEIGE);
+                    tronView.clear();
+                    tronView.draw(gameModelTest.getCurrentPosition(), Color.BEIGE);
                     lastUpdated = now;
                 }
             }
