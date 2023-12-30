@@ -19,15 +19,11 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     private PlayerInfo playerInfo;
 
-
-    /**
-     *
-     */
     @Override
     public void onGameStart(int numOfPlayers) {
+        //TODO ConfigData?
         PlayerConfigData configData = new PlayerConfigData(600, 600);
-        //TODO Frage: wie komme ich an die noOfPlayers die der Player eingegeben hat? übergeben?
-        //inputController.joinGame(getPlayerId(), noOfPlayers, configData);
+        inputController.joinGame(getPlayerId(), numOfPlayers, configData);
         System.out.println("onGameStart pressed");
     }
 
@@ -45,9 +41,8 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onBackToMain() {
-
+        //TODO ist das nicht das gleiche wie on cancel?
         System.out.println("BackToMain");
-//TODO
     }
 
     private Direction getDirectionFromString(String string) {
