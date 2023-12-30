@@ -4,8 +4,8 @@ package haw.vs.view.api;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.TronView;
-import haw.vs.view.javafx.GameModelTest;
-import haw.vs.view.javafx.StartMenuTest;
+import haw.vs.view.test.GameModelTest;
+import haw.vs.view.test.StartMenuTest;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -77,6 +77,7 @@ public class ViewApp extends Application implements IViewApp{
 
     @Override
     public void startApp() {
+        System.out.println("test");
 //TODO
     }
     public static void main(String[] args) {

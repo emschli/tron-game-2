@@ -1,4 +1,4 @@
-package haw.vs.view.javafx;
+package haw.vs.view.test;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;

@@ -1,4 +1,4 @@
-package haw.vs.view.javafx;
+package haw.vs.view.test;
 
 import haw.vs.view.api.ViewApp;
 
