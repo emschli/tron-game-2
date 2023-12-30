@@ -3,7 +3,7 @@ package haw.vs.view.javafx;
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.TronView;
 import haw.vs.view.test.GameModelTest;
-import haw.vs.view.test.StartMenuTest;
+import haw.vs.view.test.PlayerCountViewTest;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -23,7 +23,7 @@ public class JavaFXApp extends Application {
         ITronView view = new TronView(VIEW_CONFIG_FILE);
 
         // Build and register start menu
-        StartMenuTest startMenuTest = new StartMenuTest("menu.css", view);
+        PlayerCountViewTest startMenuTest = new PlayerCountViewTest("menu.css", view);
         view.registerOverlay("start", startMenuTest);
 
         // init view and show start menu

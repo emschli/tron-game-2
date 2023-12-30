@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 public class PlayerCountViewTest extends VBox {
     private final Label labelCount;
 
-    private final Button btnCancel;
+    //private final Button btnCancel;
 
     private final Button btnCount;
 
@@ -28,19 +28,20 @@ public class PlayerCountViewTest extends VBox {
         btnCount = new Button("Increase Count");
         btnCount.setOnAction(event -> {
             count++;
+            System.out.println("Hey, count");
             labelCount.setText("Waiting for more players to join the game.\nThere are " + count + " Players waiting.");
         });
 
-        btnCancel = new Button("Cancel");
-        btnCount.setOnAction(event -> {
+      //  btnCancel = new Button("Cancel");
+      //  btnCount.setOnAction(event -> {
             //TODO inputController.onCancel() cancelWait();
             //back to main
 
-        });
+       // });
 
 
         this.getChildren().add(labelCount);
-        this.getChildren().add(btnCancel);
+     //   this.getChildren().add(btnCancel);
         this.getChildren().add(btnCount);
 
     }
