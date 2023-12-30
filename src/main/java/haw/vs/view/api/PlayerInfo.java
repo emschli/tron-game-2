@@ -9,6 +9,15 @@ public class PlayerInfo {
 
     private static long matchId;
 
+    private static final long ONE = 1;
+
+    /**
+     * Default PlayerId is 1
+     */
+    public PlayerInfo() {
+        this.playerId = ONE;
+    }
+
     public static long getPlayerId() {
         return playerId;
     }
