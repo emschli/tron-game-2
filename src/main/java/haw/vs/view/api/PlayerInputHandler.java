@@ -13,13 +13,14 @@ public class PlayerInputHandler implements IPlayerInputHandler{
 
     private IInput inputController;
 
+    private PlayerInfo playerInfo;
+
     /**
      *
      */
     @Override
     public void onGameStart() {
 //
-
         System.out.println("onGameStart pressed");
     }
 
