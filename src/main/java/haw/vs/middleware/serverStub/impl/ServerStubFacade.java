@@ -13,6 +13,6 @@ public class ServerStubFacade implements IServerStub {
 
     @Override
     public void register(String methodName, ICallee callee, int type) {
-        //TODO
+        caller.register(methodName, callee, type);
     }
 }
