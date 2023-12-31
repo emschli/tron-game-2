@@ -1,7 +1,6 @@
 package haw.vs.view.api;
 
 
-import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.controller.api.IInput;
@@ -13,8 +12,6 @@ import static haw.vs.view.api.PlayerInfo.getPlayerId;
  * Klasse die die Player Inputs verarbeitet und dem Controller Bescheid gibt
  */
 public class PlayerInputHandler implements IPlayerInputHandler {
-
-    private ITronView tronView;
 
     private IInput inputController;
 
