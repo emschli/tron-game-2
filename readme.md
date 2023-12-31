@@ -17,3 +17,10 @@ app_type=STANDALONE
 
 ````
 
+To configure the middleware create file `middleware.properties` ind folder `src/main/resources`. 
+The following 3 ports have to be specified in `middleware.properties`:
+````
+sync_tcp_port=...
+async_tcp_port=...
+async_udp_port=...
+````

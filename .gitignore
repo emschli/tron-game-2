@@ -38,5 +38,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-# Config file
+# Config files
 src/main/resources/app.properties
+src/main/resources/middleware.properties
