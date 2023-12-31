@@ -34,6 +34,7 @@ public class JavaFXApp extends Application {
         stage.setTitle("TRON - the best game ever");
         stage.setScene(tronView.getScene());
 
+
         GameModelTest gameModelTest = new GameModelTest(40, 40);
         IPlayerInputHandler inputHandler = ViewFactory.getInputHandler();
         //set event handlers for user input

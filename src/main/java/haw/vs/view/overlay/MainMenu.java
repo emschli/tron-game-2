@@ -51,12 +51,15 @@ public class MainMenu extends VBox {
                     feedbackLbl.setText("Thats all from " + BLOCKING_WARNING_ALERT);
                 });
             } else {
-                System.out.println("NUM :" + textField.getText());
                 view.hideOverlays();
             }
-            //Waiting for other PlayersView
-        });
 
+            PlayerCountView playerCountView = new PlayerCountView("playerCount", view);
+            view.registerOverlay("playerCount", playerCountView);//Waiting for other PlayersView
+            view.init();
+            view.showOverlay("playerCount");
+        });
+//TODO view oder tronView??
         this.getChildren().add(labelMain);
         this.getChildren().add(textField);
         this.getChildren().add(btnJoin);
