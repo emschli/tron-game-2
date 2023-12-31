@@ -5,6 +5,7 @@ import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.controller.api.IInput;
+import haw.vs.controller.mock.MockInput;
 
 import static haw.vs.view.api.PlayerInfo.getPlayerId;
 
@@ -17,6 +18,10 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     private IInput inputController;
 
+    public PlayerInputHandler() {
+        this.inputController = new MockInput();
+    }
+
     @Override
     public void onGameStart(int numOfPlayers) {
         //TODO ConfigData?
@@ -27,8 +32,12 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onKeyPressed(String pressedKey) {
+        System.out.println(2);
+        System.out.println("HUHUHU");
+        System.out.println("KEYPRESSED: " + pressedKey);
         inputController.handleGameAction(getPlayerId(), getDirectionFromString(pressedKey));
         System.out.println("onKey pressed");
+        System.out.println(2.5);
     }
 
     @Override
@@ -44,8 +53,9 @@ public class PlayerInputHandler implements IPlayerInputHandler {
     }
 
     private Direction getDirectionFromString(String string) {
-        //TODO default direction? wie komme ich gegebenenfalls an die direction des players?
-        Direction direction = null; //TODO Exception
+        //TODO default direction? ist null so gut abgefangen?
+        Direction direction = null;
+
         switch (string) {
             case "LEFT":
                 direction = Direction.LEFT;
@@ -59,6 +69,9 @@ public class PlayerInputHandler implements IPlayerInputHandler {
             case "DOWN":
                 direction = Direction.DOWN;
                 break;
+        }
+        if(direction.equals(null)){
+            throw new RuntimeException("The direction is null");
         }
         return direction;
     }

@@ -1,7 +1,8 @@
 package haw.vs.view.javafx;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
-import edu.cads.bai5.vsp.tron.view.TronView;
+import haw.vs.view.api.IPlayerInputHandler;
+import haw.vs.view.api.ViewFactory;
 import haw.vs.view.overlay.GameModelTest;
 import haw.vs.view.overlay.MainMenu;
 import javafx.animation.AnimationTimer;
@@ -20,31 +21,33 @@ public class JavaFXApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        tronView = new TronView(VIEW_CONFIG_FILE);
-
+        tronView = TronView.getInstance();
         // Build and register start menu
-        MainMenu playerCountView = new MainMenu("menu.css", tronView);
-        tronView.registerOverlay("count", playerCountView);
+        MainMenu mainMenu = new MainMenu("menu.css", tronView);
+        tronView.registerOverlay("main", mainMenu);
 
         // init view and show start menu
         tronView.init();
-        tronView.showOverlay("count");
+        tronView.showOverlay("main");
+
 
         // configure and show stage
         stage.setTitle("TRON - Light Cycles");
         stage.setScene(tronView.getScene());
 
         GameModelTest gameModelTest = new GameModelTest(40, 40);
-
+        IPlayerInputHandler inputHandler = ViewFactory.getInputHandler();
         //set event handlers for user input
         tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                gameModelTest.onKeyPressed(event.getCode().toString());
+                System.out.println(1);
+                inputHandler.onKeyPressed(event.getCode().toString());
+                System.out.println(3);
             }
         });
 
-        tronView.getScene().setOnKeyReleased(event -> gameModelTest.onKeyReleased(event.getCode().toString()));
+       // tronView.getScene().setOnKeyReleased(event -> gameModelTest.onKeyReleased(event.getCode().toString()));
 
         //Eigentlicher Game-Loop
         new AnimationTimer()

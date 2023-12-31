@@ -40,6 +40,8 @@ public class MainMenu extends VBox {
                 System.out.println("You have to select a number between 1-4");
             }
             System.out.println("NUM :" + textField.getText());
+            view.hideOverlays();
+
             //Waiting for other PlayersView
         });
 
