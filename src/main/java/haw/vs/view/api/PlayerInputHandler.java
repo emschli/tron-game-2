@@ -24,7 +24,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onGameStart(int numOfPlayers) {
-        //TODO ConfigData?
+        //TODO ConfigData? muss ggfls noch festgelegt werden
         PlayerConfigData configData = new PlayerConfigData(600, 600);
         inputController.joinGame(getPlayerId(), numOfPlayers, configData);
         System.out.println("onGameStart pressed");
@@ -32,12 +32,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onKeyPressed(String pressedKey) {
-        System.out.println(2);
-        System.out.println("HUHUHU");
-        System.out.println("KEYPRESSED: " + pressedKey);
         inputController.handleGameAction(getPlayerId(), getDirectionFromString(pressedKey));
-        System.out.println("onKey pressed");
-        System.out.println(2.5);
     }
 
     @Override
