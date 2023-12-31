@@ -1,4 +1,4 @@
-package haw.vs.view.test;
+package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
@@ -37,7 +37,7 @@ public class MainMenu extends VBox {
         btnJoin = new Button("Join Game");
         btnJoin.setOnAction(event -> {
             if(textField.getText().equals("")){
-                System.out.println("Must Paste an number 1-4");
+                System.out.println("You have to select a number between 1-4");
             }
             System.out.println("NUM :" + textField.getText());
             //Waiting for other PlayersView

@@ -2,7 +2,7 @@ package haw.vs.view.api;
 
 import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
-import haw.vs.view.test.PlayerCountView;
+import haw.vs.view.overlay.PlayerCountView;
 
 import static haw.vs.view.javafx.TronView.tronView;
 

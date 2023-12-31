@@ -2,8 +2,8 @@ package haw.vs.view.javafx;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.TronView;
-import haw.vs.view.test.GameModelTest;
-import haw.vs.view.test.MainMenu;
+import haw.vs.view.overlay.GameModelTest;
+import haw.vs.view.overlay.MainMenu;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;

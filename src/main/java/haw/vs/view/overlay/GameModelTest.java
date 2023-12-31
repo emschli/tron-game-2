@@ -1,4 +1,4 @@
-package haw.vs.view.test;
+package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.Coordinate;
 
