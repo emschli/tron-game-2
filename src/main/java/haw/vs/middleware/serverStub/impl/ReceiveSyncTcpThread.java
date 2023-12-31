@@ -1,9 +1,11 @@
 package haw.vs.middleware.serverStub.impl;
 
+import haw.vs.middleware.serverStub.api.ICaller;
+
 public class ReceiveSyncTcpThread implements Runnable{
-    private ReceiveQueue receiveQueue;
+    private ICaller caller;
     public ReceiveSyncTcpThread() {
-        this.receiveQueue = ReceiveQueue.getInstance();
+        this.caller = Caller.getInstance();
     }
 
     @Override

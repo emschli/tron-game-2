@@ -6,6 +6,7 @@ import haw.vs.middleware.common.JsonRequest;
 import haw.vs.middleware.nameService.api.INameService;
 import haw.vs.middleware.nameService.impl.NameServiceFactory;
 import haw.vs.middleware.serverStub.api.ICallee;
+import haw.vs.middleware.serverStub.api.ICaller;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
 import java.util.HashMap;
@@ -13,18 +14,18 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ServerStub implements IServerStub, Runnable {
+public class Caller implements ICaller, Runnable {
 
 
     private NameServiceFactory nameServiceFactory;
     //private INameService nameService;
-    private static ServerStub instance;
+    private static Caller instance;
     private Map<String, ICallee> calleeMap;
     private Lock lock;
     private ObjectMapper objectMapper;
     private ReceiveQueue receiveQueue;
 
-    private ServerStub() {
+    private Caller() {
         calleeMap = new HashMap<>();
         lock = new ReentrantLock();
         objectMapper = new ObjectMapper();
@@ -32,9 +33,9 @@ public class ServerStub implements IServerStub, Runnable {
 
     }
 
-    public static synchronized ServerStub getInstance() {
+    public static synchronized Caller getInstance() {
         if (instance == null) {
-            instance = new ServerStub();
+            instance = new Caller();
         }
         return instance;
     }
@@ -47,6 +48,11 @@ public class ServerStub implements IServerStub, Runnable {
         } finally {
             lock.unlock();
         }
+    }
+
+    @Override
+    public void callSynchronously(byte[] data) {
+        //TODO
     }
 
     private JsonRequest unmarshall(byte[] data) {
