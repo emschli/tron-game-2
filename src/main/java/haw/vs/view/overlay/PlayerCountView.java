@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import static haw.vs.view.javafx.TronView.tronView;
+
 public class PlayerCountView extends VBox {
     private final Label labelCount;
 
@@ -30,9 +32,12 @@ public class PlayerCountView extends VBox {
             count++;
             labelCount.setText("Waiting for more players to join the game.\nThere are " + count + " Players waiting.");
             if(count>=4){
-                view.hideOverlays();
+                tronView.hideOverlays();
                 StartMenu startMenu = new StartMenu("menu.css", view);
-                view.registerOverlay("start", startMenu);
+                tronView.registerOverlay("start", startMenu);
+                tronView.init();
+                tronView.showOverlay("start");
+
             }
         });
 

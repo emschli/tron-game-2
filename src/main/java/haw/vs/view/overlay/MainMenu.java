@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import static haw.vs.view.javafx.TronView.tronView;
+
 public class MainMenu extends VBox {
     private static final String BLOCKING_WARNING_ALERT = "This is a warning";
 
@@ -51,13 +53,13 @@ public class MainMenu extends VBox {
                     feedbackLbl.setText("Thats all from " + BLOCKING_WARNING_ALERT);
                 });
             } else {
-                view.hideOverlays();
+                tronView.hideOverlays();
             }
 
-            PlayerCountView playerCountView = new PlayerCountView("playerCount", view);
-            view.registerOverlay("playerCount", playerCountView);//Waiting for other PlayersView
-            view.init();
-            view.showOverlay("playerCount");
+            PlayerCountView playerCountView = new PlayerCountView("playerCount", tronView);
+            tronView.registerOverlay("playerCount", playerCountView);//Waiting for other PlayersView
+            tronView.init();
+            tronView.showOverlay("playerCount");
         });
 //TODO view oder tronView??
         this.getChildren().add(labelMain);
