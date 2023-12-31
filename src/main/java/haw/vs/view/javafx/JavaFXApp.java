@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 public class JavaFXApp extends Application {
     public ITronView tronView;
-    public final static String VIEW_CONFIG_FILE = "view_custom.properties";
     private final double TARGET_FPS = 60.0;
     private final double TARGET_FRAME_TIME = 1.0 / TARGET_FPS;
 
@@ -32,7 +31,7 @@ public class JavaFXApp extends Application {
 
 
         // configure and show stage
-        stage.setTitle("TRON - Light Cycles");
+        stage.setTitle("TRON - the best game ever");
         stage.setScene(tronView.getScene());
 
         GameModelTest gameModelTest = new GameModelTest(40, 40);
@@ -41,13 +40,9 @@ public class JavaFXApp extends Application {
         tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                System.out.println(1);
                 inputHandler.onKeyPressed(event.getCode().toString());
-                System.out.println(3);
             }
         });
-
-       // tronView.getScene().setOnKeyReleased(event -> gameModelTest.onKeyReleased(event.getCode().toString()));
 
         //Eigentlicher Game-Loop
         new AnimationTimer()
