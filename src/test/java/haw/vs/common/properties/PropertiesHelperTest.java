@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PropertiesHelperTest {
 
     @Before
@@ -17,18 +20,6 @@ public class PropertiesHelperTest {
     }
 
     @Test
-    public void testComponentPortExists() {
-        String port = assertDoesNotThrow(() -> PropertiesHelper.getPort(ComponentType.VIEW));
-        assertEquals(port, "5000");
-    }
-
-    @Test
-    public void testComponentPortDoesNotExist() {
-        String port = assertDoesNotThrow(() -> PropertiesHelper.getPort(ComponentType.CONTROLLER));
-        assertNull(port);
-    }
-
-    @Test
     public void testComponentIsSetToTest() {
         boolean isSetToTest = assertDoesNotThrow(() -> PropertiesHelper.isTest(ComponentType.CONTROLLER));
         assertTrue(isSetToTest);
@@ -38,5 +29,27 @@ public class PropertiesHelperTest {
     public void testComponentIsNotSetToTest() {
         boolean isSetToTest = assertDoesNotThrow(() -> PropertiesHelper.isTest(ComponentType.VIEW));
         assertFalse(isSetToTest);
+    }
+
+    @Test
+    public void testComponentSetToBeDeployed() {
+        boolean isSetToBeDeployed = assertDoesNotThrow(() -> PropertiesHelper.shouldBeDeployed(ComponentType.MATCH_MANAGER));
+        assertTrue(isSetToBeDeployed);
+    }
+
+    @Test
+    public void testComponentNotSetToBeDeployed() {
+        boolean isSetToBeDeployed = assertDoesNotThrow(() -> PropertiesHelper.shouldBeDeployed(ComponentType.VIEW));
+        assertFalse(isSetToBeDeployed);
+    }
+
+    @Test
+    public void testGetAllComponents() {
+        List<ComponentType> result = assertDoesNotThrow(PropertiesHelper::getAllComponents);
+        List<ComponentType> expected = new ArrayList<>();
+        expected.add(ComponentType.MATCH_MANAGER);
+        expected.add(ComponentType.GAME_LOGIC);
+
+        assertEquals(expected, result);
     }
 }

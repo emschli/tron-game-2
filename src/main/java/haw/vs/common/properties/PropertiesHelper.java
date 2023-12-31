@@ -2,6 +2,8 @@ package haw.vs.common.properties;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class PropertiesHelper {
@@ -9,6 +11,10 @@ public class PropertiesHelper {
 
     private static Properties PROPERTIES = new Properties();
 
+    /**
+     * Set the properties file that should be used
+     * @param filename of properties file located in resources folder
+     */
     public static void setPropertiesFile(String filename) {
         PROPERTIES_FILE = filename;
     }
@@ -39,15 +45,33 @@ public class PropertiesHelper {
     }
 
     /**
-     * Use to get Port for componentType
-     * @param componentType of Component to get Port for
-     * @return the port number or null if there is no entry
+     * Test if Component should be deployed
+      * @param componentType
+     * @return true if it should be deployed and false if set to false or null
      * @throws PropertiesException if properties file cannot be found
      */
-    public static String getPort(ComponentType componentType) throws PropertiesException {
+    public static boolean shouldBeDeployed(ComponentType componentType) throws PropertiesException {
+        String componentKey = componentType.toString().toLowerCase();
         load();
-        String portKey = componentType.toString().toLowerCase() + "_port";
-        return PROPERTIES.getProperty(portKey);
+        return Boolean.parseBoolean(PROPERTIES.getProperty(componentKey));
+    }
+
+    /**
+     * Get a List of all the component types that should be deployed on this node
+     * @return a List of ComponentTypes
+     * @throws PropertiesException if properties file cannot be found
+     */
+    public static List<ComponentType> getAllComponents() throws PropertiesException {
+        List<ComponentType> result = new ArrayList<>();
+        load();
+
+        for (ComponentType componentType : ComponentType.values()) {
+            if(shouldBeDeployed(componentType)) {
+                result.add(componentType);
+            }
+        }
+
+        return result;
     }
 
     /**

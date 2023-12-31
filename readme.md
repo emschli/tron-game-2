@@ -6,9 +6,9 @@ Example `app.properties`:
 app_type=STANDALONE
 #app_type=DISTRIBUTED
 
-# If AppType is set to DISTRIBUTED configure port for each component that should be deployed:
-# view_port= ...
-# controller_port= ...
+# If app_type=DISTRIBUTED, choose components that should be deployed:
+# controller=true
+# match_manager=true
 
 # For Testing Purposes:
 # Set Component-Factory to Return Mock
