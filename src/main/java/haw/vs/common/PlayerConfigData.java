@@ -25,4 +25,7 @@ public class PlayerConfigData {
     public void setResolutionHeight(int resolutionHeight) {
         this.resolutionHeight = resolutionHeight;
     }
+    public PlayerConfigData copy() {
+        return new PlayerConfigData(this.resolutionWidth, this.resolutionHeight);
+    }
 }
