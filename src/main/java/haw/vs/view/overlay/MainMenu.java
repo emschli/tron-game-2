@@ -5,6 +5,7 @@ import edu.cads.bai5.vsp.tron.view.ViewUtility;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,7 +13,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class MainMenu extends VBox {
+    private static final String BLOCKING_WARNING_ALERT = "This is a warning";
+
     private final Label labelMain;
+    private final Label feedbackLbl;
     private final Button btnJoin;
 
     private final TextField textField;
@@ -30,18 +34,26 @@ public class MainMenu extends VBox {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String old, String neu) {
                 if(!neu.matches("[1-4]?")){
-                textField.setText("1");                }
+                textField.setText("1");
+                }
             }
         });
 
+        feedbackLbl = new Label("You have to select a number between 1-4");
         btnJoin = new Button("Join Game");
         btnJoin.setOnAction(event -> {
             if(textField.getText().equals("")){
-                System.out.println("You have to select a number between 1-4");
+                var alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle(BLOCKING_WARNING_ALERT);
+                alert.setHeaderText(BLOCKING_WARNING_ALERT);
+                alert.setContentText(feedbackLbl.getText());
+                alert.showAndWait().ifPresent((btnType) -> {
+                    feedbackLbl.setText("Thats all from " + BLOCKING_WARNING_ALERT);
+                });
+            } else {
+                System.out.println("NUM :" + textField.getText());
+                view.hideOverlays();
             }
-            System.out.println("NUM :" + textField.getText());
-            view.hideOverlays();
-
             //Waiting for other PlayersView
         });
 
