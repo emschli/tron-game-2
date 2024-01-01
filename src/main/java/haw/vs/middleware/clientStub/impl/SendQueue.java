@@ -21,7 +21,7 @@ public class SendQueue {
         lock = new ReentrantLock();
     }
 
-    public static synchronized SendQueue getInstance() {
+    public static synchronized SendQueue getSendQueue() {
         if (sendQueue == null) {
             sendQueue = new SendQueue();
         }

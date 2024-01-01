@@ -9,8 +9,15 @@ import haw.vs.middleware.nameService.impl.NameServiceFactory;
 
 public class Marshaller extends Sender implements IClientStub {
 
-    private NameServiceFactory nameServiceFactory;
+
+    private INameService nameService;
     private ObjectMapper objectMapper;
+
+    public Marshaller(INameService nameService) {
+        this.nameService = nameService;
+        this.objectMapper = new ObjectMapper();
+    }
+
     public byte[] marshall(Object[] args, String methodName) {
 
         JsonRequest request = new JsonRequest();
@@ -27,27 +34,40 @@ public class Marshaller extends Sender implements IClientStub {
     @Override
     public void invoke(String methodName, Object[] args, int modus) {
         byte[] requestData = marshall(args, methodName);
-        String serverAddress = getNameService().lookup(methodName);
-        //TODO
+        String serverAddress = nameService.lookup(methodName);
+        switch (modus) {
+            case 1 -> sendSynchronouslyTcp(serverAddress, requestData);
+            case 2 -> sendAsynchronouslyTcp(serverAddress, requestData);
+            case 3 -> sendAsynchronouslyUdp(serverAddress, requestData);
+            default -> throw new IllegalArgumentException("Ungültiger Modus: " + modus);
+        }
     }
 
     @Override
     public void invoke(String methodName, Object[] args, int modus, long stateId) {
         byte[] requestData = marshall(args, methodName);
-        String serverAddress = getNameService().lookup(methodName, stateId);
-        //TODO
+        String serverAddress = nameService.lookup(methodName, stateId);
+        switch (modus) {
+            case 1 -> sendSynchronouslyTcp(serverAddress, requestData);
+            case 2 -> sendAsynchronouslyTcp(serverAddress, requestData);
+            case 3 -> sendAsynchronouslyUdp(serverAddress, requestData);
+
+            default -> throw new IllegalArgumentException("Ungültiger Modus: " + modus);
+        }
     }
 
     @Override
-    public void invokeSpecific(long id, String methodName, int modus) {
-        //TODO
+    public void invokeSpecific(long specificId, String methodName, Object[] args, int modus) {
+        byte[] requestData = marshall(args, methodName);
+        String specificServerAddress = nameService.lookup(specificId);
+
+        switch (modus) {
+            case 1 -> sendSynchronouslyTcp(specificServerAddress, requestData);
+            case 2 -> sendAsynchronouslyTcp(specificServerAddress, requestData);
+            case 3 -> sendAsynchronouslyUdp(specificServerAddress, requestData);
+
+            default -> throw new IllegalArgumentException("Ungültiger Modus: " + modus);
+        }
     }
 
-    private INameService getNameService() {
-        return nameServiceFactory.getNameService() ;
-    }
-
-    public void setNameServiceFactory(NameServiceFactory nameServiceFactory) {
-        this.nameServiceFactory = nameServiceFactory;
-    }
 }
