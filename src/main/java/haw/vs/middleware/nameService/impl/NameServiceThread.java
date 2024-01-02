@@ -1,7 +1,5 @@
 package haw.vs.middleware.nameService.impl;
 
-import haw.vs.middleware.nameService.api.INameService;
-
 public class NameServiceThread implements Runnable {
     private final INameService nameService;
 

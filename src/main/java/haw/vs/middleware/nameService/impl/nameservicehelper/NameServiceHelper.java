@@ -1,10 +1,10 @@
-package haw.vs.middleware.nameService.impl;
+package haw.vs.middleware.nameService.impl.nameservicehelper;
 
-import haw.vs.middleware.nameService.api.INameService;
+import haw.vs.middleware.nameService.api.INameServiceHelper;
 
 import java.util.List;
 
-public class NameServiceCachingProxy implements INameService {
+public class NameServiceHelper implements INameServiceHelper {
     @Override
     public long bind(List<String> methodNames, int type) {
         return 0;

@@ -1,6 +1,5 @@
 package haw.vs.middleware.nameService.impl;
 
-import haw.vs.middleware.nameService.api.INameService;
 import haw.vs.middleware.nameService.impl.loadbalancer.ILoadBalancer;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class NameService implements INameService {
     }
 
     @Override
-    public long bind(List<String> methodNames, int type) {
+    public long bind(List<String> methodNames, int type, String ip) {
         return 0;
     }
 
