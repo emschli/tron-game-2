@@ -1,16 +1,32 @@
 package haw.vs.middleware.nameService.impl;
 
+import haw.vs.middleware.common.properties.MiddlewareAppType;
+import haw.vs.middleware.common.properties.MiddlewarePropertiesException;
+import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
 import haw.vs.middleware.nameService.api.INameService;
+import haw.vs.middleware.nameService.impl.loadbalancer.LoadBalancerFactory;
+
 
 public class NameServiceFactory {
-    private static INameService nameService;
 
+    public static INameService getNameService() {
+        MiddlewareAppType appType;
+        try {
+             appType = MiddlewarePropertiesHelper.getMiddlewareAppType();
+        } catch (MiddlewarePropertiesException e) {
+            throw new RuntimeException(e);
+        }
 
-    public NameServiceFactory(INameService nameService) {
-        this.nameService = nameService;
+        switch (appType) {
+            case MIDDLEWARE -> {
+                return new NameServiceCachingProxy();
+            }
+            case NAME_SERVICE -> {
+                return new NameService(NameServiceData.getInstance(), LoadBalancerFactory.getLoadBalancer());
+            }
+            default -> throw new RuntimeException("Cannot get Instance of NameService!");
+        }
+
     }
 
-    public static  INameService getNameService() {
-        return nameService;
-    }
 }
