@@ -2,6 +2,7 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
+import haw.vs.view.api.PlayerInputHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,7 +27,7 @@ public class PlayerCountView extends VBox {
 //counter which counts the number of Players
     private int counter;
 
-    public PlayerCountView(String stylesheet, ITronView view) {
+    public PlayerCountView(String stylesheet, ITronView view, PlayerInputHandler inputHandler) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
@@ -54,7 +55,7 @@ public class PlayerCountView extends VBox {
             //TODO inputController.onCancel() cancelWait();
             //back to main
             tronView.hideOverlays();
-            MainMenu mainMenu = new MainMenu("menu.css", tronView);
+            MainMenu mainMenu = new MainMenu("menu.css", tronView, inputHandler);
             tronView.registerOverlay("main", mainMenu);
             tronView.init();
             tronView.showOverlay("main");

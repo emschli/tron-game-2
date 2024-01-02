@@ -2,9 +2,6 @@ package haw.vs.view.api;
 
 import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
-import haw.vs.view.overlay.PlayerCountView;
-
-import static haw.vs.view.javafx.TronView.tronView;
 
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;
@@ -36,11 +33,11 @@ public class ViewFacade implements IViewFacade {
     @Override
     public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
         // Build and register playerCountView
-        PlayerCountView playerCountView = new PlayerCountView("menu.css", tronView);
-        tronView.registerOverlay("count", playerCountView);
+        //PlayerCountView playerCountView = new PlayerCountView("menu.css", tronView);
+        //tronView.registerOverlay("count", playerCountView);
         // init view and show start menu
         // tronView.init();
-        tronView.showOverlay("count");
+        //tronView.showOverlay("count");
 
     }
 

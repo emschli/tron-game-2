@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 public class JavaFXApp extends Application {
     public ITronView tronView;
+    IPlayerInputHandler inputHandler;
     private final double TARGET_FPS = 60.0;
     private final double TARGET_FRAME_TIME = 1.0 / TARGET_FPS;
 
@@ -21,8 +22,10 @@ public class JavaFXApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         tronView = TronView.getInstance();
+        inputHandler = ViewFactory.getInputHandler();
+
         // Build and register start menu
-        MainMenu mainMenu = new MainMenu("menu.css", tronView);
+        MainMenu mainMenu = new MainMenu("menu.css", tronView, inputHandler);
         tronView.registerOverlay("main", mainMenu);
 
         // init view and show start menu
@@ -36,7 +39,6 @@ public class JavaFXApp extends Application {
 
 
         GameModelTest gameModelTest = new GameModelTest(40, 40);
-        IPlayerInputHandler inputHandler = ViewFactory.getInputHandler();
         //set event handlers for user input
         tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

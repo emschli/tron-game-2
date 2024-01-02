@@ -2,6 +2,7 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
+import haw.vs.view.api.PlayerInputHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -28,7 +29,7 @@ public class MainMenu extends VBox {
 
     private final TextField textField;
 
-    public MainMenu(String stylesheet, ITronView view) {
+    public MainMenu(String stylesheet, ITronView view, PlayerInputHandler inputHandler) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
@@ -67,7 +68,7 @@ public class MainMenu extends VBox {
             }
             //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
             //add and register new PlayerCountCiew
-            PlayerCountView playerCountView = new PlayerCountView("playerCount", tronView);
+            PlayerCountView playerCountView = new PlayerCountView("playerCount", tronView, inputHandler);
             tronView.registerOverlay("playerCount", playerCountView);//Waiting for other PlayersView
             //init and show the overlay
             tronView.init();
