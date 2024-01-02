@@ -45,6 +45,7 @@ public class JavaFXApp extends Application {
             }
         });
 
+
         //Eigentlicher Game-Loop
         new AnimationTimer()
         {
