@@ -30,11 +30,11 @@ public class TronView extends edu.cads.bai5.vsp.tron.view.TronView implements IT
 
         // Build and register winner menu to put player count in the form
         Winner winnerMenu = new Winner("menu.css", tronView);
-        tronView.registerOverlay("main", winnerMenu);
+        tronView.registerOverlay("winner", winnerMenu);
 
         // Build and register looser menu to put player count in the form
         Looser looserMenu = new Looser("menu.css", tronView);
-        tronView.registerOverlay("main", looserMenu);
+        tronView.registerOverlay("looser", looserMenu);
 
 
 
