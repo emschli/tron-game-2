@@ -27,7 +27,7 @@ public class NameServiceHelperCachingProxy implements INameServiceHelper {
     }
 
     @Override
-    public String lookupSpecific(long specificId, String methodName) {
+    public String lookupSpecific(String methodName, long specificId) {
         return null;
     }
 }
