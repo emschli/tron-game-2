@@ -25,11 +25,14 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void playerLost(GameState gameState) {
+        //TODO
+        tronViewAdapter.showOverlay("looser");
 
     }
 
     @Override
     public void playerWon(GameState gameState) {
+        //TODO
         tronViewAdapter.showOverlay("winner");
     }
 
@@ -47,6 +50,6 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void setMatchId(long matchId) {
-
+        //TODO ??? wo ist denn die PlayerInfo überhaupt?
     }
 }
