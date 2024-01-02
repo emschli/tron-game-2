@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import static haw.vs.view.javafx.TronView.tronView;
+import static haw.vs.view.javafx.TronView.inputHandler;
 
 /**
  * Just a Menu to have a button which has to be klicked before the game starts
@@ -28,11 +28,7 @@ public class Looser extends VBox {
 
         backToMain = new Button("Back To Main Menu");
         backToMain.setOnAction(event -> {
-            tronView.hideOverlays();
-            MainMenuNew mainMenu = new MainMenuNew("menu.css", tronView);
-            tronView.registerOverlay("main", mainMenu);
-            tronView.init();
-            tronView.showOverlay("main");
+            inputHandler.onCancel();
         });
 
         this.getChildren().add(labelLooser);

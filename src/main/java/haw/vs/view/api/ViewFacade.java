@@ -30,6 +30,7 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void playerWon(GameState gameState) {
+        tronViewAdapter.showOverlay("winner");
     }
 
     @Override

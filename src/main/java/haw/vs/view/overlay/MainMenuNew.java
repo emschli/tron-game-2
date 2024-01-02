@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import static haw.vs.view.javafx.TronView.inputHandler;
 import static haw.vs.view.javafx.TronView.tronView;
 
 /**
@@ -71,12 +72,8 @@ public class MainMenuNew extends VBox {
             //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
             //get the IntegerValue of the text field
             numOfPlayers = Integer.valueOf(textField.getText());
-            //add and register new PlayerCountCiew
-            PlayerCountViewNew playerCountView = new PlayerCountViewNew("playerCount", tronView, numOfPlayers, ACTUAL_NUM_OF_PLAYERS);
-            tronView.registerOverlay("playerCount", playerCountView);//Waiting for other PlayersView
-            //init and show the overlay
-            tronView.init();
-            tronView.showOverlay("playerCount");
+            //use PlayerInputHandler
+            inputHandler.onGameStart(numOfPlayers);
         });
         //add all the elements in the MainMenu View
 //TODO view oder tronView??

@@ -73,3 +73,4 @@ public class JavaFXApp extends Application {
         JavaFXApp.launch(args);
     }
 }
+
