@@ -44,7 +44,7 @@ public class MainMenu extends VBox {
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String old, String neu) {
-                //if player types an wrong value, there will be the default value 1
+                //if player types a wrong value, there will be the default value 1
                 if(!neu.matches("[1-4]?")){
                 textField.setText("1");
                 }
