@@ -16,9 +16,4 @@ public class MockPlayerInputHandler implements IPlayerInputHandler {
     public void onCancel() {
 
     }
-
-    @Override
-    public void onBackToMain() {
-
-    }
 }
