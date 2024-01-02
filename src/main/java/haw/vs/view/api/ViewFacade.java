@@ -15,7 +15,7 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void startGame(GameState gameState) {
-
+//TODO ja hier ist noch was zu tun
     }
 
     @Override
@@ -25,14 +25,14 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void playerLost(GameState gameState) {
-        //TODO
+        //TODO gameState ist hier überflüssig oder?
         tronViewAdapter.showOverlay("looser");
 
     }
 
     @Override
     public void playerWon(GameState gameState) {
-        //TODO
+        //TODO gameState ist hier überflüssig oder?
         tronViewAdapter.showOverlay("winner");
     }
 
@@ -50,6 +50,6 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void setMatchId(long matchId) {
-        //TODO ??? wo ist denn die PlayerInfo überhaupt?
+        //TODO ??? wo ist denn die PlayerInfo überhaupt? muss die view das machen?
     }
 }
