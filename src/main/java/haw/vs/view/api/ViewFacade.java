@@ -32,6 +32,7 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
+        //tronViewAdapter.showOverlay("count");
         // Build and register playerCountView
         //PlayerCountView playerCountView = new PlayerCountView("menu.css", tronView);
         //tronView.registerOverlay("count", playerCountView);
