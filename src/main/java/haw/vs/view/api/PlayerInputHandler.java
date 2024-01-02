@@ -38,12 +38,6 @@ public class PlayerInputHandler implements IPlayerInputHandler {
         System.out.println("onCancel pressed");
     }
 
-    @Override
-    public void onBackToMain() {
-        //TODO ist das nicht das gleiche wie on cancel?
-        System.out.println("BackToMain");
-    }
-
     private Direction getDirectionFromString(String string) {
         //TODO default direction? ist null so gut abgefangen?
         Direction direction = null;

@@ -2,7 +2,7 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
-import haw.vs.view.api.PlayerInputHandler;
+import haw.vs.view.api.IPlayerInputHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -29,7 +29,7 @@ public class MainMenu extends VBox {
 
     private final TextField textField;
 
-    public MainMenu(String stylesheet, ITronView view, PlayerInputHandler inputHandler) {
+    public MainMenu(String stylesheet, ITronView view, IPlayerInputHandler inputHandler) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
