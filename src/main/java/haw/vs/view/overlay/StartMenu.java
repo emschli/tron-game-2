@@ -8,6 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Just a Menu to have a button which has to be klicked before the game starts
+ * May be deleted later (or we write a counter 3-2-1-Go!?)
+ */
 public class StartMenu extends VBox {
     private final Label labelReady;
     private final Button btnStart;
