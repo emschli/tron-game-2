@@ -2,7 +2,6 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
-import haw.vs.view.api.IPlayerInputHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +15,7 @@ import static haw.vs.view.javafx.TronView.tronView;
  * PlayerCounter is increased with every player who joins the (future) match.
  * There is a button which can be clicked to quit the (future) match and go beck to main menu.
  */
-public class PlayerCountView extends VBox {
+public class PlayerCountViewNew extends VBox {
     //Label to tell the player what is happening.
     private final Label labelCount;
     //button to quit the (future) match and go back to main menu
@@ -27,10 +26,11 @@ public class PlayerCountView extends VBox {
 //counter which counts the number of Players
     private int counter;
 
-    public PlayerCountView(String stylesheet, ITronView view, IPlayerInputHandler inputHandler, int numOfPlayers) {
+    public PlayerCountViewNew(String stylesheet, ITronView view, int actualNumOfPlayers, int targetNumOfPlayers) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
+        this.counter = actualNumOfPlayers;
 
         labelCount = new Label("Waiting for more players to join the game.\nThere are already " + counter + " Players waiting.");
         labelCount.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
@@ -40,7 +40,7 @@ public class PlayerCountView extends VBox {
         btnCount.setOnAction(event -> {
             counter++;
             labelCount.setText("Waiting for more players to join the game.\nThere are " + counter + " Players waiting.");
-            if(counter >= numOfPlayers){
+            if(counter >= targetNumOfPlayers){
                 tronView.hideOverlays();
                 StartMenu startMenu = new StartMenu("menu.css", tronView);
                 tronView.registerOverlay("start", startMenu);
@@ -53,10 +53,10 @@ public class PlayerCountView extends VBox {
         btnCancel = new Button("Cancel");
         btnCancel.setOnAction(event -> {
             //call method in PlayerInputHandler to cancel the process of waiting and leave the (future) match
-            inputHandler.onCancel();
+            //inputHandler.onCancel();
             //back to main
             tronView.hideOverlays();
-            MainMenu mainMenu = new MainMenu("menu.css", tronView, inputHandler);
+            MainMenuNew mainMenu = new MainMenuNew("menu.css", tronView);
             tronView.registerOverlay("main", mainMenu);
             tronView.init();
             tronView.showOverlay("main");

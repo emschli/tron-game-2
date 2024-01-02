@@ -2,7 +2,6 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
-import haw.vs.view.api.IPlayerInputHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -22,6 +21,7 @@ import static haw.vs.view.javafx.TronView.tronView;
  */
 public class MainMenuNew extends VBox {
     private static final String BLOCKING_WARNING_ALERT = "This is a warning";
+    private static final int ACTUAL_NUM_OF_PLAYERS = 1;
 
     private final Label labelMain;
     private final Label feedbackLbl;
@@ -31,7 +31,7 @@ public class MainMenuNew extends VBox {
     private Integer numOfPlayers;
 
 
-    public MainMenuNew(String stylesheet, ITronView view, IPlayerInputHandler inputHandler) {
+    public MainMenuNew(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
@@ -72,7 +72,7 @@ public class MainMenuNew extends VBox {
             //get the IntegerValue of the text field
             numOfPlayers = Integer.valueOf(textField.getText());
             //add and register new PlayerCountCiew
-            PlayerCountView playerCountView = new PlayerCountView("playerCount", tronView, inputHandler, numOfPlayers);
+            PlayerCountViewNew playerCountView = new PlayerCountViewNew("playerCount", tronView, numOfPlayers, ACTUAL_NUM_OF_PLAYERS);
             tronView.registerOverlay("playerCount", playerCountView);//Waiting for other PlayersView
             //init and show the overlay
             tronView.init();

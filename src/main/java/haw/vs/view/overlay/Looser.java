@@ -15,7 +15,7 @@ import static haw.vs.view.javafx.TronView.tronView;
  * May be deleted later (or we write a counter 3-2-1-Go!?)
  */
 public class Looser extends VBox {
-    private final Label labelWinner;
+    private final Label labelLooser;
     private final Button backToMain;
 
     public Looser(String stylesheet, ITronView view) {
@@ -23,8 +23,8 @@ public class Looser extends VBox {
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
 
-        labelWinner = new Label("You won!");
-        labelWinner.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
+        labelLooser = new Label("You lost!");
+        labelLooser.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
         backToMain = new Button("Back To Main Menu");
         backToMain.setOnAction(event -> {
@@ -35,7 +35,7 @@ public class Looser extends VBox {
             tronView.showOverlay("main");
         });
 
-        this.getChildren().add(labelWinner);
+        this.getChildren().add(labelLooser);
         this.getChildren().add(backToMain);
     }
 }

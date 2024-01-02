@@ -8,28 +8,34 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import static haw.vs.view.javafx.TronView.tronView;
+
 /**
  * Just a Menu to have a button which has to be klicked before the game starts
  * May be deleted later (or we write a counter 3-2-1-Go!?)
  */
-public class StartMenu extends VBox {
-    private final Label labelReady;
-    private final Button btnStart;
+public class Winner extends VBox {
+    private final Label labelWinner;
+    private final Button backToMain;
 
-    public StartMenu(String stylesheet, ITronView view) {
+    public Winner(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
 
-        labelReady = new Label("Ready?");
-        labelReady.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
+        labelWinner = new Label("You won!");
+        labelWinner.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
-        btnStart = new Button("Start Game");
-        btnStart.setOnAction(event -> {
-            view.hideOverlays();
+        backToMain = new Button("Back To Main Menu");
+        backToMain.setOnAction(event -> {
+            tronView.hideOverlays();
+            MainMenuNew mainMenu = new MainMenuNew("menu.css", tronView);
+            tronView.registerOverlay("main", mainMenu);
+            tronView.init();
+            tronView.showOverlay("main");
         });
 
-        this.getChildren().add(labelReady);
-        this.getChildren().add(btnStart);
+        this.getChildren().add(labelWinner);
+        this.getChildren().add(backToMain);
     }
 }
