@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class JavaFXApp extends Application {
     public ITronView tronView;
-    IPlayerInputHandler inputHandler;
+    IPlayerInputHandler inputHandler; //TODO eigentlich hat die JavaFXApp das nicht sondern die TronView!
     private final double TARGET_FPS = 60.0;
     private final double TARGET_FRAME_TIME = 1.0 / TARGET_FPS;
 
@@ -23,6 +23,7 @@ public class JavaFXApp extends Application {
     public void start(Stage stage) throws Exception {
         tronView = TronView.getInstance();
         inputHandler = ViewFactory.getInputHandler();
+
 
         // Build and register start menu
         MainMenu mainMenu = new MainMenu("menu.css", tronView, inputHandler);
