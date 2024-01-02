@@ -28,6 +28,8 @@ public class MainMenu extends VBox {
     private final Button btnJoin;
 
     private final TextField textField;
+    private Integer numOfPlayers;
+
 
     public MainMenu(String stylesheet, ITronView view, IPlayerInputHandler inputHandler) {
         super(20.0);
@@ -67,8 +69,10 @@ public class MainMenu extends VBox {
                 tronView.hideOverlays();
             }
             //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
+            //get the IntegerValue of the text field
+            numOfPlayers = Integer.valueOf(textField.getText());
             //add and register new PlayerCountCiew
-            PlayerCountView playerCountView = new PlayerCountView("playerCount", tronView, inputHandler);
+            PlayerCountView playerCountView = new PlayerCountView("playerCount", tronView, inputHandler, numOfPlayers);
             tronView.registerOverlay("playerCount", playerCountView);//Waiting for other PlayersView
             //init and show the overlay
             tronView.init();

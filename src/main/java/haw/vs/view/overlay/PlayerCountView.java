@@ -27,7 +27,7 @@ public class PlayerCountView extends VBox {
 //counter which counts the number of Players
     private int counter;
 
-    public PlayerCountView(String stylesheet, ITronView view, IPlayerInputHandler inputHandler) {
+    public PlayerCountView(String stylesheet, ITronView view, IPlayerInputHandler inputHandler, int numOfPlayers) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
@@ -40,7 +40,7 @@ public class PlayerCountView extends VBox {
         btnCount.setOnAction(event -> {
             counter++;
             labelCount.setText("Waiting for more players to join the game.\nThere are " + counter + " Players waiting.");
-            if(counter >=4){
+            if(counter >= numOfPlayers){
                 tronView.hideOverlays();
                 StartMenu startMenu = new StartMenu("menu.css", tronView);
                 tronView.registerOverlay("start", startMenu);
