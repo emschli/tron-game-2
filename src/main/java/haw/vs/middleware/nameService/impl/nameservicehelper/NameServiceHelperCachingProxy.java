@@ -1,7 +1,6 @@
 package haw.vs.middleware.nameService.impl.nameservicehelper;
 
 import haw.vs.middleware.nameService.api.INameServiceHelper;
-import haw.vs.middleware.nameService.impl.nameservicehelper.NameServiceHelper;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class NameServiceHelperCachingProxy implements INameServiceHelper {
     }
 
     @Override
-    public String lookup(long specificId) {
+    public String lookupSpecific(long specificId, String methodName) {
         return null;
     }
 }

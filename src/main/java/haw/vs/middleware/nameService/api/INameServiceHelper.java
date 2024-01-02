@@ -6,5 +6,5 @@ public interface INameServiceHelper {
     long bind(List<String> methodNames, int type);
     String lookup(String methodName);
     String lookup(String methodName, long stateId);
-    String lookup(long specificId);
+    String lookupSpecific(long specificId, String methodName);
 }

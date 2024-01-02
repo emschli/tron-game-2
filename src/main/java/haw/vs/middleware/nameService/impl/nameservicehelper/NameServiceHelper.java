@@ -21,7 +21,7 @@ public class NameServiceHelper implements INameServiceHelper {
     }
 
     @Override
-    public String lookup(long specificId) {
+    public String lookupSpecific(long specificId, String methodName) {
         return null;
     }
 }
