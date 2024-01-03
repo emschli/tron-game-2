@@ -9,18 +9,21 @@ import haw.vs.model.gamelogic.mock.MockGameStateProcessor;
 
 
 public class GameStateProcessorFactory {
-    public static IGameStateProcessor getGameStateProcessor() throws PropertiesException {
-        if (PropertiesHelper.isTest(ComponentType.GAME_LOGIC)) {
-            return new MockGameStateProcessor();
-        }
-        switch (PropertiesHelper.getAppType()) {
-            case STANDALONE -> {
-                return new GameStateProcessor(GameStateProcessedHandlerFactory.getGameStateProcessedHandler());
+    public static IGameStateProcessor getGameStateProcessor() {
+        try {
+            if (PropertiesHelper.isTest(ComponentType.GAME_LOGIC)) {
+                return new MockGameStateProcessor();
             }
-            default -> {
-               return new MockGameStateProcessor();
+            switch (PropertiesHelper.getAppType()) {
+                case STANDALONE -> {
+                    return new GameStateProcessor(GameStateProcessedHandlerFactory.getGameStateProcessedHandler());
+                }
+                default -> {
+                    return new MockGameStateProcessor();
+                }
             }
+        } catch (PropertiesException e) {
+            throw new RuntimeException(e);
         }
-
     }
 }
