@@ -1,6 +1,7 @@
 package haw.vs.middleware.clientStub.impl;
 
 import haw.vs.middleware.common.Pair;
+import haw.vs.middleware.common.exceptions.InvokeFailedException;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesException;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
 
@@ -26,14 +27,14 @@ public class Sender {
 
     }
 
-    public void sendSynchronouslyTcp(String sendTo, byte[] data) {
+    public void sendSynchronouslyTcp(String sendTo, byte[] data) throws InvokeFailedException {
         int serverport = 0;
         try {
             serverport = MiddlewarePropertiesHelper.getSynchronousTcpPort();
         } catch (MiddlewarePropertiesException e) {
             throw new RuntimeException(e);
         }
-        ; // TO CHANGE
+
         try (Socket socket = new Socket(InetAddress.getByName(sendTo), serverport)) {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
             try {

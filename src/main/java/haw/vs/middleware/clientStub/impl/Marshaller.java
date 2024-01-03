@@ -4,7 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import haw.vs.middleware.clientStub.api.IClientStub;
 import haw.vs.middleware.common.JsonRequest;
+import haw.vs.middleware.common.exceptions.InvokeFailedException;
+import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.impl.NameServiceFactory;
+import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 
 public class Marshaller extends Sender implements IClientStub {
 
@@ -30,7 +33,7 @@ public class Marshaller extends Sender implements IClientStub {
     }
 
     @Override
-    public void invoke(String methodName, Object[] args, int modus) {
+    public void invoke(String methodName, Object[] args, int modus) throws NameServiceException, InvokeFailedException {
         byte[] requestData = marshall(args, methodName);
         String serverAddress = nameServiceHelper.lookup(methodName);
         switch (modus) {
@@ -42,7 +45,7 @@ public class Marshaller extends Sender implements IClientStub {
     }
 
     @Override
-    public void invoke(String methodName, Object[] args, int modus, long stateId) {
+    public void invoke(String methodName, Object[] args, int modus, long stateId) throws NameServiceException, InvokeFailedException {
         byte[] requestData = marshall(args, methodName);
         String serverAddress = nameServiceHelper.lookup(methodName, stateId);
         switch (modus) {
@@ -55,9 +58,16 @@ public class Marshaller extends Sender implements IClientStub {
     }
 
     @Override
-    public void invokeSpecific(long specificId, String methodName, Object[] args, int modus) {
+    public void invokeSpecific(long specificId, String methodName, Object[] args, int modus) throws InvokeFailedException {
         byte[] requestData = marshall(args, methodName);
-        String specificServerAddress = nameServiceHelper.lookup(specificId);
+        String specificServerAddress = null;
+        try {
+            specificServerAddress = nameServiceHelper.lookupSpecific(methodName, specificId);
+        } catch (NameServiceException e) {
+
+            //TODO exception nach oben weiterleiten???
+            e.printStackTrace();
+        }
 
         switch (modus) {
             case 1 -> sendSynchronouslyTcp(specificServerAddress, requestData);
