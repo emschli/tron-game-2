@@ -10,8 +10,8 @@ public class MiddlewarePropertiesHelper {
     private static String SYNC_TCP_PORT = "sync_tcp_port";
     private static String ASYNC_TCP_PORT = "async_tcp_port";
     private static String ASYNC_UDP_PORT = "async_udp_port";
-    private static String NAME_SERVICE_PORT = "namservice_port";
-    private static String NAME_SERVICE_HOST= "namservice_host";
+    private static String NAME_SERVICE_PORT = "nameservice_port";
+    private static String NAME_SERVICE_HOST= "nameservice_host";
 
     private static Properties PROPERTIES = new Properties();
 
