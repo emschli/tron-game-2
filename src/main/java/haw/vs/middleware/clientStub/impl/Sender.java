@@ -5,8 +5,10 @@ import haw.vs.middleware.common.exceptions.InvokeFailedException;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesException;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -37,12 +39,22 @@ public class Sender {
 
         try (Socket socket = new Socket(InetAddress.getByName(sendTo), serverport)) {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             try {
                 outputStream.writeInt(data.length);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             outputStream.write(data);
+
+            //For Example "ok" or "error";
+            String response = in.readLine();
+            switch (response) {
+                case "ok" -> {
+                }
+                case "error" -> throw new InvokeFailedException("Method invokation has failed");
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
