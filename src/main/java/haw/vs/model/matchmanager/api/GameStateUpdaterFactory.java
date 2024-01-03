@@ -8,18 +8,22 @@ import haw.vs.model.matchmanager.mock.MockGameStateUpdater;
 import haw.vs.model.matchmanager.state.Matches;
 
 public class GameStateUpdaterFactory {
-    public static IGameStateUpdater getGameStateUpdater() throws PropertiesException {
-        if (PropertiesHelper.isTest(ComponentType.MATCH_MANAGER)) {
-            return new MockGameStateUpdater();
-        }
-
-        switch (PropertiesHelper.getAppType()) {
-            case STANDALONE -> {
-                return new GameStateUpdater(Matches.getInstance());
-            }
-            default -> {
+    public static IGameStateUpdater getGameStateUpdater() {
+        try {
+            if (PropertiesHelper.isTest(ComponentType.MATCH_MANAGER)) {
                 return new MockGameStateUpdater();
             }
+
+            switch (PropertiesHelper.getAppType()) {
+                case STANDALONE -> {
+                    return new GameStateUpdater(Matches.getInstance());
+                }
+                default -> {
+                    return new MockGameStateUpdater();
+                }
+            }
+        } catch (PropertiesException e) {
+            throw new RuntimeException(e);
         }
     }
 }

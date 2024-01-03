@@ -8,17 +8,21 @@ import haw.vs.controller.mock.MockInput;
 import haw.vs.model.matchmanager.api.MatchControllerFactory;
 
 public class InputFactory {
-    public static IInput getInput() throws PropertiesException {
-        if (PropertiesHelper.isTest(ComponentType.CONTROLLER)) {
-            return new MockInput();
-        }
-
-        switch (PropertiesHelper.getAppType()) {
-            case STANDALONE -> {
-                return new InputHandler(MatchControllerFactory.getMatchController());
-            } default -> {
+    public static IInput getInput() {
+        try {
+            if (PropertiesHelper.isTest(ComponentType.CONTROLLER)) {
                 return new MockInput();
             }
+
+            switch (PropertiesHelper.getAppType()) {
+                case STANDALONE -> {
+                    return new InputHandler(MatchControllerFactory.getMatchController());
+                } default -> {
+                    return new MockInput();
+                }
+            }
+        } catch (PropertiesException e) {
+            throw new RuntimeException(e);
         }
     }
 }
