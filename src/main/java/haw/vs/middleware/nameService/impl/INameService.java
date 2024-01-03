@@ -1,6 +1,7 @@
 package haw.vs.middleware.nameService.impl;
 
 import haw.vs.middleware.nameService.impl.exception.NameServiceBindException;
+import haw.vs.middleware.nameService.impl.exception.NameServiceLookupException;
 
 import java.util.List;
 

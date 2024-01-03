@@ -26,14 +26,14 @@ public class Marshaller extends Sender implements IClientStub {
     @Override
     public void invoke(String methodName, Object[] args, int modus) {
         byte[] requestData = marshall(args, methodName);
-        String serverAddress = nameServiceHelper.lookup(methodName);
+//        String serverAddress = nameServiceHelper.lookup(methodName);
         //TODO
     }
 
     @Override
     public void invoke(String methodName, Object[] args, int modus, long stateId) {
         byte[] requestData = marshall(args, methodName);
-        String serverAddress = nameServiceHelper.lookup(methodName, stateId);
+//        String serverAddress = nameServiceHelper.lookup(methodName, stateId);
         //TODO
     }
 

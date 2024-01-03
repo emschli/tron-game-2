@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
 
-import static haw.vs.middleware.nameService.common.NameServiceMethodTypes.*;
+import static haw.vs.middleware.nameService.common.NameServiceConstants.*;
 
 public class NameServiceThread implements Runnable {
     private final INameService nameService;
