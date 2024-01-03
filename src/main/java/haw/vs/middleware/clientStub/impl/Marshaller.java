@@ -4,17 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import haw.vs.middleware.clientStub.api.IClientStub;
 import haw.vs.middleware.common.JsonRequest;
-import haw.vs.middleware.nameService.api.INameService;
 import haw.vs.middleware.nameService.impl.NameServiceFactory;
 
 public class Marshaller extends Sender implements IClientStub {
 
-
-    private INameService nameService;
+    private INameServiceHelper nameServiceHelper;
     private ObjectMapper objectMapper;
 
-    public Marshaller(INameService nameService) {
-        this.nameService = nameService;
+    public Marshaller(INameServiceHelper nameServiceHelper) {
+        this.nameServiceHelper = nameServiceHelper;
         this.objectMapper = new ObjectMapper();
     }
 
@@ -34,7 +32,7 @@ public class Marshaller extends Sender implements IClientStub {
     @Override
     public void invoke(String methodName, Object[] args, int modus) {
         byte[] requestData = marshall(args, methodName);
-        String serverAddress = nameService.lookup(methodName);
+        String serverAddress = nameServiceHelper.lookup(methodName);
         switch (modus) {
             case 1 -> sendSynchronouslyTcp(serverAddress, requestData);
             case 2 -> sendAsynchronouslyTcp(serverAddress, requestData);
@@ -46,7 +44,7 @@ public class Marshaller extends Sender implements IClientStub {
     @Override
     public void invoke(String methodName, Object[] args, int modus, long stateId) {
         byte[] requestData = marshall(args, methodName);
-        String serverAddress = nameService.lookup(methodName, stateId);
+        String serverAddress = nameServiceHelper.lookup(methodName, stateId);
         switch (modus) {
             case 1 -> sendSynchronouslyTcp(serverAddress, requestData);
             case 2 -> sendAsynchronouslyTcp(serverAddress, requestData);
@@ -59,7 +57,7 @@ public class Marshaller extends Sender implements IClientStub {
     @Override
     public void invokeSpecific(long specificId, String methodName, Object[] args, int modus) {
         byte[] requestData = marshall(args, methodName);
-        String specificServerAddress = nameService.lookup(specificId);
+        String specificServerAddress = nameServiceHelper.lookup(specificId);
 
         switch (modus) {
             case 1 -> sendSynchronouslyTcp(specificServerAddress, requestData);
