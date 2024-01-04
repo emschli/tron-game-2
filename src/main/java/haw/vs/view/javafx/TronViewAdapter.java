@@ -5,6 +5,7 @@ import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.view.api.IView;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +17,9 @@ public class TronViewAdapter implements IView {
 
     private ITronView tronView;
 
-
+    public TronViewAdapter() throws IOException {
+        this.tronView = TronView.getInstance();
+    }
 
     @Override
     public void clear() {

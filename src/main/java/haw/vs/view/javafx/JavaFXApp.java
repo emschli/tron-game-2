@@ -3,13 +3,12 @@ package haw.vs.view.javafx;
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
-import haw.vs.view.overlay.GameModelTest;
-import haw.vs.view.overlay.MainMenu;
-import javafx.animation.AnimationTimer;
+import haw.vs.view.overlay.Looser;
+import haw.vs.view.overlay.MainMenuNew;
+import haw.vs.view.overlay.Winner;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class JavaFXApp extends Application {
@@ -24,22 +23,27 @@ public class JavaFXApp extends Application {
         tronView = TronView.getInstance();
         inputHandler = ViewFactory.getInputHandler();
 
-
-        // Build and register start menu
-        MainMenu mainMenu = new MainMenu("menu.css", tronView, inputHandler);
+        // Build and register main menu to put player count in the form
+        MainMenuNew mainMenu = new MainMenuNew("menu.css", tronView);
         tronView.registerOverlay("main", mainMenu);
 
-        // init view and show start menu
+        // Build and register winner menu to put player count in the form
+        Winner winnerMenu = new Winner("menu.css", tronView);
+        tronView.registerOverlay("winner", winnerMenu);
+
+        // Build and register looser menu to put player count in the form
+        Looser looserMenu = new Looser("menu.css", tronView);
+        tronView.registerOverlay("looser", looserMenu);
+
+        //init view
         tronView.init();
         tronView.showOverlay("main");
-
 
         // configure and show stage
         stage.setTitle("TRON - the best game ever");
         stage.setScene(tronView.getScene());
 
 
-        GameModelTest gameModelTest = new GameModelTest(40, 40);
         //set event handlers for user input
         tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -47,7 +51,7 @@ public class JavaFXApp extends Application {
                 inputHandler.onKeyPressed(event.getCode().toString());
             }
         });
-
+/**
 
         //Eigentlicher Game-Loop
         new AnimationTimer()
@@ -65,7 +69,7 @@ public class JavaFXApp extends Application {
                 }
             }
         }.start();
-
+*/
         stage.show();
     }
 

@@ -2,15 +2,16 @@ package haw.vs.view.api;
 
 import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
-import haw.vs.view.overlay.MainMenuNew;
 import haw.vs.view.overlay.PlayerCountViewNew;
+
+import java.io.IOException;
 
 import static haw.vs.view.javafx.TronView.tronView;
 
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;
 
-    public ViewFacade() {
+    public ViewFacade() throws IOException {
         this.tronViewAdapter = new TronViewAdapter();
     }
 
@@ -46,8 +47,8 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void showMainMenu() {
-        MainMenuNew mainMenu = new MainMenuNew("main", tronView);
-        tronView.registerOverlay("main", mainMenu);
+        //MainMenuNew mainMenu = new MainMenuNew("main", tronView);
+        //tronView.registerOverlay("main", mainMenu);
         tronViewAdapter.showOverlay("main");
     }
 

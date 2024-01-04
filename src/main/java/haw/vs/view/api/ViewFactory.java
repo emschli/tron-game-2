@@ -1,6 +1,5 @@
 package haw.vs.view.api;
 
-import haw.vs.view.mock.MockPlayerInputHandler;
 import haw.vs.view.mock.MockViewFacade;
 
 public class ViewFactory {
@@ -10,7 +9,7 @@ public class ViewFactory {
     }
     public static IPlayerInputHandler getInputHandler(){
         //return new PlayerInputHandler();
-        return new MockPlayerInputHandler();
+        return new PlayerInputHandler();
     }
 }
 
