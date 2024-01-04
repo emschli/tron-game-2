@@ -42,7 +42,8 @@ public class JavaFXApp extends Application {
 
         //init view
         tronView.init();
-        tronView.showOverlay("playerCount");
+        //test tronView.showOverlay("looser");
+
 
         // configure and show stage
         stage.setTitle("TRON - the best game ever");
@@ -54,6 +55,7 @@ public class JavaFXApp extends Application {
             @Override
             public void handle(KeyEvent event) {
                 inputHandler.onKeyPressed(event.getCode().toString());
+
             }
         });
 /**

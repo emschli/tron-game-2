@@ -21,7 +21,6 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void startGame(GameState gameState) {
-
         tronViewAdapter.showOverlay("main");
     }
 
@@ -35,6 +34,16 @@ public class ViewFacade implements IViewFacade {
         // for very color, draw the bike
         for (int i = 0; i < playerColors.size(); i++) {
             tronViewAdapter.draw(gameStateMap.get(playerColors.get(i)), playerColors.get(i));
+        }
+        //highlight the heads
+        //all bikes
+        List<List<Coordinate>> allBikes = gameStateMap.values().stream().collect(Collectors.toList());
+        //all heads
+        for (int i = 0; i < allBikes.size(); i++) {
+            int lenght = allBikes.get(i).size();
+            Coordinate head = allBikes.get(i).get(lenght-1);
+            //highlight them
+            tronViewAdapter.highlightCell(head.x, head.y);
         }
     }
 

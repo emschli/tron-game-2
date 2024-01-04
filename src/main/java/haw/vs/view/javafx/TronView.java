@@ -21,20 +21,6 @@ public class TronView extends edu.cads.bai5.vsp.tron.view.TronView implements IT
         //super(); ??
         tronView = new edu.cads.bai5.vsp.tron.view.TronView(configFile);
 
-
-
-
-
-/**
-        tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                System.out.println("huhu");
-                inputHandler.onKeyPressed(keyEvent.getText());
-            }
-        });
-*/
-
     }
 
 

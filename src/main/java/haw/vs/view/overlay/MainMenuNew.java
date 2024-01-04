@@ -20,6 +20,8 @@ import static haw.vs.view.javafx.TronView.tronView;
  * This Overlay is the Main Menu. The Player is asked about the PlayerCount (it should be within 1-4.
  * - If there is no Input given, there will be an altert/warning and the Player is asked to give an input again.
  * - If the input is correct, the overlay hides and the PlayerCountView-Overlay is shown.
+ * -> the input is saved in the PlayerInfo.noOfPlayers
+ * -> the InputHandler.onGameStart(noOfPlayers) is called
  */
 public class MainMenuNew extends VBox {
     private static final String BLOCKING_WARNING_ALERT = "This is a warning";
@@ -29,7 +31,6 @@ public class MainMenuNew extends VBox {
     private final Button btnJoin;
 
     private final TextField textField;
-
 
     public MainMenuNew(String stylesheet, ITronView view) {
         super(20.0);
