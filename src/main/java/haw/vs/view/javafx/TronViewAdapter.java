@@ -1,7 +1,6 @@
 package haw.vs.view.javafx;
 
 import edu.cads.bai5.vsp.tron.view.Coordinate;
-import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.view.api.IView;
 import javafx.scene.paint.Color;
 

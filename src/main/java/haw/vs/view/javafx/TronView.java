@@ -1,7 +1,6 @@
 package haw.vs.view.javafx;
 
 import edu.cads.bai5.vsp.tron.view.Coordinate;
-import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
 import haw.vs.view.overlay.Looser;
@@ -25,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class TronView implements ITronView {
+public class TronView implements haw.vs.view.javafx.ITronView {
     //theirs:
     private Scene scene;
     private Canvas gameBoard;
@@ -38,7 +37,7 @@ public class TronView implements ITronView {
     private Map<String, Node> overlays;
     private Color gameBoardBackgroundColor;
     //ours:
-    public static ITronView tronView;
+    public static haw.vs.view.javafx.ITronView tronView;
     public static IPlayerInputHandler inputHandler;
     public final static String VIEW_CONFIG_FILE = "view_custom.properties";
 
@@ -85,7 +84,6 @@ public class TronView implements ITronView {
     public static ITronView getInstance() {
         if(tronView == null){
             try {
-                System.out.println("ITronView getInstance");
                 tronView = new TronView(VIEW_CONFIG_FILE);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -114,7 +112,6 @@ public class TronView implements ITronView {
             tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
-                    System.out.println("HANDLE");
                     inputHandler.onKeyPressed(event.getCode().toString());
                 }
             });

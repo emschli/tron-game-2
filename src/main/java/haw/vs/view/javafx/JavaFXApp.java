@@ -1,6 +1,5 @@
 package haw.vs.view.javafx;
 
-import edu.cads.bai5.vsp.tron.view.ITronView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -1,7 +1,7 @@
 package haw.vs.view.overlay;
 
-import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
+import haw.vs.view.javafx.ITronView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

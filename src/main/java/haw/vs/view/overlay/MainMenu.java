@@ -1,8 +1,8 @@
 package haw.vs.view.overlay;
 
-import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
 import haw.vs.view.api.IPlayerInputHandler;
+import haw.vs.view.javafx.ITronView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
