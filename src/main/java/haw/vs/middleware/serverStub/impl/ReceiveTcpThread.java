@@ -1,5 +1,8 @@
 package haw.vs.middleware.serverStub.impl;
 
+import haw.vs.middleware.common.properties.MiddlewarePropertiesException;
+import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -8,7 +11,15 @@ import java.util.Arrays;
 
 public class ReceiveTcpThread implements Runnable {
     private ReceiveQueue receiveQueue;
-    private static final int TCP_PORT = 60124;
+    private static final int TCP_PORT;
+
+    static {
+        try {
+            TCP_PORT = MiddlewarePropertiesHelper.getAsynchronousTcpPort();
+        } catch (MiddlewarePropertiesException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public ReceiveTcpThread() {
         this.receiveQueue = ReceiveQueue.getInstance();

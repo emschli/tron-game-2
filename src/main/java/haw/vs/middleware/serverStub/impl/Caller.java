@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import haw.vs.middleware.common.JsonRequest;
 import haw.vs.middleware.nameService.impl.INameService;
 import haw.vs.middleware.nameService.impl.NameServiceFactory;
+import haw.vs.middleware.nameService.impl.exception.NameServiceException;
+import haw.vs.middleware.nameService.impl.nameservicehelper.NameServiceHelper;
 import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
 
@@ -15,7 +17,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Caller implements ICaller, Runnable {
-    private NameServiceFactory nameServiceFactory;
+    private NameServiceHelper nameServiceHelper;
     //private INameService nameService;
     private static Caller instance;
 
@@ -40,7 +42,7 @@ public class Caller implements ICaller, Runnable {
     }
 
     @Override
-    public void register(List<String> methodNames, ICallee callee, int type) {
+    public void register(List<String> methodNames, ICallee callee, int type) throws NameServiceException {
         lock.lock();
         try {
             for (String method : methodNames) {
@@ -49,8 +51,7 @@ public class Caller implements ICaller, Runnable {
         } finally {
             lock.unlock();
         }
-        //TODO shouldn't the type be given in the bind-method?
-        callee.setId(nameServiceFactory.getNameService().bind(methodNames));
+        callee.setId(nameServiceHelper.bind(methodNames, type));
     }
 
     @Override
@@ -72,10 +73,6 @@ public class Caller implements ICaller, Runnable {
         return NameServiceFactory.getNameService();
     }
 
-    public void setNameServiceFactory(NameServiceFactory nameServiceFactory) {
-        this.nameServiceFactory = nameServiceFactory;
-    }
-
     private void makeCall(JsonRequest request) {
         ICallee callee;
         lock.lock();
@@ -83,7 +80,7 @@ public class Caller implements ICaller, Runnable {
             //look whom to call
             callee = calleeMap.get(request.getMethod());
             // TODO zweiter Param!
-            callee.call(request.getMethod(), (String) request.getParams());
+            callee.call(request.getMethod(), request.getParams());
         } finally{
             lock.unlock();
         }
@@ -92,7 +89,6 @@ public class Caller implements ICaller, Runnable {
 
     @Override
     public void run() {
-        //TODO
         while (true) {
             //take stuff from receiveQueue
             byte[] data = receiveQueue.take();
