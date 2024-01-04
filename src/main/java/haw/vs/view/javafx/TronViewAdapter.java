@@ -28,12 +28,15 @@ public class TronViewAdapter implements IView {
 
     @Override
     public void draw(List<haw.vs.common.Coordinate> bike, String color) {
+        //convert "our" Coordinate to eduCoordinate
         List<Coordinate> coordinates = new LinkedList<>();
         for (int i = 0; i < bike.size(); i++) {
             Coordinate coordinate = new Coordinate(bike.get(i).x, bike.get(i).y);
             coordinates.add(coordinate);
         }
+        //convert String to Color
         Color bikeColor = Color.valueOf(color);
+        //draw the bikes:
         tronView.draw(coordinates, bikeColor);
     }
 
