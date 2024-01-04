@@ -58,25 +58,7 @@ public class JavaFXApp extends Application {
 
             }
         });
-/**
 
-        //Eigentlicher Game-Loop
-        new AnimationTimer()
-        {
-            private long lastUpdated = System.nanoTime();
-            @Override
-            public void handle(long now) {
-                double elapsedSeconds = (now - lastUpdated) / 1e9;
-
-                if (elapsedSeconds >= TARGET_FRAME_TIME) {
-                    gameModelTest.update();
-                    tronView.clear();
-                    tronView.draw(gameModelTest.getCurrentPosition(), Color.BEIGE);
-                    lastUpdated = now;
-                }
-            }
-        }.start();
-*/
         stage.show();
     }
 
