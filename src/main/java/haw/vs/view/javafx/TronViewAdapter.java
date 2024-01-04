@@ -15,7 +15,7 @@ import java.util.List;
 public class TronViewAdapter implements IView {
 
 
-    private ITronView tronView;
+    private final ITronView tronView;
 
     public TronViewAdapter() throws IOException {
         this.tronView = TronView.getInstance();
@@ -29,6 +29,10 @@ public class TronViewAdapter implements IView {
     @Override
     public void draw(List<haw.vs.common.Coordinate> bike, String color) {
         List<Coordinate> coordinates = new LinkedList<>();
+        for (int i = 0; i < bike.size(); i++) {
+            Coordinate coordinate = new Coordinate(bike.get(i).x, bike.get(i).y);
+            coordinates.add(coordinate);
+        }
         Color bikeColor = Color.valueOf(color);
         tronView.draw(coordinates, bikeColor);
     }
