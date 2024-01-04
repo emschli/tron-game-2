@@ -50,13 +50,16 @@ public class Caller implements ICaller, Runnable {
         } finally {
             lock.unlock();
         }
-        //
+        //TODO shouldn't the type be given in the bind-method?
         callee.setId(nameServiceFactory.getNameService().bind(methodNames));
     }
 
     @Override
     public void callSynchronously(byte[] data) {
-        //TODO
+        JsonRequest request = unmarshall(data);
+        ICallee callee = getCallee(request.getMethod());
+        //TODO - was bekommt call nun übergeben?
+        callee.call(request.getMethod(), (String) request.getParams());
     }
 
     private JsonRequest unmarshall(byte[] data) {
@@ -74,6 +77,17 @@ public class Caller implements ICaller, Runnable {
 
     public void setNameServiceFactory(NameServiceFactory nameServiceFactory) {
         this.nameServiceFactory = nameServiceFactory;
+    }
+
+    private ICallee getCallee(String methodName) {
+        ICallee callee;
+        lock.lock();
+        try {
+            callee = calleeMap.get(methodName);
+        } finally{
+            lock.unlock();
+        }
+        return callee;
     }
 
     @Override
