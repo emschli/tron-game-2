@@ -5,6 +5,7 @@ import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
 import haw.vs.view.overlay.Looser;
 import haw.vs.view.overlay.MainMenuNew;
+import haw.vs.view.overlay.PlayerCountViewNew;
 import haw.vs.view.overlay.Winner;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -27,6 +28,10 @@ public class JavaFXApp extends Application {
         MainMenuNew mainMenu = new MainMenuNew("menu.css", tronView);
         tronView.registerOverlay("main", mainMenu);
 
+        // Build and register main menu to put player count in the form
+        PlayerCountViewNew playerCountView = new PlayerCountViewNew("menu.css", tronView, 1,2);
+        tronView.registerOverlay("playerCount", playerCountView);
+
         // Build and register winner menu to put player count in the form
         Winner winnerMenu = new Winner("menu.css", tronView);
         tronView.registerOverlay("winner", winnerMenu);
@@ -37,7 +42,7 @@ public class JavaFXApp extends Application {
 
         //init view
         tronView.init();
-
+        tronView.showOverlay("playerCount");
 
         // configure and show stage
         stage.setTitle("TRON - the best game ever");

@@ -29,8 +29,8 @@ public class PlayerCountViewNew extends VBox {
         this.setAlignment(Pos.CENTER);
         this.counter = actualNumOfPlayers;
 
-        labelCount = new Label("Waiting for more players to join the game.\nThere are already" + counter + " of " +
-                targetNumOfPlayers + " Players. \n");
+        labelCount = new Label("Waiting for more players to join the game.\nThere are already " + counter + " of " +
+                targetNumOfPlayers + " Players ready. \n");
         labelCount.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
         //Add the button to cancel/go back to main menu
