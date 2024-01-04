@@ -10,6 +10,7 @@ public class PlayerInfo {
     private static long matchId;
 
     private static int noOfPlayers;
+    private static int actualNoOfPlayers;
 
     private static final long ONE = 1;
 
@@ -31,6 +32,9 @@ public class PlayerInfo {
     public static int getNoOfPlayers() {
         return noOfPlayers;
     }
+    public static int getActualNoOfPlayers() {
+        return noOfPlayers;
+    }
 
     public static void setPlayerId(long playerId) {
         PlayerInfo.playerId = playerId;
@@ -42,6 +46,10 @@ public class PlayerInfo {
 
     public static void setNoOfPlayers(int noOfPlayers) {
         PlayerInfo.noOfPlayers = noOfPlayers;
+    }
+
+    public static void setActualNoOfPlayers(int actualNoOfPlayers) {
+        PlayerInfo.actualNoOfPlayers = actualNoOfPlayers;
     }
 }
 

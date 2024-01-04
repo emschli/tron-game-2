@@ -2,6 +2,7 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
+import haw.vs.view.api.PlayerInfo;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,14 +24,14 @@ public class PlayerCountViewNew extends VBox {
     //counter which counts the number of Players
     private int counter;
 
-    public PlayerCountViewNew(String stylesheet, ITronView view, int actualNumOfPlayers, int targetNumOfPlayers) {
+    public PlayerCountViewNew(String stylesheet, ITronView view, int actualNumOfPlayers) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
         this.counter = actualNumOfPlayers;
 
         labelCount = new Label("Waiting for more players to join the game.\nThere are already " + counter + " of " +
-                targetNumOfPlayers + " Players ready. \n");
+                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
         labelCount.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
         //Add the button to cancel/go back to main menu

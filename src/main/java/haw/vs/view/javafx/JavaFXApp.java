@@ -15,8 +15,6 @@ import javafx.stage.Stage;
 public class JavaFXApp extends Application {
     public ITronView tronView;
     IPlayerInputHandler inputHandler; //TODO eigentlich hat die JavaFXApp das nicht sondern die TronView!
-    private final double TARGET_FPS = 60.0;
-    private final double TARGET_FRAME_TIME = 1.0 / TARGET_FPS;
 
 
     @Override
@@ -29,7 +27,7 @@ public class JavaFXApp extends Application {
         tronView.registerOverlay("main", mainMenu);
 
         // Build and register main menu to put player count in the form
-        PlayerCountViewNew playerCountView = new PlayerCountViewNew("menu.css", tronView, 1,2);
+        PlayerCountViewNew playerCountView = new PlayerCountViewNew("menu.css", tronView, 1);
         tronView.registerOverlay("playerCount", playerCountView);
 
         // Build and register winner menu to put player count in the form
@@ -60,6 +58,7 @@ public class JavaFXApp extends Application {
         });
 
         stage.show();
+        tronView.showOverlay("playerCount");
     }
 
     public static void main(String[] args) {

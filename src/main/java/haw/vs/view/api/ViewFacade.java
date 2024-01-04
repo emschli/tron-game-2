@@ -3,14 +3,11 @@ package haw.vs.view.api;
 import haw.vs.common.Coordinate;
 import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
-import haw.vs.view.overlay.PlayerCountViewNew;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static haw.vs.view.javafx.TronView.tronView;
 
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;
@@ -62,8 +59,8 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
-        PlayerCountViewNew playerCountView = new PlayerCountViewNew("playerCount", tronView, playerCount, targetPlayerCount);
-        tronView.registerOverlay("playerCount", playerCountView);
+        PlayerInfo.setNoOfPlayers(targetPlayerCount);
+        PlayerInfo
         tronViewAdapter.showOverlay("playerCount");
     }
 
