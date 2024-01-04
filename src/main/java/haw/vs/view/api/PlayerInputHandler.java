@@ -29,6 +29,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onKeyPressed(String pressedKey) {
+        System.out.println("Hilfsausgabe im PlayerInputHandler. Pressed Key: "+ pressedKey );
         inputController.handleGameAction(getPlayerId(), getDirectionFromString(pressedKey));
     }
 
