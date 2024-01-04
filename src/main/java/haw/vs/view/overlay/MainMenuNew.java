@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import static haw.vs.view.javafx.TronView.inputHandler;
-import static haw.vs.view.javafx.TronView.tronView;
 
 /**
  * This Overlay is the Main Menu. The Player is asked about the PlayerCount (it should be within 1-4.
@@ -67,7 +66,7 @@ public class MainMenuNew extends VBox {
                 });
             } else {
                 //if the value is allowed, the overlay hides
-                tronView.hideOverlays();
+                view.hideOverlays(); //TODO löschen ?
             }
             //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
             //get the IntegerValue of the text field
@@ -76,7 +75,7 @@ public class MainMenuNew extends VBox {
             inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
         });
         //add all the elements in the MainMenu View
-//TODO view oder tronView??
+
         this.getChildren().add(labelMain);
         this.getChildren().add(textField);
         this.getChildren().add(btnJoin);
