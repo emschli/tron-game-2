@@ -7,9 +7,9 @@ import haw.vs.middleware.nameService.api.INameService;
 import haw.vs.middleware.nameService.impl.NameServiceFactory;
 import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
-import haw.vs.middleware.serverStub.api.IServerStub;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -41,13 +41,17 @@ public class Caller implements ICaller, Runnable {
     }
 
     @Override
-    public void register(String methodName, ICallee callee, int type) {
+    public void register(List<String> methodNames, ICallee callee, int type) {
         lock.lock();
         try {
-            calleeMap.put(methodName, callee);
+            for (String method : methodNames) {
+                calleeMap.put(method, callee);
+            }
         } finally {
             lock.unlock();
         }
+        //
+        callee.setId(nameServiceFactory.getNameService().bind(methodNames));
     }
 
     @Override
@@ -75,5 +79,17 @@ public class Caller implements ICaller, Runnable {
     @Override
     public void run() {
         //TODO
+        while (true) {
+            //take stuff from receiveQueue
+            byte[] data = receiveQueue.take();
+            //process it
+            JsonRequest request = unmarshall(data);
+            String methodname = request.getMethod();
+            // look in map, whom to call
+            //TODO schützen!
+            ICallee callee = calleeMap.get(methodname);
+            callee.call(methodname, request.getParams().toString());
+            //schützen ende
+        }
     }
 }

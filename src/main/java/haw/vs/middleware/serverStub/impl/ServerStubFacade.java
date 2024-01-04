@@ -4,6 +4,8 @@ import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
+import java.util.List;
+
 public class ServerStubFacade implements IServerStub {
     private ICaller caller;
 
@@ -12,7 +14,7 @@ public class ServerStubFacade implements IServerStub {
     }
 
     @Override
-    public void register(String methodName, ICallee callee, int type) {
-        caller.register(methodName, callee, type);
+    public void register(List<String> methodNames, ICallee callee, int type) {
+        caller.register(methodNames, callee, type);
     }
 }
