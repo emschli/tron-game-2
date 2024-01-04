@@ -1,11 +1,17 @@
 package haw.vs.view.javafx;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
+import haw.vs.common.Coordinate;
+import haw.vs.common.GameState;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.IViewFacade;
 import haw.vs.view.api.ViewFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TronView extends edu.cads.bai5.vsp.tron.view.TronView implements ITronView {
     public static ITronView tronView;
@@ -18,6 +24,9 @@ public class TronView extends edu.cads.bai5.vsp.tron.view.TronView implements IT
         this.viewFacade = ViewFactory.getView();
         //super(); ??
         tronView = new edu.cads.bai5.vsp.tron.view.TronView(configFile);
+
+
+
 
     }
 

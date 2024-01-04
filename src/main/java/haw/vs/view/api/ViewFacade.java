@@ -4,7 +4,6 @@ import haw.vs.common.Coordinate;
 import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;
 
-    public ViewFacade() throws IOException {
+    public ViewFacade() {
         this.tronViewAdapter = new TronViewAdapter();
     }
 

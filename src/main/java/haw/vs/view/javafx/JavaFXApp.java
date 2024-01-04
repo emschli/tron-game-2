@@ -40,7 +40,7 @@ public class JavaFXApp extends Application {
 
         //init view
         tronView.init();
-        //test tronView.showOverlay("looser");
+        //test tronView.showOverlay("playerCount");
 
 
         // configure and show stage
@@ -58,7 +58,6 @@ public class JavaFXApp extends Application {
         });
 
         stage.show();
-        tronView.showOverlay("playerCount");
     }
 
     public static void main(String[] args) {
