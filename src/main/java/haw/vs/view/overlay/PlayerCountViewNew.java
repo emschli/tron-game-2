@@ -38,7 +38,6 @@ public class PlayerCountViewNew extends VBox {
         btnCancel.setOnAction(event -> {
             //call method in PlayerInputHandler to cancel the process of waiting and leave the (future) match
             inputHandler.onCancel();
-
         });
 
         //add all the elements to the overlay
