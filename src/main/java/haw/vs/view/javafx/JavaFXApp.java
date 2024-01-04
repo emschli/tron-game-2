@@ -27,7 +27,7 @@ public class JavaFXApp extends Application {
         tronView.registerOverlay("main", mainMenu);
 
         // Build and register main menu to put player count in the form
-        PlayerCountViewNew playerCountView = new PlayerCountViewNew("menu.css", tronView, 1);
+        PlayerCountViewNew playerCountView = new PlayerCountViewNew("menu.css", tronView);
         tronView.registerOverlay("playerCount", playerCountView);
 
         // Build and register winner menu to put player count in the form

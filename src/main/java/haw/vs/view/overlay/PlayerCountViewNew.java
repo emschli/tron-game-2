@@ -24,11 +24,11 @@ public class PlayerCountViewNew extends VBox {
     //counter which counts the number of Players
     private int counter;
 
-    public PlayerCountViewNew(String stylesheet, ITronView view, int actualNumOfPlayers) {
+    public PlayerCountViewNew(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
-        this.counter = actualNumOfPlayers;
+        this.counter = PlayerInfo.getActualNoOfPlayers();
 
         labelCount = new Label("Waiting for more players to join the game.\nThere are already " + counter + " of " +
                 PlayerInfo.getNoOfPlayers() + " Players ready. \n");

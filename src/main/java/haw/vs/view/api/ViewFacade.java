@@ -60,7 +60,7 @@ public class ViewFacade implements IViewFacade {
     @Override
     public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
         PlayerInfo.setNoOfPlayers(targetPlayerCount);
-        PlayerInfo
+        PlayerInfo.setActualNoOfPlayers(playerCount);
         tronViewAdapter.showOverlay("playerCount");
     }
 
