@@ -1,18 +1,25 @@
 package haw.vs.view.api;
 
+import haw.vs.common.Coordinate;
 import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
 import haw.vs.view.overlay.PlayerCountViewNew;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static haw.vs.view.javafx.TronView.tronView;
 
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;
 
+    private final PlayerInfo playerInfo;
+
     public ViewFacade() throws IOException {
         this.tronViewAdapter = new TronViewAdapter();
+        this.playerInfo = new PlayerInfo();
     }
 
     @Override
@@ -23,6 +30,14 @@ public class ViewFacade implements IViewFacade {
     @Override
     public void update(GameState gameState) {
 
+        //all colors with their bikes
+        Map<String, List<Coordinate>> gameStateMap = gameState.getPlayerPositionMap();
+        // all colors
+        List<String> playerColors = gameStateMap.keySet().stream().collect(Collectors.toList());
+        // for very color, draw the bike
+        for (int i = 0; i < playerColors.size(); i++) {
+            tronViewAdapter.draw(gameStateMap.get(playerColors.get(i)), playerColors.get(i));
+        }
     }
 
     @Override
