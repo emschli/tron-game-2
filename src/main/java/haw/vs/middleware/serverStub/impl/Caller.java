@@ -57,9 +57,7 @@ public class Caller implements ICaller, Runnable {
     @Override
     public void callSynchronously(byte[] data) {
         JsonRequest request = unmarshall(data);
-        ICallee callee = getCallee(request.getMethod());
-        //TODO - was bekommt call nun übergeben?
-        callee.call(request.getMethod(), (String) request.getParams());
+        makeCall(request);
     }
 
     private JsonRequest unmarshall(byte[] data) {
@@ -79,15 +77,17 @@ public class Caller implements ICaller, Runnable {
         this.nameServiceFactory = nameServiceFactory;
     }
 
-    private ICallee getCallee(String methodName) {
+    private void makeCall(JsonRequest request) {
         ICallee callee;
         lock.lock();
         try {
-            callee = calleeMap.get(methodName);
+            //look whom to call
+            callee = calleeMap.get(request.getMethod());
+            // TODO zweiter Param!
+            callee.call(request.getMethod(), (String) request.getParams());
         } finally{
             lock.unlock();
         }
-        return callee;
     }
 
     @Override
@@ -98,12 +98,7 @@ public class Caller implements ICaller, Runnable {
             byte[] data = receiveQueue.take();
             //process it
             JsonRequest request = unmarshall(data);
-            String methodname = request.getMethod();
-            // look in map, whom to call
-            //TODO schützen!
-            ICallee callee = calleeMap.get(methodname);
-            callee.call(methodname, request.getParams().toString());
-            //schützen ende
+            makeCall(request);
         }
     }
 }
