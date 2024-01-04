@@ -9,6 +9,8 @@ public class PlayerInfo {
 
     private static long matchId;
 
+    private static int noOfPlayers;
+
     private static final long ONE = 1;
 
     /**
@@ -22,17 +24,24 @@ public class PlayerInfo {
         return playerId;
     }
 
-    public static void setPlayerId(long playerId) {
-        PlayerInfo.playerId = playerId;
-    }
-
     public static long getMatchId() {
         return matchId;
+    }
+
+    public static int getNoOfPlayers() {
+        return noOfPlayers;
+    }
+
+    public static void setPlayerId(long playerId) {
+        PlayerInfo.playerId = playerId;
     }
 
     public static void setMatchId(long matchId) {
         PlayerInfo.matchId = matchId;
     }
 
+    public static void setNoOfPlayers(int noOfPlayers) {
+        PlayerInfo.noOfPlayers = noOfPlayers;
+    }
 }
 

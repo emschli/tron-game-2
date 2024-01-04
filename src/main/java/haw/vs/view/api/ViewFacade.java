@@ -15,16 +15,14 @@ import static haw.vs.view.javafx.TronView.tronView;
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;
 
-    private final PlayerInfo playerInfo;
-
     public ViewFacade() throws IOException {
         this.tronViewAdapter = new TronViewAdapter();
-        this.playerInfo = new PlayerInfo();
     }
 
     @Override
     public void startGame(GameState gameState) {
-//TODO ja hier ist noch was zu tun
+
+        tronViewAdapter.showOverlay("main");
     }
 
     @Override
@@ -62,13 +60,12 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void showMainMenu() {
-        //MainMenuNew mainMenu = new MainMenuNew("main", tronView);
-        //tronView.registerOverlay("main", mainMenu);
+
         tronViewAdapter.showOverlay("main");
     }
 
     @Override
     public void setMatchId(long matchId) {
-        //TODO ??? wo ist denn die PlayerInfo überhaupt? muss die view das machen?
+        PlayerInfo.setMatchId(matchId);
     }
 }

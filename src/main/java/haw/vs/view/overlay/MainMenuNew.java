@@ -2,6 +2,7 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
+import haw.vs.view.api.PlayerInfo;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -22,14 +23,12 @@ import static haw.vs.view.javafx.TronView.tronView;
  */
 public class MainMenuNew extends VBox {
     private static final String BLOCKING_WARNING_ALERT = "This is a warning";
-    private static final int ACTUAL_NUM_OF_PLAYERS = 1;
 
     private final Label labelMain;
     private final Label feedbackLbl;
     private final Button btnJoin;
 
     private final TextField textField;
-    private Integer numOfPlayers;
 
 
     public MainMenuNew(String stylesheet, ITronView view) {
@@ -71,9 +70,9 @@ public class MainMenuNew extends VBox {
             }
             //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
             //get the IntegerValue of the text field
-            numOfPlayers = Integer.valueOf(textField.getText());
+            PlayerInfo.setNoOfPlayers(Integer.valueOf(textField.getText()));
             //use PlayerInputHandler
-            inputHandler.onGameStart(numOfPlayers);
+            inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
         });
         //add all the elements in the MainMenu View
 //TODO view oder tronView??
