@@ -3,7 +3,7 @@ package haw.vs.middleware.serverStub.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import haw.vs.middleware.common.JsonRequest;
-import haw.vs.middleware.nameService.api.INameService;
+import haw.vs.middleware.nameService.impl.INameService;
 import haw.vs.middleware.nameService.impl.NameServiceFactory;
 import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
@@ -15,11 +15,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Caller implements ICaller, Runnable {
-
-
     private NameServiceFactory nameServiceFactory;
     //private INameService nameService;
     private static Caller instance;
+
     private Map<String, ICallee> calleeMap;
     private Lock lock;
     private ObjectMapper objectMapper;
@@ -70,7 +69,7 @@ public class Caller implements ICaller, Runnable {
     }
 
     private INameService getNameService() {
-        return nameServiceFactory.getNameService();
+        return NameServiceFactory.getNameService();
     }
 
     public void setNameServiceFactory(NameServiceFactory nameServiceFactory) {
@@ -89,6 +88,7 @@ public class Caller implements ICaller, Runnable {
             lock.unlock();
         }
     }
+
 
     @Override
     public void run() {
