@@ -1,22 +1,22 @@
 package haw.vs.view.javafx;
 
 import edu.cads.bai5.vsp.tron.view.Coordinate;
+import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.view.api.IView;
 import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static haw.vs.view.javafx.TronView.tronView;
-
 /**
  * Unser Adapter, der die Methoden des Interfaces ITronView benutzt um unsere Methoden umzusetzen
  */
 public class TronViewAdapter implements IView {
 
-
+    private ITronView tronView;
 
     public TronViewAdapter(){
+        this.tronView = TronView.getInstance();
     }
 
     @Override

@@ -3,7 +3,6 @@ package haw.vs.view.javafx;
 import edu.cads.bai5.vsp.tron.view.Coordinate;
 import edu.cads.bai5.vsp.tron.view.ITronView;
 import haw.vs.view.api.IPlayerInputHandler;
-import haw.vs.view.api.IViewFacade;
 import haw.vs.view.api.ViewFactory;
 import haw.vs.view.overlay.Looser;
 import haw.vs.view.overlay.MainMenuNew;
@@ -41,7 +40,6 @@ public class TronView implements ITronView {
     //ours:
     public static ITronView tronView;
     public static IPlayerInputHandler inputHandler;
-    public static  IViewFacade viewFacade;
     public final static String VIEW_CONFIG_FILE = "view_custom.properties";
 
     //theirs:
@@ -50,13 +48,15 @@ public class TronView implements ITronView {
     }
 
     private TronView(String configFile) throws IOException, NumberFormatException {
+
         this(configFile, Color.BLUEVIOLET.darker().darker().darker().desaturate());
+
     }
 
     private TronView(String configFile, Color gameBoardBackgroundColor) throws IOException {
         //ours:
-        this.inputHandler = ViewFactory.getInputHandler();
-        this.viewFacade = ViewFactory.getView();
+        inputHandler = ViewFactory.getInputHandler();
+
         //theirs:
         this.gameBoardBackgroundColor = gameBoardBackgroundColor;
         Properties prop = new Properties();
@@ -78,12 +78,18 @@ public class TronView implements ITronView {
         base.getChildren().add(fog);
 
         this.scene = new Scene(base);
+
     }
 
 
-    public static ITronView getInstance() throws IOException {
+    public static ITronView getInstance() {
         if(tronView == null){
-            tronView = new TronView(VIEW_CONFIG_FILE);
+            try {
+                System.out.println("ITronView getInstance");
+                tronView = new TronView(VIEW_CONFIG_FILE);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             // Build and register main menu to put player count in the form
             MainMenuNew mainMenu = new MainMenuNew("menu.css", tronView);

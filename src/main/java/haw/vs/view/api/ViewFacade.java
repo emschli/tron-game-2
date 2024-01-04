@@ -65,7 +65,6 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void showMainMenu() {
-
         tronViewAdapter.showOverlay("main");
     }
 
