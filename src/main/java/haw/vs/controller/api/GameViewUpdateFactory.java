@@ -15,11 +15,10 @@ public class GameViewUpdateFactory {
             }
 
             switch (PropertiesHelper.getAppType()) {
-                case STANDALONE -> {
+                case STANDALONE:
                     return new GameViewUpdate(ViewFactory.getView());
-                } default -> {
+                default:
                     return new MockGameViewUpdate();
-                }
             }
         } catch (PropertiesException e) {
             throw new RuntimeException(e);

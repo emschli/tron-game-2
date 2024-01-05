@@ -15,12 +15,12 @@ public class InputFactory {
             }
 
             switch (PropertiesHelper.getAppType()) {
-                case STANDALONE -> {
+                case STANDALONE:
                     return new InputHandler(MatchControllerFactory.getMatchController());
-                } default -> {
+                default:
                     return new MockInput();
-                }
             }
+
         } catch (PropertiesException e) {
             throw new RuntimeException(e);
         }
