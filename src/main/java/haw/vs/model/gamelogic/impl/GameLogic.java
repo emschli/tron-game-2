@@ -48,10 +48,12 @@ public class GameLogic implements IGameLogic {
         p1.setCurrentDirection(Direction.DOWN);
         p1.setNextDirection(Direction.DOWN);
 
-        Player p2 = players.get(1);
-        p2.getTrace().add(new Coordinate(match.getMaxGridX() / 2, match.getMaxGridY()));
-        p2.setCurrentDirection(Direction.UP);
-        p2.setNextDirection(Direction.UP);
+        if (numberOfPlayers > 1) {
+            Player p2 = players.get(1);
+            p2.getTrace().add(new Coordinate(match.getMaxGridX() / 2, match.getMaxGridY()));
+            p2.setCurrentDirection(Direction.UP);
+            p2.setNextDirection(Direction.UP);
+        }
 
         if (numberOfPlayers >= 3) {
             Player p3 = players.get(2);
@@ -184,6 +186,11 @@ public class GameLogic implements IGameLogic {
      */
     private void checkMatchState(Match match) {
         int alivePlayerCount = match.getAlivePlayers().size();
+        // playing alone is possible, but you'll loose eventually
+        if (match.getNumberOfPlayers() == 1 && alivePlayerCount == 0) {
+            match.getPlayers().get(0).setState(PlayerState.DEAD);
+            match.setState(MatchState.ENDED);
+        }
         if (alivePlayerCount == 1) {
             match.getAlivePlayers().get(0).setState(PlayerState.WON);
         }
