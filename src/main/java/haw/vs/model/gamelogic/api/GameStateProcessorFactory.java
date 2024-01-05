@@ -15,12 +15,10 @@ public class GameStateProcessorFactory {
                 return new MockGameStateProcessor();
             }
             switch (PropertiesHelper.getAppType()) {
-                case STANDALONE -> {
+                case STANDALONE:
                     return new GameStateProcessor(GameStateProcessedHandlerFactory.getGameStateProcessedHandler());
-                }
-                default -> {
+                default:
                     return new MockGameStateProcessor();
-                }
             }
         } catch (PropertiesException e) {
             throw new RuntimeException(e);

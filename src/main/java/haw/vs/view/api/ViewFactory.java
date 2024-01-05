@@ -14,11 +14,8 @@ public class ViewFactory {
             }
 
             switch (PropertiesHelper.getAppType()) {
-                case STANDALONE -> {
-                    return new ViewFacade();
-                } default -> {
-                    return new MockViewFacade();
-                }
+                case STANDALONE : return new ViewFacade();
+                default: return new MockViewFacade();
             }
         } catch (PropertiesException e) {
             throw new RuntimeException(e);
