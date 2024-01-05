@@ -6,7 +6,6 @@ import haw.vs.middleware.common.JsonRequest;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.nameService.impl.nameservicehelper.NameServiceHelper;
 import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
 
