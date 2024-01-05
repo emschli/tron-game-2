@@ -19,8 +19,5 @@ public class JavaFXApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        JavaFXApp.launch(args);
-    }
 }
 
