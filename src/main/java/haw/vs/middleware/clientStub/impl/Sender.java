@@ -16,8 +16,6 @@ import java.net.UnknownHostException;
 public class Sender {
 
     private SendQueue sendQueue;
-    private Thread tcpThread;
-    private Thread udpThread;
 
     public Sender() {
         sendQueue = SendQueue.getSendQueue();

@@ -6,7 +6,6 @@ import haw.vs.middleware.clientStub.api.IClientStub;
 import haw.vs.middleware.common.JsonRequest;
 import haw.vs.middleware.common.exceptions.InvokeFailedException;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
-import haw.vs.middleware.nameService.impl.NameServiceFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 
 public class Marshaller extends Sender implements IClientStub {
