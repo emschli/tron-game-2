@@ -14,12 +14,10 @@ public class MatchControllerFactory {
                 return new MockMatchController();
             }
             switch (PropertiesHelper.getAppType()) {
-                case STANDALONE -> {
+                case STANDALONE:
                     return new MatchManager(Matches.getInstance());
-                }
-                default -> {
+                default :
                     return new MockMatchController();
-                }
             }
         } catch (PropertiesException e) {
             throw new RuntimeException(e);

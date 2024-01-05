@@ -12,6 +12,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 public class Matches {
     private static long MATCH_ID_COUNTER = 1;
@@ -105,7 +106,7 @@ public class Matches {
     public List<Match> getRunningMatches() {
         List<Match> matches;
         runningMatchesMutex.lock();
-        matches = runningMatches.values().stream().toList();
+        matches = runningMatches.values().stream().collect(Collectors.toList());
         runningMatchesMutex.unlock();
         return matches;
     }

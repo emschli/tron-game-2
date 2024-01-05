@@ -15,12 +15,10 @@ public class GameStateUpdaterFactory {
             }
 
             switch (PropertiesHelper.getAppType()) {
-                case STANDALONE -> {
+                case STANDALONE:
                     return new GameStateUpdater(Matches.getInstance());
-                }
-                default -> {
+                default:
                     return new MockGameStateUpdater();
-                }
             }
         } catch (PropertiesException e) {
             throw new RuntimeException(e);

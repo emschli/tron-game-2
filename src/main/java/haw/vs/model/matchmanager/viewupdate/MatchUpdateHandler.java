@@ -24,10 +24,17 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
     @Override
     public void updateView(Match match) {
         switch (match.getState()){
-            case READY -> startGame(match);
-            case RUNNING -> updateRunningGame(match);
-            case ENDED -> updateEndedGame(match);
-            default -> throw new IllegalArgumentException("Invalid Match State!");
+            case READY:
+                startGame(match);
+                break;
+            case RUNNING:
+                updateRunningGame(match);
+                break;
+            case ENDED:
+                updateEndedGame(match);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid Match State!");
         }
     }
 
@@ -58,11 +65,14 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
         IGameState gameState = GameStateCreator.createGameState(match);
         for (Player player : new ArrayList<>(match.getPlayers())) {
             switch (player.getState()) {
-                case DEAD -> {
+                case DEAD:
+                {
                     gameViewUpdate.playerLost(player.getPlayerId(), gameState);
                     match.removePlayer(player);
+                    break;
                 }
-                case PLAYING -> gameViewUpdate.updateView(player.getPlayerId(), gameState);
+                case PLAYING:
+                    gameViewUpdate.updateView(player.getPlayerId(), gameState);
             }
         }
     }
@@ -71,8 +81,11 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
         IGameState gameState = GameStateCreator.createGameState(match);
         for (Player player: match.getPlayers()) {
             switch (player.getState()) {
-                case DEAD -> gameViewUpdate.playerLost(player.getPlayerId(), gameState);
-                case WON -> gameViewUpdate.playerWon(player.getPlayerId(), gameState);
+                case DEAD:
+                    gameViewUpdate.playerLost(player.getPlayerId(), gameState);
+                    break;
+                case WON:
+                    gameViewUpdate.playerWon(player.getPlayerId(), gameState);
             }
         }
 

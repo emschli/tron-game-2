@@ -11,7 +11,7 @@ import javafx.application.Application;
 public class ViewApp implements IViewApp {
 
 
-    private ViewApp() {
+    public ViewApp() {
     }
 
 

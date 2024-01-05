@@ -5,12 +5,17 @@ public class Colors {
         if (playerNumber > Matches.MAX_NUMBER_OF_PLAYERS) {
             throw new IllegalArgumentException(String.format("Player number must be < %s, but is %s", Matches.MAX_NUMBER_OF_PLAYERS, playerNumber));
         }
-        return switch (playerNumber) {
-            case 1 -> "blue";
-            case 2 -> "red";
-            case 3 -> "green";
-            case 4 -> "yellow";
-            default -> null;
-        };
+        switch (playerNumber) {
+            case 1:
+                return "blue";
+            case 2:
+                return "red";
+            case 3:
+                return "green";
+            case 4:
+                return "yellow";
+            default:
+                return null;
+        }
     }
 }

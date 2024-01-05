@@ -39,7 +39,7 @@ public class TronView implements haw.vs.view.javafx.ITronView {
     //ours:
     public static haw.vs.view.javafx.ITronView tronView;
     public static IPlayerInputHandler inputHandler;
-    public final static String VIEW_CONFIG_FILE = "view_custom.properties";
+    public final static String VIEW_CONFIG_FILE = "app.properties";
 
     //theirs:
     private TronView() throws IOException, NumberFormatException {

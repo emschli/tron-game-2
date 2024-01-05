@@ -15,6 +15,7 @@ public class JavaFXApp extends Application {
         // configure and show stage
         stage.setTitle("TRON - the best game ever");
         stage.setScene(tronView.getScene());
+        tronView.showOverlay("main");
 
         stage.show();
     }
