@@ -45,7 +45,7 @@ public class Matches {
         menuEvents = new LinkedBlockingDeque<>(200); //TODO: capacity ok?
     }
 
-    public static Matches getInstance() {
+    public static synchronized Matches getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Matches();
         }

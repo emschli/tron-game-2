@@ -81,7 +81,7 @@ public class TronView implements haw.vs.view.javafx.ITronView {
     }
 
 
-    public static ITronView getInstance() {
+    public static synchronized ITronView getInstance() {
         if(tronView == null){
             try {
                 tronView = new TronView(VIEW_CONFIG_FILE);

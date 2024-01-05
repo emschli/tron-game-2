@@ -17,7 +17,7 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void startGame(IGameState gameState) {
-        tronViewAdapter.showOverlay("main");
+        tronViewAdapter.hideOverlay();
     }
 
     @Override
@@ -58,6 +58,7 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
+        tronViewAdapter.hideOverlay();
         PlayerInfo.setNoOfPlayers(targetPlayerCount);
         PlayerInfo.setActualNoOfPlayers(playerCount);
         tronViewAdapter.showOverlay("playerCount");

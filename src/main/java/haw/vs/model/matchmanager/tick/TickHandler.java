@@ -8,7 +8,7 @@ public class TickHandler implements ITickHandler {
     private final Matches matches;
     private final IGameStateProcessor gameStateProcessor;
 
-    private static final int TICKS_PER_SECOND = 30;
+    private static final int TICKS_PER_SECOND = 7;
     private static final long TICK_LENGTH = 1000 / TICKS_PER_SECOND;
     private static final long INPUT_INTERVAL = TICK_LENGTH / 2;
     private static final float MARGIN_PERCENTAGE = 0.2f;

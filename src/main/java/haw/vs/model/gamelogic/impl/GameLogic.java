@@ -13,8 +13,9 @@ import java.util.*;
 public class GameLogic implements IGameLogic {
 
     private final IGameStateProcessedHandler gameStateProcessedHandler;
-    private static int MAX_X = 500;
-    private static int MAX_Y = 500;
+    //TODO: aus Config auslesen
+    private static int MAX_X = 40;
+    private static int MAX_Y = 40;
 
     public GameLogic(IGameStateProcessedHandler gameStateProcessedHandler) {
         this.gameStateProcessedHandler = gameStateProcessedHandler;
@@ -98,21 +99,17 @@ public class GameLogic implements IGameLogic {
     private Coordinate getNextCoordinate(Direction going, Coordinate head) {
         switch (going) {
             case UP:
-                head.add(new Coordinate(0, -1)); // y--
-                break;
+                return head.add(new Coordinate(0, -1)); // y--
             case DOWN:
-                head.add(new Coordinate(0, 1)); // y++
-                break;
+                return head.add(new Coordinate(0, 1)); // y++
             case LEFT:
-                head.add(new Coordinate(-1, 0)); // x--
-                break;
+                return head.add(new Coordinate(-1, 0)); // x--
             case RIGHT:
-                head.add(new Coordinate(1, 0)); // x++
-                break;
+                return head.add(new Coordinate(1, 0)); // x++
             default:
+                throw new RuntimeException("No Valid Direction");
                 // Handle default case here if needed
                 // head.add(new Coordinate(0, 0));
-                break;
         }
 
 //        return switch (going) {
@@ -122,7 +119,6 @@ public class GameLogic implements IGameLogic {
 //            case RIGHT -> head.add(new Coordinate(1, 0)); // x++
 //            //default -> new Coordinate(0, 0);
 //        };
-        return head;
     }
 
     /**
@@ -207,15 +203,19 @@ public class GameLogic implements IGameLogic {
     private void checkMatchState(Match match) {
         int alivePlayerCount = match.getAlivePlayers().size();
         // playing alone is possible, but you'll loose eventually
-        if (match.getNumberOfPlayers() == 1 && alivePlayerCount == 0) {
-            match.getPlayers().get(0).setState(PlayerState.DEAD);
-            match.setState(MatchState.ENDED);
+        if (match.getNumberOfPlayers() == 1) {
+            if (alivePlayerCount == 0) {
+                match.getPlayers().get(0).setState(PlayerState.DEAD);
+                match.setState(MatchState.ENDED);
+            }
+        } else {
+                if (alivePlayerCount == 1) {
+                    match.getAlivePlayers().get(0).setState(PlayerState.WON);
+                }
+                if (alivePlayerCount <= 1) {
+                    match.setState(MatchState.ENDED);
+                }
         }
-        if (alivePlayerCount == 1) {
-            match.getAlivePlayers().get(0).setState(PlayerState.WON);
-        }
-        if (alivePlayerCount <= 1) {
-            match.setState(MatchState.ENDED);
-        }
+
     }
 }
