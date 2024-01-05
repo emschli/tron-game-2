@@ -1,7 +1,7 @@
 package haw.vs.view.api;
 
 import haw.vs.common.Coordinate;
-import haw.vs.common.GameState;
+import haw.vs.common.IGameState;
 import haw.vs.view.javafx.TronViewAdapter;
 
 import java.util.List;
@@ -16,12 +16,12 @@ public class ViewFacade implements IViewFacade {
     }
 
     @Override
-    public void startGame(GameState gameState) {
+    public void startGame(IGameState gameState) {
         tronViewAdapter.showOverlay("main");
     }
 
     @Override
-    public void update(GameState gameState) {
+    public void update(IGameState gameState) {
 
         //all colors with their bikes
         Map<String, List<Coordinate>> gameStateMap = gameState.getPlayerPositionMap();
@@ -44,14 +44,14 @@ public class ViewFacade implements IViewFacade {
     }
 
     @Override
-    public void playerLost(GameState gameState) {
+    public void playerLost(IGameState gameState) {
         update(gameState);
         tronViewAdapter.showOverlay("looser");
 
     }
 
     @Override
-    public void playerWon(GameState gameState) {
+    public void playerWon(IGameState gameState) {
         update(gameState);
         tronViewAdapter.showOverlay("winner");
     }

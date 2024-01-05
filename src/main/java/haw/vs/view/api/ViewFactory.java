@@ -3,7 +3,7 @@ package haw.vs.view.api;
 import haw.vs.common.properties.ComponentType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
-import haw.vs.view.mock.MockPlayerInputHandler;
+import haw.vs.controller.api.InputFactory;
 import haw.vs.view.mock.MockViewFacade;
 
 public class ViewFactory {
@@ -25,8 +25,8 @@ public class ViewFactory {
         }
 
     }
+
     public static IPlayerInputHandler getInputHandler(){
-        //return new PlayerInputHandler();
-        return new MockPlayerInputHandler();
+        return new PlayerInputHandler(InputFactory.getInput());
     }
 }

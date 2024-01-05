@@ -4,9 +4,8 @@ package haw.vs.view.api;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.controller.api.IInput;
-import haw.vs.controller.mock.MockInput;
 
-import static haw.vs.view.api.PlayerInfo.getPlayerId;
+import static haw.vs.view.api.PlayerInfo.*;
 
 /**
  * Klasse die die Player Inputs verarbeitet und dem Controller Bescheid gibt
@@ -15,8 +14,8 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     private IInput inputController;
 
-    public PlayerInputHandler() {
-        this.inputController = new MockInput();
+    public PlayerInputHandler(IInput inputController) {
+        this.inputController = inputController;
     }
 
     @Override
@@ -29,7 +28,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
     @Override
     public void onKeyPressed(String pressedKey) {
                 System.out.println("Hilfsausgabe im PlayerInputHandler. Pressed Key: "+ pressedKey );
-        inputController.handleGameAction(getPlayerId(), getDirectionFromString(pressedKey));
+        inputController.handleGameAction(getPlayerId(), getMatchId() , getDirectionFromString(pressedKey));
     }
 
     @Override
