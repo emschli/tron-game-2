@@ -15,8 +15,7 @@ public class ViewFactory {
 
             switch (PropertiesHelper.getAppType()) {
                 case STANDALONE -> {
-                    //return new ViewFacade(); TODO
-                    return null;
+                    return new ViewFacade();
                 } default -> {
                     return new MockViewFacade();
                 }
