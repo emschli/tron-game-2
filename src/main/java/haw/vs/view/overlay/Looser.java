@@ -8,8 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import static haw.vs.view.javafx.TronView.inputHandler;
-
 /**
  * Just a Menu to have a button which has to be klicked before the game starts
  * May be deleted later (or we write a counter 3-2-1-Go!?)
@@ -28,8 +26,8 @@ public class Looser extends VBox {
 
         backToMain = new Button("Back To Main Menu");
         backToMain.setOnAction(event -> {
-            inputHandler.onCancel();
-        });
+            //TODO back to main anzeigen, funktioniert das?
+            view.showOverlay("main");        });
 
         this.getChildren().add(labelLooser);
         this.getChildren().add(backToMain);
