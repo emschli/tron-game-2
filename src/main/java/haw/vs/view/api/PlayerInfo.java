@@ -33,7 +33,7 @@ public class PlayerInfo {
         return noOfPlayers;
     }
     public static int getActualNoOfPlayers() {
-        return noOfPlayers;
+        return actualNoOfPlayers;
     }
 
     public static void setPlayerId(long playerId) {

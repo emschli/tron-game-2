@@ -33,11 +33,10 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onCancel() {
-        inputController.cancelWait(getPlayerId());
+        inputController.cancelWait(getPlayerId(), getMatchId(), getNoOfPlayers());
     }
 
     private Direction getDirectionFromString(String string) {
-        //TODO default direction? ist null so gut abgefangen?
         Direction direction = null;
 
         switch (string) {
