@@ -4,8 +4,8 @@ import edu.cads.bai5.vsp.tron.view.Coordinate;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
 import haw.vs.view.overlay.Looser;
-import haw.vs.view.overlay.MainMenuNew;
-import haw.vs.view.overlay.PlayerCountViewNew;
+import haw.vs.view.overlay.MainMenu;
+import haw.vs.view.overlay.PlayerCountView;
 import haw.vs.view.overlay.Winner;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -90,11 +90,11 @@ public class TronView implements haw.vs.view.javafx.ITronView {
             }
 
             // Build and register main menu to put player count in the form
-            MainMenuNew mainMenu = new MainMenuNew("menu.css", tronView);
+            MainMenu mainMenu = new MainMenu("menu.css", tronView);
             tronView.registerOverlay("main", mainMenu);
 
             // Build and register main menu to put player count in the form
-            PlayerCountViewNew playerCountView = new PlayerCountViewNew("menu.css", tronView);
+            PlayerCountView playerCountView = new PlayerCountView("menu.css", tronView);
             tronView.registerOverlay("playerCount", playerCountView);
 
             // Build and register winner menu to put player count in the form

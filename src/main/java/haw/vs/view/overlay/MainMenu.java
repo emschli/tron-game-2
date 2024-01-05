@@ -22,7 +22,7 @@ import static haw.vs.view.javafx.TronView.inputHandler;
  * -> the input is saved in the PlayerInfo.noOfPlayers
  * -> the InputHandler.onGameStart(noOfPlayers) is called
  */
-public class MainMenuNew extends VBox {
+public class MainMenu extends VBox {
     private static final String BLOCKING_WARNING_ALERT = "This is a warning";
 
     private final Label labelMain;
@@ -31,7 +31,7 @@ public class MainMenuNew extends VBox {
 
     private final TextField textField;
 
-    public MainMenuNew(String stylesheet, ITronView view) {
+    public MainMenu(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);

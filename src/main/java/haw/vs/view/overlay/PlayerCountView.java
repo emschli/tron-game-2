@@ -15,7 +15,7 @@ import static haw.vs.view.javafx.TronView.inputHandler;
  * The View fot the PlayerCountView. This is shown if the player waits for other Players to join the game.
  * There is a button which can be clicked to quit the (future) match and go back to main menu.
  */
-public class PlayerCountViewNew extends VBox {
+public class PlayerCountView extends VBox {
     //Label to tell the player what is happening.
     private final Label labelCount;
     //button to quit the (future) match and go back to main menu
@@ -24,7 +24,7 @@ public class PlayerCountViewNew extends VBox {
     //counter which counts the number of Players
     private int counter;
 
-    public PlayerCountViewNew(String stylesheet, ITronView view) {
+    public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
