@@ -14,7 +14,7 @@ public class GameLogic implements IGameLogic {
 
     private final IGameStateProcessedHandler gameStateProcessedHandler;
     private static int MAX_X = 500;
-    private  static int MAX_Y = 500;
+    private static int MAX_Y = 500;
 
     public GameLogic(IGameStateProcessedHandler gameStateProcessedHandler) {
         this.gameStateProcessedHandler = gameStateProcessedHandler;
@@ -96,13 +96,33 @@ public class GameLogic implements IGameLogic {
      * @return the new head
      */
     private Coordinate getNextCoordinate(Direction going, Coordinate head) {
-        return switch (going) {
-            case UP -> head.add(new Coordinate(0, -1)); // y--
-            case DOWN -> head.add(new Coordinate(0, 1)); // y++
-            case LEFT -> head.add(new Coordinate(-1, 0)); // x--
-            case RIGHT -> head.add(new Coordinate(1, 0)); // x++
-            //default -> new Coordinate(0, 0);
-        };
+        switch (going) {
+            case UP:
+                head.add(new Coordinate(0, -1)); // y--
+                break;
+            case DOWN:
+                head.add(new Coordinate(0, 1)); // y++
+                break;
+            case LEFT:
+                head.add(new Coordinate(-1, 0)); // x--
+                break;
+            case RIGHT:
+                head.add(new Coordinate(1, 0)); // x++
+                break;
+            default:
+                // Handle default case here if needed
+                // head.add(new Coordinate(0, 0));
+                break;
+        }
+
+//        return switch (going) {
+//            case UP -> head.add(new Coordinate(0, -1)); // y--
+//            case DOWN -> head.add(new Coordinate(0, 1)); // y++
+//            case LEFT -> head.add(new Coordinate(-1, 0)); // x--
+//            case RIGHT -> head.add(new Coordinate(1, 0)); // x++
+//            //default -> new Coordinate(0, 0);
+//        };
+        return head;
     }
 
     /**

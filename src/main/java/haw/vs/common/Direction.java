@@ -7,13 +7,33 @@ public enum Direction {
     DOWN;
 
     public Direction backwards() {
-        return switch (this) {
-            case UP -> DOWN;
-            case DOWN -> UP;
-            case LEFT -> RIGHT;
-            case RIGHT -> LEFT;
-            default ->  this;
-        };
+        Direction result;
+        switch (this) {
+            case UP:
+                result = Direction.DOWN;
+                break;
+            case DOWN:
+                result = Direction.UP;
+                break;
+            case LEFT:
+                result = Direction.RIGHT;
+                break;
+            case RIGHT:
+                result = Direction.LEFT;
+                break;
+            default:
+                result = this;
+                break;
+        }
+        return result;
+
+//        return switch (this) {
+//            case UP -> DOWN;
+//            case DOWN -> UP;
+//            case LEFT -> RIGHT;
+//            case RIGHT -> LEFT;
+//            default ->  this;
+//        };
     }
 
 }
