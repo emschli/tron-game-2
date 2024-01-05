@@ -45,14 +45,14 @@ public class ViewFacade implements IViewFacade {
 
     @Override
     public void playerLost(GameState gameState) {
-        //TODO gameState ist hier überflüssig oder?
+        update(gameState);
         tronViewAdapter.showOverlay("looser");
 
     }
 
     @Override
     public void playerWon(GameState gameState) {
-        //TODO gameState ist hier überflüssig oder?
+        update(gameState);
         tronViewAdapter.showOverlay("winner");
     }
 
