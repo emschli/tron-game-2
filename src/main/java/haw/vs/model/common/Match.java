@@ -1,15 +1,17 @@
 package haw.vs.model.common;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Match {
     private long matchId;
     private MatchState state;
     private int numberOfPlayers;
     private int maxGridX;
-    private int getMaxGridY;
-    private List<Player> players;
+    private int maxGridY;
+    private List<Player> players = new ArrayList<>();
 
     public void addPlayer(Player player) {
         players.add(player);
@@ -17,6 +19,14 @@ public class Match {
 
     public void removePlayer(Player player) {
         players.remove(player);
+    }
+
+    public Player getPlayerById(long playerId) {
+        return players.stream().filter(player -> player.getPlayerId() == playerId).findFirst().orElse(null);
+    }
+
+    public void removePlayer(long playerId) {
+        players.removeIf(player -> player.getPlayerId() == playerId);
     }
 
     public long getMatchId() {
@@ -51,12 +61,12 @@ public class Match {
         this.maxGridX = maxGridX;
     }
 
-    public int getGetMaxGridY() {
-        return getMaxGridY;
+    public int getMaxGridY() {
+        return maxGridY;
     }
 
-    public void setGetMaxGridY(int getMaxGridY) {
-        this.getMaxGridY = getMaxGridY;
+    public void setMaxGridY(int maxGridY) {
+        this.maxGridY = maxGridY;
     }
 
     public List<Player> getPlayers() {
@@ -71,6 +81,12 @@ public class Match {
         return numberOfPlayers == players.size();
     }
 
+    public List<Player> getAlivePlayers() {
+        return players.stream()
+                .filter(Player::isAlive)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,5 +98,32 @@ public class Match {
     @Override
     public int hashCode() {
         return Objects.hash(matchId);
+    }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "matchId=" + matchId +
+                ", state=" + state +
+                ", numberOfPlayers=" + numberOfPlayers +
+                ", maxGridX=" + maxGridX +
+                ", maxGridY=" + maxGridY +
+                ", players=" + players +
+                '}';
+    }
+
+    public Match copy() {
+        Match match = new Match();
+        match.setMatchId(this.matchId);
+        match.setState(this.state);
+        match.setNumberOfPlayers(this.numberOfPlayers);
+        match.setMaxGridX(this.maxGridX);
+        match.setMaxGridY(this.maxGridY);
+        List<Player> players = new ArrayList<>();
+        for (Player player : this.players) {
+            players.add(player.copy());
+        }
+        match.setPlayers(players);
+        return match;
     }
 }
