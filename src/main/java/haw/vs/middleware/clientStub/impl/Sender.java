@@ -18,13 +18,7 @@ public class Sender {
     private SendQueue sendQueue;
 
     public Sender() {
-        sendQueue = SendQueue.getSendQueue();
-        tcpThread = new Thread(new TCPSendThread());
-        udpThread = new Thread(new UDPSendThread());
-
-        tcpThread.start();
-        udpThread.start();
-
+        this.sendQueue = SendQueue.getSendQueue();
     }
 
     public void sendSynchronouslyTcp(String sendTo, byte[] data) throws InvokeFailedException {
