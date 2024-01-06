@@ -1,5 +1,6 @@
 package haw.vs;
 
+import haw.vs.common.loggingService.LoggingService;
 import haw.vs.common.properties.AppType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
@@ -9,6 +10,7 @@ import haw.vs.view.api.ViewApp;
 
 public class Main {
     public static void main(String[] args) {
+        LoggingService.setup();
         try {
             AppType appType = PropertiesHelper.getAppType();
             switch (appType) {

@@ -37,6 +37,13 @@
             <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-logging -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-logging</artifactId>
+            <version>3.15.14</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
