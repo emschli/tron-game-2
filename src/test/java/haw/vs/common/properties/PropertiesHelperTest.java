@@ -1,4 +1,5 @@
 package haw.vs.common.properties;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Before;
