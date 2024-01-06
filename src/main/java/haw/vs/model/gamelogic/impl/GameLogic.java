@@ -192,7 +192,8 @@ public class GameLogic implements IGameLogic {
      * @return true, if player is driving within the boundaries, false else.
      */
     private boolean inBoundaries(Coordinate newHead, int maxX, int maxY) {
-        return newHead.x >= 0 && newHead.x <= maxX && newHead.y >= 0 && newHead.y <= maxY;
+        //return newHead.x >= 0 && newHead.x <= maxX && newHead.y >= 0 && newHead.y <= maxY;
+        return newHead.x >= 1 && newHead.x < (maxX-1) && newHead.y >= 1 && newHead.y < (maxY-1);
     }
 
     /**
