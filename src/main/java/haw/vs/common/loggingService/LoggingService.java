@@ -16,6 +16,7 @@ public class LoggingService {
 
     public static void setup() {
 
+        //env variable GCP_API_TRANSLATION_KEY should be set before app start
         String gcpLoggingKey = System.getenv("GCP_API_LOGGING_KEY");
         System.out.println("GCP Logging Key: " + gcpLoggingKey);
 
