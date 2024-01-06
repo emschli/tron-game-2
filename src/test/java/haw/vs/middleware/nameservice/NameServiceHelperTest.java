@@ -3,7 +3,6 @@ package haw.vs.middleware.nameservice;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
-import haw.vs.middleware.nameService.impl.NameServiceFactory;
 import haw.vs.middleware.nameService.impl.NameServiceThread;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 
@@ -21,7 +20,7 @@ public class NameServiceHelperTest {
         MiddlewarePropertiesHelper.setPropertiesFile("middleware/nameservice/middleware.properties");
 
         //Start NameService
-        NameServiceThread nameServiceThread = new NameServiceThread(NameServiceFactory.getNameService());
+        NameServiceThread nameServiceThread = new NameServiceThread();
         Thread nameService = new Thread(nameServiceThread);
         nameService.start();
 

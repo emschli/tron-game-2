@@ -22,14 +22,18 @@ public class NameService implements INameService {
      * @param methodNames
      * @param type
      * @param ip
+     * @throws NameServiceBindException if methodType is invalid or a methodName is already
+     * associated with different methodType
      * @return specificId (if type=2) or bundleId (if type=0 or type=1)
      */
     @Override
     public long bind(List<String> methodNames, int type, String ip) throws NameServiceBindException {
         long id;
         if (type == STATELESS) {
+            checkStatelessMethodNames(methodNames, type);
             id = nameServiceData.addStatelessMethods(methodNames, ip);
         } else if (type == STATEFUL) {
+            checkStatefulMethodNames(methodNames, type);
             id = nameServiceData.addStatefulMethods(methodNames, ip);
         } else if (type == SPECIFIC) {
             id = nameServiceData.addSpecificMethods(methodNames, ip);
@@ -54,7 +58,7 @@ public class NameService implements INameService {
     public String lookup(String methodName, long stateId) throws NameServiceLookupException {
         Integer methodType = nameServiceData.getMethodType(methodName);
 
-        if (methodType == STATE_INITIALIZING) {
+        if (methodType != null && methodType == STATE_INITIALIZING) {
             Long methodId = loadBalancer.choose(methodName);
             MethodObject methodObject = nameServiceData.getMethodFromMainMap(methodId);
 
@@ -68,7 +72,7 @@ public class NameService implements INameService {
 
             return methodObject.getIp();
 
-        } else if (methodType == STATEFUL) {
+        } else if (methodType != null && methodType == STATEFUL) {
             Long methodId = nameServiceData.getMethodIdFromStateMap(stateId, methodName);
             if (methodId == null) {
                 throw new NameServiceLookupException(String.format("No entry in state map for stateId %s and methodName %s", stateId, methodName));
@@ -89,5 +93,24 @@ public class NameService implements INameService {
         }
 
         return ip;
+    }
+
+    private void checkStatelessMethodNames(List<String> methodNames, int type) throws NameServiceBindException {
+        for (String methodName : methodNames) {
+            checkMethodName(methodName, type);
+        }
+    }
+
+    private void checkStatefulMethodNames(List<String> methodNames, int type) throws NameServiceBindException {
+        List<String> subList = methodNames.subList(1, methodNames.size());
+        checkMethodName(methodNames.get(0), STATE_INITIALIZING);
+        checkStatelessMethodNames(subList, type);
+    }
+
+    private void checkMethodName(String methodName, int type) throws NameServiceBindException {
+        Integer currentState = nameServiceData.getMethodType(methodName);
+        if (currentState != null && currentState != type) {
+            throw new NameServiceBindException("MethodName has already different type associated!");
+        }
     }
 }

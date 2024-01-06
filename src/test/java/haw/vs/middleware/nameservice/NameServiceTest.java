@@ -15,6 +15,8 @@ public class NameServiceTest {
     public static String METHOD_NAME_1 = "methodName1";
     public static String METHOD_NAME_2 = "methodName2";
     public static String METHOD_NAME_3 = "methodName3";
+    private static String METHOD_NAME_4 = "methodName4";
+    private static String METHOD_NAME_5 = "methodName5";
 
     public static String IP_1 = "1.1.1.1";
     public static String IP_2 = "2.2.2.2";
@@ -37,15 +39,18 @@ public class NameServiceTest {
     @Test
     public void testBindAndLookupStateful() throws NameServiceLookupException {
         INameService nameService = NameServiceFactory.getNameService();
-        assertDoesNotThrow(() -> nameService.bind(getMethodNames(), STATEFUL, IP_1));
-        assertDoesNotThrow(() -> nameService.bind(getMethodNames(), STATEFUL, IP_2));
+        List<String> statefulMethodNames = new ArrayList<>();
+        statefulMethodNames.add(METHOD_NAME_4);
+        statefulMethodNames.add(METHOD_NAME_5);
+        assertDoesNotThrow(() -> nameService.bind(statefulMethodNames, STATEFUL, IP_1));
+        assertDoesNotThrow(() -> nameService.bind(statefulMethodNames, STATEFUL, IP_2));
 
         assertThrowsExactly(NameServiceLookupException.class, () -> nameService.lookup(METHOD_NAME_2, 1));
 
-        nameService.lookup(METHOD_NAME_1, 1);
-        String ip = nameService.lookup(METHOD_NAME_2, 1);
+        nameService.lookup(METHOD_NAME_4, 1);
+        String ip = nameService.lookup(METHOD_NAME_5, 1);
         for (int i = 0; i < 10; i++) {
-            assertEquals(ip, nameService.lookup(METHOD_NAME_2, 1));
+            assertEquals(ip, nameService.lookup(METHOD_NAME_5, 1));
         }
     }
 
