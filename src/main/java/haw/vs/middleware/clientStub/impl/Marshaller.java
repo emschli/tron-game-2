@@ -38,10 +38,17 @@ public class Marshaller implements IClientStub {
         byte[] requestData = marshall(args, methodName);
         String serverAddress = nameServiceHelper.lookup(methodName);
         switch (modus) {
-            case 1 -> sender.sendSynchronouslyTcp(serverAddress, requestData);
-            case 2 -> sender.sendAsynchronouslyTcp(serverAddress, requestData);
-            case 3 -> sender.sendAsynchronouslyUdp(serverAddress, requestData);
-            default -> throw new IllegalArgumentException("Ungültiger Modus: " + modus);
+            case 1:
+                sender.sendSynchronouslyTcp(serverAddress, requestData);
+                break;
+            case 2:
+                sender.sendAsynchronouslyTcp(serverAddress, requestData);
+                break;
+            case 3:
+                sender.sendAsynchronouslyUdp(serverAddress, requestData);
+                break;
+            default:
+                throw new IllegalArgumentException("Ungültiger Modus: " + modus);
         }
     }
 
@@ -50,11 +57,17 @@ public class Marshaller implements IClientStub {
         byte[] requestData = marshall(args, methodName);
         String serverAddress = nameServiceHelper.lookup(methodName, stateId);
         switch (modus) {
-            case 1 -> sender.sendSynchronouslyTcp(serverAddress, requestData);
-            case 2 -> sender.sendAsynchronouslyTcp(serverAddress, requestData);
-            case 3 -> sender.sendAsynchronouslyUdp(serverAddress, requestData);
-
-            default -> throw new IllegalArgumentException("Ungültiger Modus: " + modus);
+            case 1:
+                sender.sendSynchronouslyTcp(serverAddress, requestData);
+                break;
+            case 2:
+                sender.sendAsynchronouslyTcp(serverAddress, requestData);
+                break;
+            case 3:
+                sender.sendAsynchronouslyUdp(serverAddress, requestData);
+                break;
+            default:
+                throw new IllegalArgumentException("Ungültiger Modus: " + modus);
         }
     }
 
@@ -71,11 +84,17 @@ public class Marshaller implements IClientStub {
         }
 
         switch (modus) {
-            case 1 -> sender.sendSynchronouslyTcp(specificServerAddress, requestData);
-            case 2 -> sender.sendAsynchronouslyTcp(specificServerAddress, requestData);
-            case 3 -> sender.sendAsynchronouslyUdp(specificServerAddress, requestData);
-
-            default -> throw new IllegalArgumentException("Ungültiger Modus: " + modus);
+            case 1:
+                sender.sendSynchronouslyTcp(specificServerAddress, requestData);
+                break;
+            case 2:
+                sender.sendAsynchronouslyTcp(specificServerAddress, requestData);
+                break;
+            case 3:
+                sender.sendAsynchronouslyUdp(specificServerAddress, requestData);
+                break;
+            default:
+                throw new IllegalArgumentException("Ungültiger Modus: " + modus);
         }
     }
 

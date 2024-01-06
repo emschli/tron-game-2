@@ -17,13 +17,13 @@ public class MiddlewareApp {
             MiddlewareAppType appType = MiddlewarePropertiesHelper.getMiddlewareAppType();
 
             switch (appType) {
-                case MIDDLEWARE -> {
-                    //client stub
+                case MIDDLEWARE:
+                    // Client Stub
                     Thread tcpSendThread = new Thread(new TCPSendThread());
                     Thread udpSendThread = new Thread(new UDPSendThread());
                     tcpSendThread.start();
                     udpSendThread.start();
-                    //server stub
+                    // Server Stub
                     Thread receiveSyncTcpThread = new Thread(new ReceiveSyncTcpThread());
                     Thread receiveTcpThread = new Thread(new ReceiveTcpThread());
                     Thread receiveUdpThread = new Thread(new ReceiveUdpThread());
@@ -32,11 +32,16 @@ public class MiddlewareApp {
                     receiveTcpThread.start();
                     receiveUdpThread.start();
                     caller.start();
-                }
-                case NAME_SERVICE -> {
+                    break;
+
+                case NAME_SERVICE:
                     Thread nameServiceThread = new Thread(new NameServiceThread());
                     nameServiceThread.start();
-                }
+                    break;
+
+                default:
+                    // Hier kannst du den Code für den Standardfall (falls vorhanden) hinzufügen
+                    break;
             }
         } catch (MiddlewarePropertiesException e) {
             throw new RuntimeException(e);

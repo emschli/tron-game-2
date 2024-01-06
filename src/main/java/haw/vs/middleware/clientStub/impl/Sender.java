@@ -42,10 +42,12 @@ public class Sender {
             //For Example "ok" or "error";
             String response = in.readLine();
             switch (response) {
-                case "ok" -> {
-                }
-                case "error" -> throw new InvokeFailedException("Method invokation has failed");
-
+                case "ok":
+                    break;
+                case "error":
+                    throw new InvokeFailedException("Method invocation has failed");
+                default:
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
