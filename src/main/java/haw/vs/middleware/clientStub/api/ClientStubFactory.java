@@ -13,12 +13,10 @@ public class ClientStubFactory {
 
 
         switch (PropertiesHelper.getAppType()) {
-            case DISTRIBUTED -> {
+            case DISTRIBUTED:
                 return new Marshaller(NameServiceHelperFactory.getNameServiceHelper());
-            } default -> {
+            default:
                 return new MarschallerMock();
-            }
         }
-
     }
 }
