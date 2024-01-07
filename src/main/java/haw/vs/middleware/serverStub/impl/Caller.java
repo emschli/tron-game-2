@@ -2,24 +2,27 @@ package haw.vs.middleware.serverStub.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.annotations.VisibleForTesting;
 import haw.vs.middleware.common.JsonRequest;
+import haw.vs.middleware.common.Pair;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 public class Caller implements ICaller, Runnable {
     private INameServiceHelper nameServiceHelper;
     private static Caller instance;
 
-    private Map<String, ICallee> calleeMap;
+    private Map<String, Pair<Method, ICallee>> calleeMap;
     private Lock lock;
     private ObjectMapper objectMapper;
     private ReceiveQueue receiveQueue;
@@ -40,12 +43,13 @@ public class Caller implements ICaller, Runnable {
     }
 
     @Override
-    public void register(List<String> methodNames, ICallee callee, int type) throws NameServiceException {
+    public void register(List<Method> methods, ICallee callee, int type) throws NameServiceException {
         lock.lock();
         try {
-            for (String method : methodNames) {
-                calleeMap.put(method, callee);
+            for (Method method : methods) {
+                calleeMap.put(method.getName(),  new Pair<>(method, callee));
             }
+            List<String> methodNames = methods.stream().map(Method::getName).collect(Collectors.toList());
             callee.setId(nameServiceHelper.bind(methodNames, type));
         } finally {
             lock.unlock();
@@ -67,14 +71,36 @@ public class Caller implements ICaller, Runnable {
         }
     }
 
+    @VisibleForTesting
     private void makeCall(JsonRequest request) {
         ICallee callee;
         lock.lock();
         try {
             //look whom to call
-            callee = calleeMap.get(request.getMethod());
-            // TODO zweiter Param!
-            callee.call(request.getMethod(), request.getParams());
+            Pair<Method, ICallee> pair = calleeMap.get(request.getMethod());
+            Method method = pair.getKey();
+            callee = pair.getValue();
+
+            Class[] argumentTypes = method.getParameterTypes();
+            List<Object> args = new ArrayList<>();
+
+            for (int i = 0; i < request.getParams().length; i++) {
+                Object param = request.getParams()[i];
+                Class paramClass = argumentTypes[i];
+
+                String jsonString = objectMapper.writeValueAsString(param);
+                Object arg = objectMapper.readValue(jsonString, paramClass);
+                args.add(arg);
+            }
+
+            method.invoke(callee, args.toArray());
+
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         } finally {
             lock.unlock();
         }
