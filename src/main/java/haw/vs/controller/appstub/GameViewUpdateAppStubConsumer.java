@@ -1,123 +1,98 @@
 package haw.vs.controller.appstub;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import haw.vs.common.GameState;
 import haw.vs.common.IGameState;
 import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.middleware.clientStub.api.IClientStub;
 import haw.vs.middleware.common.exceptions.InvokeFailedException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 
-public class ApplicationStubGameViewUpdateConsumer implements IGameViewUpdate {
+public class GameViewUpdateAppStubConsumer implements IGameViewUpdate {
     private IClientStub clientStub;
 
-    public ApplicationStubGameViewUpdateConsumer(IClientStub clientStub) {
+    public GameViewUpdateAppStubConsumer(IClientStub clientStub) {
         this.clientStub = clientStub;
     }
 
-    public ApplicationStubGameViewUpdateConsumer() {
+    public GameViewUpdateAppStubConsumer() {
     }
 
     @Override
     public void startGame(long playerId, IGameState gameState) {
-        try {
-            clientStub.invoke("startGame", new Object[]{playerId, convertGamaStateToString(gameState)}, 0);
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
-        } catch (InvokeFailedException e) {
-            e.printStackTrace();
-        }
+        Object[] args = new Object[] {
+                playerId,
+                gameState
+        };
+        invoke("startGame", args, ModeTypes.ASYNC_UDP);
     }
 
     @Override
     public void updateView(long playerId, IGameState gameState) {
-        try {
-            clientStub.invoke("updateView", new Object[]{playerId, convertGamaStateToString(gameState)}, 0);
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
-        } catch (InvokeFailedException e) {
-            e.printStackTrace();
-        }
-
+        Object[] args = new Object[] {
+                playerId,
+                gameState
+        };
+        invoke("updateView", args, ModeTypes.ASYNC_UDP);
     }
 
     @Override
     public void playerWon(long playerId, IGameState gameState) {
-        try {
-            clientStub.invoke("playerWon",new Object[]{ playerId, convertGamaStateToString(gameState)}, 0);
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
-        } catch (InvokeFailedException e) {
-            e.printStackTrace();
-        }
-
+        Object[] args = new Object[] {
+                playerId,
+                gameState
+        };
+        invoke("playerWon", args, ModeTypes.ASYNC_UDP);
     }
 
     @Override
-    public void playerLost(long playerId, IGameState gameState)  {
-        try {
-            clientStub.invoke("playerLost", new Object[]{playerId, convertGamaStateToString(gameState)}, 0);
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
-        } catch (InvokeFailedException e) {
-            e.printStackTrace();
-        }
-
+    public void playerLost(long playerId, IGameState gameState) {
+        Object[] args = new Object[] {
+                playerId,
+                gameState
+        };
+        invoke("playerLost", args, ModeTypes.ASYNC_UDP);
     }
 
     @Override
     public void updatePlayerCountView(long playerId, int playerCount, int targetPlayerCount) {
-        try {
-            clientStub.invoke("updatePlayerCountView", new Object[]{playerId, playerCount, targetPlayerCount}, 0);
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
-        } catch (InvokeFailedException e) {
-            e.printStackTrace();
-        }
-
+        Object[] args = new Object[] {
+                playerId,
+                playerCount,
+                targetPlayerCount
+        };
+        invoke("updatePlayerCountView", args, ModeTypes.ASYNC_UDP);
     }
 
     @Override
     public void showMainMenu(long playerId) {
-        try {
-            clientStub.invoke("showMainMenu", new Object[]{playerId}, 0 );
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
-        } catch (InvokeFailedException e) {
-            e.printStackTrace();
-        }
-
+        Object[] args = new Object[] {
+                playerId
+        };
+        invoke("showMainMenu", args, ModeTypes.ASYNC_UDP);
     }
 
     @Override
     public void setMatchId(long playerId, long matchId) {
+        Object[] args = new Object[] {
+                playerId,
+                matchId
+        };
+        invoke("setMatchId", args, ModeTypes.SYNC_TCP);
+    }
+
+    private void invoke(String methodName, Object[] args, int mode) {
         try {
-            clientStub.invoke("setMatchId", new Object[]{playerId, matchId},  0);
+            clientStub.invoke(methodName, args, mode);
         } catch (NameServiceException e) {
             throw new RuntimeException(e);
         } catch (InvokeFailedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-    }
-
-    private String convertGamaStateToString(IGameState gameState){
-        ObjectMapper objectMapper = new ObjectMapper();
-        String gameStateJson = null;
-        try {
-            gameStateJson = objectMapper.writeValueAsString(gameState);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return gameStateJson;
-
     }
 
 
     public static void main(String[] args) {
 
-/*        ApplicationStubGameViewUpdateConsumer apc = new ApplicationStubGameViewUpdateConsumer();
+/*        GameViewUpdateAppStubConsumer apc = new GameViewUpdateAppStubConsumer();
 
         List<Coordinate> player1Coordinates = new ArrayList<>();
         player1Coordinates.add(new Coordinate(1, 1));
@@ -162,7 +137,6 @@ public class ApplicationStubGameViewUpdateConsumer implements IGameViewUpdate {
         IGameState gameStateConverted = apc.convertGamaStateToObject(gameStateString);
 
         System.out.println(gameStateConverted);*/
-
 
     }
 
