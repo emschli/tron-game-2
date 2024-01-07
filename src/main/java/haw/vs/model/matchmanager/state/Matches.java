@@ -6,6 +6,7 @@ import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
+import haw.vs.model.matchmanager.MatchManagerInfo;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -171,6 +172,7 @@ public class Matches {
         MATCH_ID_COUNTER += 1;
         match.setNumberOfPlayers(numberOfPlayers);
         match.setState(MatchState.WAITING);
+        match.setMatchManagerId(MatchManagerInfo.getMatchManagerId());
         return match;
     }
 

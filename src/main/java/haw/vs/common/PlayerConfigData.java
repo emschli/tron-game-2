@@ -5,6 +5,9 @@ public class PlayerConfigData {
 
     private int resolutionHeight;
 
+    public PlayerConfigData() {
+    }
+
     public PlayerConfigData(int resolutionWidth, int resolutionHeight) {
         this.resolutionWidth = resolutionWidth;
         this.resolutionHeight = resolutionHeight;

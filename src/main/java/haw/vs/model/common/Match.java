@@ -1,5 +1,7 @@
 package haw.vs.model.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +14,8 @@ public class Match {
     private int maxGridX;
     private int maxGridY;
     private List<Player> players = new ArrayList<>();
+
+    private Long matchManagerId;
 
     public void addPlayer(Player player) {
         players.add(player);
@@ -77,6 +81,15 @@ public class Match {
         this.players = players;
     }
 
+    public Long getMatchManagerId() {
+        return matchManagerId;
+    }
+
+    public void setMatchManagerId(Long matchManagerId) {
+        this.matchManagerId = matchManagerId;
+    }
+
+    @JsonIgnore
     public boolean isFull() {
         return numberOfPlayers == players.size();
     }
@@ -124,6 +137,7 @@ public class Match {
             players.add(player.copy());
         }
         match.setPlayers(players);
+        match.setMatchManagerId(this.matchManagerId);
         return match;
     }
 }

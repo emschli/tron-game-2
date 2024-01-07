@@ -5,6 +5,8 @@ import haw.vs.model.matchmanager.api.GameStateUpdaterFactory;
 import haw.vs.model.matchmanager.api.IGameStateUpdater;
 import haw.vs.model.matchmanager.api.IMatchController;
 import haw.vs.model.matchmanager.api.MatchControllerFactory;
+import haw.vs.model.matchmanager.gamestateupdater.GameStateUpdater;
+import haw.vs.model.matchmanager.matchcontroller.MatchManager;
 import haw.vs.model.matchmanager.mock.MockGameStateUpdater;
 import haw.vs.model.matchmanager.mock.MockMatchController;
 import org.junit.Test;
