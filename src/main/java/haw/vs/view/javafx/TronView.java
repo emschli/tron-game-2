@@ -1,6 +1,6 @@
 package haw.vs.view.javafx;
 
-import edu.cads.bai5.vsp.tron.view.Coordinate;
+import haw.vs.common.Coordinate;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
 import haw.vs.view.overlay.Looser;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class TronView implements haw.vs.view.javafx.ITronView {
+public class TronView implements ITronView {
     //theirs:
     private Scene scene;
     private Canvas gameBoard;
