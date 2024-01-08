@@ -1,7 +1,7 @@
 package haw.vs.middleware.serverstub;
 
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
+import haw.vs.common.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
 import java.lang.reflect.Method;
