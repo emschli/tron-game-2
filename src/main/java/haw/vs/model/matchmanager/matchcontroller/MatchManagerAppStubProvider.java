@@ -4,7 +4,7 @@ import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.middleware.MethodTypes;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
+import haw.vs.common.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
 import haw.vs.model.matchmanager.api.IMatchController;
 
@@ -33,11 +33,6 @@ public class MatchManagerAppStubProvider implements IMatchController, ICallee {
             throw new RuntimeException(e);
         }
         serverStub.register(methods, this, MethodTypes.STATEFUL);
-    }
-
-    @Override
-    public void setId(long id) {
-
     }
 
     @Override

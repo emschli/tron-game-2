@@ -17,37 +17,22 @@ public class MatchManagerAppStubConsumer implements IMatchController {
 
     @Override
     public void addPlayerToMatch(long playerId, int numberOfPlayers, PlayerConfigData configData) {
-        Object[] args = new Object[] {
-                playerId,
-                numberOfPlayers,
-                configData
-        };
-        invoke("addPlayerToMatch", args, ModeTypes.ASYNC_TCP);
+        invoke("addPlayerToMatch", ModeTypes.ASYNC_TCP, playerId, numberOfPlayers, configData);
     }
 
     @Override
     public void deletePlayerFromMatch(long playerId, long matchId, int numberOfPlayers) {
-        Object[] args = new Object[] {
-                playerId,
-                matchId,
-                numberOfPlayers
-        };
-        invoke("deletePlayerFromMatch", args, ModeTypes.ASYNC_TCP);
+        invoke("deletePlayerFromMatch", ModeTypes.ASYNC_TCP, playerId, matchId, numberOfPlayers);
     }
 
     @Override
     public void movePlayer(long playerId, long matchId, Direction direction) {
-        Object[] args = new Object[] {
-                playerId,
-                matchId,
-                direction
-        };
-        invoke("movePlayer", args, ModeTypes.ASYNC_UDP);
+        invoke("movePlayer", ModeTypes.ASYNC_UDP, playerId, matchId, direction);
     }
 
-    private void invoke(String methodName, Object[] args, int modus) {
+    private void invoke(String methodName, int modus, Object... args) {
         try {
-            clientStub.invoke(methodName, args, modus);
+            clientStub.invoke(methodName, modus, args);
         } catch (NameServiceException e) {
             throw new RuntimeException(e);
         } catch (InvokeFailedException e) {

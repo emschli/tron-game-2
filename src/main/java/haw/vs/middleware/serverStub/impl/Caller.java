@@ -8,7 +8,6 @@ import haw.vs.middleware.common.Pair;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,7 +21,7 @@ public class Caller implements ICaller, Runnable {
     private INameServiceHelper nameServiceHelper;
     private static Caller instance;
 
-    private Map<String, Pair<Method, ICallee>> calleeMap;
+    private Map<String, Pair<Method, Object>> calleeMap;
     private Lock lock;
     private ObjectMapper objectMapper;
     private ReceiveQueue receiveQueue;
@@ -43,17 +42,19 @@ public class Caller implements ICaller, Runnable {
     }
 
     @Override
-    public void register(List<Method> methods, ICallee callee, int type) throws NameServiceException {
+    public long register(List<Method> methods, Object callee, int type) throws NameServiceException {
         lock.lock();
+        long id;
         try {
             for (Method method : methods) {
                 calleeMap.put(method.getName(),  new Pair<>(method, callee));
             }
             List<String> methodNames = methods.stream().map(Method::getName).collect(Collectors.toList());
-            callee.setId(nameServiceHelper.bind(methodNames, type));
+            id = nameServiceHelper.bind(methodNames, type);
         } finally {
             lock.unlock();
         }
+        return id;
     }
 
     @Override
@@ -73,11 +74,11 @@ public class Caller implements ICaller, Runnable {
 
     @VisibleForTesting
     private void makeCall(JsonRequest request) {
-        ICallee callee;
+        Object callee;
         lock.lock();
         try {
             //look whom to call
-            Pair<Method, ICallee> pair = calleeMap.get(request.getMethod());
+            Pair<Method, Object> pair = calleeMap.get(request.getMethod());
             Method method = pair.getKey();
             callee = pair.getValue();
 

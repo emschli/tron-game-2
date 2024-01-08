@@ -2,7 +2,7 @@ package haw.vs.model.matchmanager.gamestateupdater;
 
 import haw.vs.middleware.MethodTypes;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
+import haw.vs.common.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
 import haw.vs.model.common.Match;
 import haw.vs.model.matchmanager.MatchManagerInfo;
@@ -30,11 +30,7 @@ public class GameStateUpdaterAppStubProvider implements IGameStateUpdater, ICall
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        serverStub.register(methods, this, MethodTypes.SPECIFIC);
-    }
-
-    @Override
-    public void setId(long id) {
+        long id = serverStub.register(methods, this, MethodTypes.SPECIFIC);
         MatchManagerInfo.setMatchManagerId(id);
     }
 

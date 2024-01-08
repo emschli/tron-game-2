@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 public interface ICaller {
-    void register(List<Method> methods, ICallee callee, int type) throws NameServiceException;
+    long register(List<Method> methods, Object callee, int type) throws NameServiceException;
 
     void callSynchronously(byte[] data);
 }

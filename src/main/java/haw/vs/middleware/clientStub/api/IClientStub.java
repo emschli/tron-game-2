@@ -4,7 +4,7 @@ import haw.vs.middleware.common.exceptions.InvokeFailedException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 
 public interface IClientStub {
-    void invoke(String methodName, Object[] args, int modus) throws NameServiceException, InvokeFailedException;
-    void invoke(String methodName, Object[] args, int modus, long stateId) throws NameServiceException, InvokeFailedException;
-    void invokeSpecific(long id, String methodName, Object[] args, int modus) throws InvokeFailedException;
+    void invoke(String methodName, int modus, Object... args) throws NameServiceException, InvokeFailedException;
+    void invoke(String methodName, int modus, long stateId, Object... args) throws NameServiceException, InvokeFailedException;
+    void invokeSpecific(long id, String methodName, int modus, Object... args) throws InvokeFailedException;
 }

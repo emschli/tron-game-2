@@ -34,7 +34,7 @@ public class Marshaller implements IClientStub {
     }
 
     @Override
-    public void invoke(String methodName, Object[] args, int modus) throws NameServiceException, InvokeFailedException {
+    public void invoke(String methodName, int modus, Object... args) throws NameServiceException, InvokeFailedException {
         byte[] requestData = marshall(args, methodName);
         String serverAddress = nameServiceHelper.lookup(methodName);
         switch (modus) {
@@ -53,7 +53,7 @@ public class Marshaller implements IClientStub {
     }
 
     @Override
-    public void invoke(String methodName, Object[] args, int modus, long stateId) throws NameServiceException, InvokeFailedException {
+    public void invoke(String methodName, int modus, long stateId, Object... args) throws NameServiceException, InvokeFailedException {
         byte[] requestData = marshall(args, methodName);
         String serverAddress = nameServiceHelper.lookup(methodName, stateId);
         switch (modus) {
@@ -72,7 +72,7 @@ public class Marshaller implements IClientStub {
     }
 
     @Override
-    public void invokeSpecific(long specificId, String methodName, Object[] args, int modus) throws InvokeFailedException {
+    public void invokeSpecific(long specificId, String methodName, int modus, Object... args) throws InvokeFailedException {
         byte[] requestData = marshall(args, methodName);
         String specificServerAddress = null;
         try {

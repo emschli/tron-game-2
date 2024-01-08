@@ -27,11 +27,6 @@ public class TestCallee implements ICallee {
         }
     }
 
-    @Override
-    public void setId(long id) {
-
-    }
-
     public void foo(long id, TestParamObject testParamObject) {
         System.out.println(String.format("foo with %s and %s", id, testParamObject));
     }
