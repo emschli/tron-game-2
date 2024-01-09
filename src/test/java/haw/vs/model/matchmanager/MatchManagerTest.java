@@ -2,6 +2,7 @@ package haw.vs.model.matchmanager;
 
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
+import haw.vs.common.properties.ComponentType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.model.common.Match;
@@ -22,8 +23,8 @@ public class MatchManagerTest {
         MatchManagerApp app = new MatchManagerApp();
         app.startApp();
 
-        IMatchController matchController = MatchControllerFactory.getMatchController();
-        IGameStateUpdater gameStateUpdater = GameStateUpdaterFactory.getGameStateUpdater();
+        IMatchController matchController = MatchControllerFactory.getMatchController(ComponentType.MATCH_MANAGER);
+        IGameStateUpdater gameStateUpdater = GameStateUpdaterFactory.getGameStateUpdater(ComponentType.MATCH_MANAGER);
 
         PlayerConfigData configData = new PlayerConfigData(10, 10);
 

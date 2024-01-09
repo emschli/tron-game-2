@@ -16,7 +16,7 @@ public class InputFactory {
 
             switch (PropertiesHelper.getAppType()) {
                 case STANDALONE:
-                    return new InputHandler(MatchControllerFactory.getMatchController());
+                    return new InputHandler(MatchControllerFactory.getMatchController(ComponentType.CONTROLLER));
                 default:
                     return new MockInput();
             }
