@@ -1,9 +1,9 @@
 package haw.vs.controller.appstub;
 
-import haw.vs.common.IGameState;
+import haw.vs.common.*;
 import haw.vs.controller.api.IGameViewUpdate;
+import haw.vs.middleware.MethodTypes;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,37 +20,26 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
     public GameViewUpdateAppStubProvider(IServerStub serverStub, IGameViewUpdate gameViewUpdate) throws NameServiceException {
         this.serverStub = serverStub;
         this.gameViewUpdate = gameViewUpdate;
-
-        List<String> methodNames = new ArrayList<>();
-        methodNames.add("startGame");
-        methodNames.add("updateView");
-        methodNames.add("playerWon");
-        methodNames.add("playerLost");
-        methodNames.add("updatePlayerCountView");
-        methodNames.add("showMainMenu");
-        methodNames.add("setMatchId");
-        this.serverStub.register(methodNames, this, MethodTypes.STATELESS);
     }
 
     @Override
-    public void call(String methodName, Object[] args) {
-        for (Method method : this.getClass().getMethods()) {
-            if (method.getName().equals(methodName)) {
-                try {
-                    method.invoke(args);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+    public void register() throws NameServiceException {
+        List<Method> methods = new ArrayList<>();
+        try {
+            methods.add(this.getClass().getMethod("startGame", long.class, GameState.class));
+            methods.add(this.getClass().getMethod("updateView", long.class, GameState.class));
+            methods.add(this.getClass().getMethod("playerWon", long.class, GameState.class));
+            methods.add(this.getClass().getMethod("playerLost", long.class, GameState.class));
+            methods.add(this.getClass().getMethod("updatePlayerCountView", long.class, int.class, int.class));
+            methods.add(this.getClass().getMethod("showMainMenu", long.class));
+            methods.add(this.getClass().getMethod("setMatchId", long.class, long.class));
+
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
+        serverStub.register(methods, this, MethodTypes.STATELESS);
     }
 
-    @Override
-    public void setId(long id) {
-        // TODO??
-    }
 
     @Override
     public void startGame(long playerId, IGameState gameState) {

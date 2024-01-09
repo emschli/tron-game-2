@@ -1,10 +1,11 @@
 package haw.vs.controller.appstub;
 
 import haw.vs.common.Direction;
+import haw.vs.common.ICallee;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.controller.api.IInput;
+import haw.vs.middleware.MethodTypes;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
 import java.lang.reflect.InvocationTargetException;
@@ -21,32 +22,22 @@ public class InputAppStubProvider implements IInput, ICallee {
         this.serverStub = serverStub;
         this.input = input;
 
-        List<String> methodNames = new ArrayList<>();
-        methodNames.add("joinGame");
-        methodNames.add("cancelWait");
-        methodNames.add("handleGameAction");
-        this.serverStub.register(methodNames, this, MethodTypes.STATELESS);
     }
 
     @Override
-    public void call(String methodName, Object[] args) {
-        for (Method method : this.getClass().getMethods()) {
-            if (method.getName().equals(methodName)) {
-                try {
-                    method.invoke(args);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+    public void register() throws NameServiceException {
+        List<Method> methods = new ArrayList<>();
+        try {
+            methods.add(this.getClass().getMethod("joinGame", long.class, int.class, PlayerConfigData.class));
+            methods.add(this.getClass().getMethod("cancelWait", long.class, long.class, int.class));
+            methods.add(this.getClass().getMethod("handleGameAction", long.class, long.class, Direction.class));
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
+        serverStub.register(methods, this, MethodTypes.STATELESS);
     }
 
-    @Override
-    public void setId(long id) {
-        // Implement if needed
-    }
+
 
     @Override
     public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
