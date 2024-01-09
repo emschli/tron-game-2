@@ -3,7 +3,7 @@ package haw.vs.model.matchmanager.api;
 import haw.vs.common.properties.ComponentType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
-import haw.vs.model.matchmanager.GameStateUpdater;
+import haw.vs.model.matchmanager.gamestateupdater.GameStateUpdater;
 import haw.vs.model.matchmanager.mock.MockGameStateUpdater;
 import haw.vs.model.matchmanager.state.Matches;
 

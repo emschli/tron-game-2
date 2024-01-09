@@ -45,9 +45,8 @@ public class Sender {
                 case "ok":
                     break;
                 case "error":
-                    throw new InvokeFailedException("Method invocation has failed");
-                default:
-                    break;
+                    throw new InvokeFailedException("Method invokation has failed");
+
             }
         } catch (IOException e) {
             e.printStackTrace();

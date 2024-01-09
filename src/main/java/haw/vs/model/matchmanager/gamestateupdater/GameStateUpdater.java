@@ -1,4 +1,4 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.gamestateupdater;
 
 import haw.vs.model.common.Match;
 import haw.vs.model.matchmanager.api.IGameStateUpdater;
