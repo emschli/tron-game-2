@@ -1,6 +1,7 @@
 package haw.vs.integration;
 
 import haw.vs.common.PlayerConfigData;
+import haw.vs.common.properties.ComponentType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.controller.api.IInput;
@@ -13,7 +14,7 @@ public class FirstIntegrationTest {
         MatchManagerApp app = new MatchManagerApp();
         app.startApp();
 
-        IInput input = InputFactory.getInput();
+        IInput input = InputFactory.getInput(ComponentType.CONTROLLER);
         PlayerConfigData configData = new PlayerConfigData(500, 600);
 
         //Start Game 2 players

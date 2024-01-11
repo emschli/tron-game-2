@@ -2,12 +2,13 @@ package haw.vs.model.matchmanager.gamestateupdater;
 
 import haw.vs.middleware.MethodTypes;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
+import haw.vs.common.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
 import haw.vs.model.common.Match;
 import haw.vs.model.matchmanager.MatchManagerInfo;
 import haw.vs.model.matchmanager.api.IGameStateUpdater;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,25 +17,20 @@ public class GameStateUpdaterAppStubProvider implements IGameStateUpdater, ICall
 
     private final IGameStateUpdater gameStateUpdater;
 
-    public GameStateUpdaterAppStubProvider(IServerStub serverStub, IGameStateUpdater gameStateUpdater) throws NameServiceException {
+    public GameStateUpdaterAppStubProvider(IServerStub serverStub, IGameStateUpdater gameStateUpdater) {
         this.serverStub = serverStub;
         this.gameStateUpdater = gameStateUpdater;
-
-        List<String> methodNames = new ArrayList<>();
-        methodNames.add("update");
-         this.serverStub.register(methodNames, this, MethodTypes.SPECIFIC);
     }
 
     @Override
-    public void call(String methodName, Object[] args) {
-        if (methodName.equals("update")) {
-            Match match = (Match) args[0]; //TODO: this is not going to work...
-            update(match);
+    public void register() throws NameServiceException {
+        List<Method> methods = new ArrayList<>();
+        try {
+            methods.add(this.getClass().getMethod("update", Match.class));
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void setId(long id) {
+        long id = serverStub.register(methods, this, MethodTypes.SPECIFIC);
         MatchManagerInfo.setMatchManagerId(id);
     }
 

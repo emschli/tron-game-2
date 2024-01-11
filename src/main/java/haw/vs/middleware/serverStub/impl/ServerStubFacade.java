@@ -1,10 +1,10 @@
 package haw.vs.middleware.serverStub.impl;
 
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.middleware.serverStub.api.ICallee;
 import haw.vs.middleware.serverStub.api.ICaller;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class ServerStubFacade implements IServerStub {
@@ -15,7 +15,7 @@ public class ServerStubFacade implements IServerStub {
     }
 
     @Override
-    public void register(List<String> methodNames, ICallee callee, int type) throws NameServiceException {
-        caller.register(methodNames, callee, type);
+    public long register(List<Method> methods, Object callee, int type) throws NameServiceException {
+        return caller.register(methods, callee, type);
     }
 }
