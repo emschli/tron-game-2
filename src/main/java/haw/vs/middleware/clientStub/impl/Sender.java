@@ -32,11 +32,7 @@ public class Sender {
         try (Socket socket = new Socket(InetAddress.getByName(sendTo), serverport)) {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            try {
-                outputStream.writeInt(data.length);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
             outputStream.write(data);
 
             //For Example "ok" or "error";

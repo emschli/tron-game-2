@@ -10,6 +10,7 @@ import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.ICaller;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -65,9 +66,8 @@ public class Caller implements ICaller, Runnable {
 
     private JsonRequest unmarshall(byte[] data) {
         try {
-            String jsonString = new String(data);
-            return objectMapper.readValue(jsonString, JsonRequest.class);
-        } catch (JsonProcessingException e) {
+            return objectMapper.readValue(data, JsonRequest.class);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -111,7 +111,12 @@ public class Caller implements ICaller, Runnable {
     public void run() {
         while (true) {
             //take stuff from receiveQueue
-            byte[] data = receiveQueue.take();
+            byte[] data = new byte[0];
+            try {
+                data = receiveQueue.take();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             //process it
             JsonRequest request = unmarshall(data);
             makeCall(request);

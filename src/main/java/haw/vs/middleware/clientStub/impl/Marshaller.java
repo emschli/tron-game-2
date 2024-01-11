@@ -27,7 +27,7 @@ public class Marshaller implements IClientStub {
         request.setParams(args);
 
         try {
-            return objectMapper.writeValueAsString(request).getBytes();
+            return objectMapper.writeValueAsBytes(request);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
