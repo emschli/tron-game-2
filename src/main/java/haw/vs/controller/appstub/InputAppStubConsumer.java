@@ -15,8 +15,7 @@ public class InputAppStubConsumer implements IInput {
     public InputAppStubConsumer(IClientStub clientStub) {
         this.clientStub = clientStub;
     }
-    public InputAppStubConsumer() {
-    }
+
     @Override
     public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
         invoke("joinGame", ModeTypes.ASYNC_TCP, playerId, noOfPlayers,configData);
@@ -32,9 +31,9 @@ public class InputAppStubConsumer implements IInput {
         invoke("handleGameAction", ModeTypes.ASYNC_UDP, playerId, matchId, dir);
     }
 
-    private void invoke(String methodName, int mode, long playerId, Object... args) {
+    private void invoke(String methodName, int mode, Object... args) {
         try {
-            clientStub.invoke(methodName, mode, playerId, args);
+            clientStub.invoke(methodName, mode, args);
         } catch (NameServiceException e) {
             throw new RuntimeException(e);
         } catch (InvokeFailedException e) {
