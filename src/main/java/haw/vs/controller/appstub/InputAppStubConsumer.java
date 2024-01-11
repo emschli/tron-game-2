@@ -19,7 +19,6 @@ public class InputAppStubConsumer implements IInput {
     }
     @Override
     public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
-
         invoke("joinGame", ModeTypes.ASYNC_TCP, playerId, noOfPlayers,configData);
     }
 
