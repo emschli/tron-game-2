@@ -33,9 +33,9 @@ public class InputAppStubConsumer implements IInput {
         invoke("handleGameAction", ModeTypes.ASYNC_UDP, playerId, matchId, dir);
     }
 
-    private void invoke(String methodName, int mode, Object... args) {
+    private void invoke(String methodName, int mode, long playerId, Object... args) {
         try {
-            clientStub.invoke(methodName, mode, args);
+            clientStub.invoke(methodName, mode, playerId, args);
         } catch (NameServiceException e) {
             throw new RuntimeException(e);
         } catch (InvokeFailedException e) {
