@@ -27,7 +27,7 @@ public class Main {
                     break;
                 // Add other cases if needed
                 case DISTRIBUTED:
-                    new MiddlewareApp().startMiddleware();
+                    new MiddlewareApp().startApp();
 
                     List<ComponentType> componentsToBeStarted = PropertiesHelper.getAllComponents();
                     for (ComponentType componentType : componentsToBeStarted) {
