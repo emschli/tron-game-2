@@ -28,9 +28,8 @@ public class Looser extends VBox {
         labelLooser = new Label(translationServiceAI.translateText("You lost!"));
         labelLooser.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
-        backToMain = new Button("Back To Main Menu");
+        backToMain = new Button(translationServiceAI.translateText("Back to main menu"));
         backToMain.setOnAction(event -> {
-            //TODO back to main anzeigen, funktioniert das?
             view.clear();
             view.hideOverlays();
             view.showOverlay("main");        });

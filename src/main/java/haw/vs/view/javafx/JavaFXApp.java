@@ -10,10 +10,8 @@ public class JavaFXApp extends Application {
     public void start(Stage stage) throws Exception {
         tronView = TronView.getInstance();
 
-        //test tronView.showOverlay("playerCount");
-
         // configure and show stage
-        stage.setTitle("TRON - the best game ever");
+        stage.setTitle("TRON");
         stage.setScene(tronView.getScene());
         tronView.showOverlay("main");
 

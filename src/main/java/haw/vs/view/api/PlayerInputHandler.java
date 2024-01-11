@@ -20,14 +20,12 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onGameStart(int numOfPlayers) {
-        //TODO ConfigData? muss ggfls noch festgelegt werden
         PlayerConfigData configData = new PlayerConfigData(600, 600);
         inputController.joinGame(getPlayerId(), numOfPlayers, configData);
     }
 
     @Override
     public void onKeyPressed(String pressedKey) {
-                System.out.println("Hilfsausgabe im PlayerInputHandler. Pressed Key: "+ pressedKey );
         inputController.handleGameAction(getPlayerId(), getMatchId() , getDirectionFromString(pressedKey));
     }
 

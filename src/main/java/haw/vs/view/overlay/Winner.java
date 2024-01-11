@@ -21,15 +21,15 @@ public class Winner extends VBox {
 
     public Winner(String stylesheet, ITronView view) {
         super(20.0);
+        translationServiceAI = new TranslationServiceAI();
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
 
-        labelWinner = new Label("You won!");
+        labelWinner = new Label(translationServiceAI.translateText("You won!"));
         labelWinner.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
         backToMain = new Button(translationServiceAI.translateText("Back To Main Menu"));
         backToMain.setOnAction(event -> {
-            //TODO back to main anzeigen, funktioniert das?
             view.clear();
             view.hideOverlays();
             view.showOverlay("main");

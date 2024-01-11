@@ -29,16 +29,17 @@ public class PlayerCountView extends VBox {
 
     public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
+        translationServiceAI = new TranslationServiceAI();
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
         this.counter = PlayerInfo.getActualNoOfPlayers();
 
-        labelCount = new Label("Waiting for more players to join the game.\nThere are already " + counter + " of " +
-                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+        labelCount = new Label(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") + counter + translationServiceAI.translateText(" of ") +
+                PlayerInfo.getNoOfPlayers() + translationServiceAI.translateText(" Players ready. \n"));
         labelCount.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
         //Add the button to cancel/go back to main menu
-        btnCancel = new Button("Cancel");
+        btnCancel = new Button(translationServiceAI.translateText("Cancel"));
         btnCancel.setOnAction(event -> {
             //call method in PlayerInputHandler to cancel the process of waiting and leave the (future) match
             inputHandler.onCancel();

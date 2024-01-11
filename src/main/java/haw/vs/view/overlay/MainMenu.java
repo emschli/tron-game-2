@@ -54,31 +54,32 @@ public class MainMenu extends VBox {
             }
         });
         //add feedbacklabel for warning alert
-        feedbackLbl = new Label("You have to select a number between 1-4");
+        feedbackLbl = new Label(translationServiceAI.translateText("You have to select a number between 1-4"));
         //add button to enter the in text field setted number
         btnJoin = new Button(translationServiceAI.translateText("Join Game"));
         btnJoin.setOnAction(event -> {
             if(textField.getText().equals("")){
                 //if there is no value there will be an alert and player can enter a value again
                 var alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(BLOCKING_WARNING_ALERT);
-                alert.setHeaderText(BLOCKING_WARNING_ALERT);
+                alert.setTitle(translationServiceAI.translateText(BLOCKING_WARNING_ALERT));
+                alert.setHeaderText(translationServiceAI.translateText(BLOCKING_WARNING_ALERT));
                 alert.setContentText(feedbackLbl.getText());
                 alert.showAndWait().ifPresent((btnType) -> {
                     feedbackLbl.setText(translationServiceAI.translateText("Thats all from ") + translationServiceAI.translateText(BLOCKING_WARNING_ALERT));
                 });
             } else {
                 //if the value is allowed, the overlay hides
-                view.hideOverlays(); //TODO löschen ?
+                view.hideOverlays();
+                //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
+                //get the IntegerValue of the text field
+                PlayerInfo.setNoOfPlayers(Integer.valueOf(textField.getText()));
+                //use PlayerInputHandler
+                inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
             }
-            //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
-            //get the IntegerValue of the text field
-            PlayerInfo.setNoOfPlayers(Integer.valueOf(textField.getText()));
-            //use PlayerInputHandler
-            inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
-        });
-        //add all the elements in the MainMenu View
 
+        });
+
+        //add all the elements in the MainMenu View
         this.getChildren().add(labelMain);
         this.getChildren().add(textField);
         this.getChildren().add(btnJoin);
