@@ -23,7 +23,7 @@ public class GameViewUpdateFactory {
                     return new GameViewUpdate(ViewFactory.getView(ComponentType.CONTROLLER));
                 case DISTRIBUTED:
                     if (isComp == ComponentType.CONTROLLER) {
-                        return new GameViewUpdateAppStubProvider(new ServerStubFacade(), new GameViewUpdate(ViewFactory.getView()));
+                        return new GameViewUpdateAppStubProvider(new ServerStubFacade(), new GameViewUpdate(ViewFactory.getView(ComponentType.CONTROLLER)));
                     } else {
                         return new GameViewUpdateAppStubConsumer(ClientStubFactory.getClientStub());
                     }
