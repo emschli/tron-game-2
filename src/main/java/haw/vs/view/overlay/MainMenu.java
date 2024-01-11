@@ -3,6 +3,7 @@ package haw.vs.view.overlay;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
 import haw.vs.view.api.PlayerInfo;
 import haw.vs.view.javafx.ITronView;
+import haw.vs.view.translateAI.TranslationServiceAI;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -30,13 +31,15 @@ public class MainMenu extends VBox {
     private final Button btnJoin;
 
     private final TextField textField;
+    private TranslationServiceAI translationServiceAI;
 
     public MainMenu(String stylesheet, ITronView view) {
         super(20.0);
+        translationServiceAI = new TranslationServiceAI();
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
 
-        labelMain = new Label("How many Players?");
+        labelMain = new Label(translationServiceAI.translateText("How many Players?"));
         labelMain.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
         textField = new TextField();
 
@@ -53,7 +56,7 @@ public class MainMenu extends VBox {
         //add feedbacklabel for warning alert
         feedbackLbl = new Label("You have to select a number between 1-4");
         //add button to enter the in text field setted number
-        btnJoin = new Button("Join Game");
+        btnJoin = new Button(translationServiceAI.translateText("Join Game"));
         btnJoin.setOnAction(event -> {
             if(textField.getText().equals("")){
                 //if there is no value there will be an alert and player can enter a value again
@@ -62,7 +65,7 @@ public class MainMenu extends VBox {
                 alert.setHeaderText(BLOCKING_WARNING_ALERT);
                 alert.setContentText(feedbackLbl.getText());
                 alert.showAndWait().ifPresent((btnType) -> {
-                    feedbackLbl.setText("Thats all from " + BLOCKING_WARNING_ALERT);
+                    feedbackLbl.setText(translationServiceAI.translateText("Thats all from ") + translationServiceAI.translateText(BLOCKING_WARNING_ALERT));
                 });
             } else {
                 //if the value is allowed, the overlay hides

@@ -2,9 +2,12 @@ package haw.vs.view.translateAI;
 
 public class TranslationSimpleExample {
 
-    static TranslationServiceAI translationServiceAI  = new TranslationServiceAI();
+
     public static void main(String[] args) {
-        String translatedText = translationServiceAI.translateText("¡Hola Mundo!");
+        TranslationServiceAI translationServiceAI  = new TranslationServiceAI();
+        String translatedText = translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already");
         System.out.println(translatedText);
+
+
     }
 }

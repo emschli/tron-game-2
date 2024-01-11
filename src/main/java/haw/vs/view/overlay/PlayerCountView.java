@@ -3,6 +3,7 @@ package haw.vs.view.overlay;
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
 import haw.vs.view.api.PlayerInfo;
 import haw.vs.view.javafx.ITronView;
+import haw.vs.view.translateAI.TranslationServiceAI;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +24,8 @@ public class PlayerCountView extends VBox {
 
     //counter which counts the number of Players
     private int counter;
+    private TranslationServiceAI translationServiceAI;
+
 
     public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);

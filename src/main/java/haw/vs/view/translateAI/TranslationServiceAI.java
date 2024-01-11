@@ -12,7 +12,7 @@ import java.io.IOException;
 public class TranslationServiceAI {
 
     private Translate translate;
-    private final String targetLangauge;
+    private  String targetLangauge;
 
     public TranslationServiceAI() {
         setupAccess();
@@ -30,7 +30,7 @@ public class TranslationServiceAI {
         return osLangauge;
     }
 
-    private void setupAccess(){
+    private  void setupAccess(){
         String jsonFilePath = System.getenv("GCP_API_TRANSLATION_KEY");
         if (jsonFilePath == null) {
             System.err.println("GCP_API_TRANSLATION_KEY env variable not set.");

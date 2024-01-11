@@ -2,6 +2,7 @@ package haw.vs.view.overlay;
 
 import edu.cads.bai5.vsp.tron.view.ViewUtility;
 import haw.vs.view.javafx.ITronView;
+import haw.vs.view.translateAI.TranslationServiceAI;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +17,8 @@ public class Winner extends VBox {
     private final Label labelWinner;
     private final Button backToMain;
 
+    private TranslationServiceAI translationServiceAI;
+
     public Winner(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
@@ -24,7 +27,7 @@ public class Winner extends VBox {
         labelWinner = new Label("You won!");
         labelWinner.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
-        backToMain = new Button("Back To Main Menu");
+        backToMain = new Button(translationServiceAI.translateText("Back To Main Menu"));
         backToMain.setOnAction(event -> {
             //TODO back to main anzeigen, funktioniert das?
             view.clear();
