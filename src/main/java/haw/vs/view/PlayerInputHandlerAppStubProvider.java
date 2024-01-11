@@ -30,7 +30,7 @@ public class PlayerInputHandlerAppStubProvider implements ICallee, IPlayerInputH
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        serverStub.register(methods, this, MethodTypes.STATEFUL);
+        serverStub.register(methods, this, MethodTypes.SPECIFIC);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        serverStub.register(methods, this, MethodTypes.STATEFUL);
+        serverStub.register(methods, this, MethodTypes.SPECIFIC);
     }
 
     @Override
