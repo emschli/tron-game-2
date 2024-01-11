@@ -24,7 +24,7 @@ public class ReceiveSyncTcpThread implements Runnable {
 
     private ICaller caller;
 
-    public ReceiveSyncTcpThread() throws MiddlewarePropertiesException {
+    public ReceiveSyncTcpThread() {
         this.caller = Caller.getInstance();
     }
 

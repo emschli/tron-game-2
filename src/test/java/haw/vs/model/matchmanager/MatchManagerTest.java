@@ -16,12 +16,13 @@ import haw.vs.model.matchmanager.api.MatchControllerFactory;
 import haw.vs.model.matchmanager.state.Colors;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class MatchManagerTest {
     public static void main(String[] args) throws InterruptedException, PropertiesException {
         PropertiesHelper.setPropertiesFile("model/matchmanager/match_manager_test.properties");
         MatchManagerApp app = new MatchManagerApp();
-        app.startApp();
+        app.startApp(new CountDownLatch(0), new CountDownLatch(1));
 
         IMatchController matchController = MatchControllerFactory.getMatchController(ComponentType.MATCH_MANAGER);
         IGameStateUpdater gameStateUpdater = GameStateUpdaterFactory.getGameStateUpdater(ComponentType.MATCH_MANAGER);
