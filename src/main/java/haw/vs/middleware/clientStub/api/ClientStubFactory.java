@@ -18,6 +18,5 @@ public class ClientStubFactory {
             default:
                 return new MarschallerMock();
         }
-
     }
 }
