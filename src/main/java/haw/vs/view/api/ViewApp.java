@@ -29,7 +29,7 @@ public class ViewApp implements IViewApp, Runnable {
 
     @Override
     public void startApp() {
-  
+
         Thread viewThread = new Thread(this);
         viewThread.start();
 
