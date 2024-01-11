@@ -20,7 +20,7 @@ public class GameViewUpdateFactory {
 
             switch (PropertiesHelper.getAppType()) {
                 case STANDALONE:
-                    return new GameViewUpdate(ViewFactory.getView());
+                    return new GameViewUpdate(ViewFactory.getView(ComponentType.CONTROLLER));
                 case DISTRIBUTED:
                     if (isComp == ComponentType.CONTROLLER) {
                         return new GameViewUpdateAppStubProvider(new ServerStubFacade(), new GameViewUpdate(ViewFactory.getView()));
