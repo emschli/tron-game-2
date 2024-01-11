@@ -6,7 +6,6 @@ import haw.vs.middleware.MethodTypes;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +25,10 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
     public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("startGame", long.class, GameState.class));
-            methods.add(this.getClass().getMethod("updateView", long.class, GameState.class));
-            methods.add(this.getClass().getMethod("playerWon", long.class, GameState.class));
-            methods.add(this.getClass().getMethod("playerLost", long.class, GameState.class));
+            methods.add(this.getClass().getMethod("startGame", long.class, IGameState.class));
+            methods.add(this.getClass().getMethod("updateView", long.class, IGameState.class));
+            methods.add(this.getClass().getMethod("playerWon", long.class, IGameState.class));
+            methods.add(this.getClass().getMethod("playerLost", long.class, IGameState.class));
             methods.add(this.getClass().getMethod("updatePlayerCountView", long.class, int.class, int.class));
             methods.add(this.getClass().getMethod("showMainMenu", long.class));
             methods.add(this.getClass().getMethod("setMatchId", long.class, long.class));
