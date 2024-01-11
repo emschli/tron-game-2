@@ -17,7 +17,7 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
 
     private IGameViewUpdate gameViewUpdate;
 
-    public GameViewUpdateAppStubProvider(IServerStub serverStub, IGameViewUpdate gameViewUpdate) throws NameServiceException {
+    public GameViewUpdateAppStubProvider(IServerStub serverStub, IGameViewUpdate gameViewUpdate) {
         this.serverStub = serverStub;
         this.gameViewUpdate = gameViewUpdate;
     }

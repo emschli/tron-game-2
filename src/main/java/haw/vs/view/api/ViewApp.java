@@ -21,6 +21,15 @@ public class ViewApp implements IViewApp, Runnable {
 
     @Override
     public void startApp() {
+        try {
+            if (PropertiesHelper.getAppType() == AppType.DISTRIBUTED) {
+                ICallee viewFacade = (ICallee) ViewFactory.getView();
+                viewFacade.register();
+            }
+        } catch (PropertiesException | NameServiceException e) {
+            throw new RuntimeException(e);
+        }
+
         Thread viewThread = new Thread(this);
         viewThread.start();
     }
