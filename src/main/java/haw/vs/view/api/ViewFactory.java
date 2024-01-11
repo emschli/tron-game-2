@@ -24,6 +24,6 @@ public class ViewFactory {
     }
 
     public static IPlayerInputHandler getInputHandler(){
-        return new PlayerInputHandler(InputFactory.getInput());
+        return new PlayerInputHandler(InputFactory.getInput(ComponentType.VIEW));
     }
 }

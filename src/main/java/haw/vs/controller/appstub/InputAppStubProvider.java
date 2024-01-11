@@ -18,7 +18,7 @@ public class InputAppStubProvider implements IInput, ICallee {
 
     private final IInput input;
 
-    public InputAppStubProvider(IServerStub serverStub, IInput input) throws NameServiceException {
+    public InputAppStubProvider(IServerStub serverStub, IInput input) {
         this.serverStub = serverStub;
         this.input = input;
 
