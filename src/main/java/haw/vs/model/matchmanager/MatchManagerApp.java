@@ -1,5 +1,13 @@
 package haw.vs.model.matchmanager;
 
+import haw.vs.common.ICallee;
+import haw.vs.common.properties.AppType;
+import haw.vs.common.properties.ComponentType;
+import haw.vs.common.properties.PropertiesException;
+import haw.vs.common.properties.PropertiesHelper;
+import haw.vs.middleware.nameService.impl.exception.NameServiceException;
+import haw.vs.model.matchmanager.api.GameStateUpdaterFactory;
+import haw.vs.model.matchmanager.api.MatchControllerFactory;
 import haw.vs.model.matchmanager.state.Matches;
 import haw.vs.model.matchmanager.tick.TickHandlerFactory;
 import haw.vs.model.matchmanager.tick.TickThread;
@@ -21,5 +29,18 @@ public class MatchManagerApp {
         menuUpdateThreadThread.start();
         gameUpdateThreadThread.start();
         tickThreadThread.start();
+
+        try {
+            if (PropertiesHelper.getAppType() == AppType.DISTRIBUTED) {
+                ICallee matchController = (ICallee) MatchControllerFactory.getMatchController(ComponentType.MATCH_MANAGER);
+                ICallee gameStateUpdater = (ICallee) GameStateUpdaterFactory.getGameStateUpdater(ComponentType.MATCH_MANAGER);
+                matchController.register();
+                gameStateUpdater.register();
+            }
+        } catch (PropertiesException e) {
+            throw new RuntimeException(e);
+        } catch (NameServiceException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

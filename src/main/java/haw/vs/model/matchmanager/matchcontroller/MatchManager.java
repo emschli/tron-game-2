@@ -1,4 +1,4 @@
-package haw.vs.model.matchmanager;
+package haw.vs.model.matchmanager.matchcontroller;
 
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;

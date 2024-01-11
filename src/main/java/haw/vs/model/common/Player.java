@@ -1,5 +1,6 @@
 package haw.vs.model.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import haw.vs.common.Coordinate;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
@@ -72,10 +73,11 @@ public class Player {
         this.configData = configData;
     }
 
+    @JsonIgnore
     public boolean isAlive() {
         return this.state == PlayerState.PLAYING;
     }
-
+    @JsonIgnore
     public Coordinate getHead(){ return trace.get(trace.size()-1);}
 
     @Override

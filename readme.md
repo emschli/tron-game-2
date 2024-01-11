@@ -17,3 +17,18 @@ app_type=STANDALONE
 
 ````
 
+To configure the middleware create file `middleware.properties` in folder `src/main/resources`. 
+The following 3 ports have to be specified in `middleware.properties`:
+````
+# App Types
+app_type=MIDDLEWARE
+#app_type=NAME_SERVICE
+
+sync_tcp_port=...
+async_tcp_port=...
+async_udp_port=...
+
+# Nameservice IP
+nameservice_host= ...
+nameservice_port= ...
+````
