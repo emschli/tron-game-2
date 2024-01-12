@@ -1,6 +1,7 @@
 package haw.vs.middleware.serverStub.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.StreamReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
 import haw.vs.middleware.common.JsonRequest;
@@ -10,8 +11,10 @@ import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.ICaller;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -64,10 +67,20 @@ public class Caller implements ICaller, Runnable {
     }
 
     private JsonRequest unmarshall(byte[] data) {
+        String jsonString = null;
         try {
-            String jsonString = new String(data);
-            return objectMapper.readValue(jsonString, JsonRequest.class);
-        } catch (JsonProcessingException e) {
+            System.out.println("Unmarshalling: ");
+            jsonString = new String(data, StandardCharsets.UTF_8);
+            // Logging
+            System.out.println("Received JSON data: " + jsonString);
+            JsonRequest request = objectMapper.readValue(data, JsonRequest.class);
+            System.out.println("Unmarschalling success "+ request.toString());
+
+            return request;
+        } catch (IOException e) {
+            System.out.println("Error during unmarshalling: " + e.getMessage());
+            System.out.println("JSON String: " + jsonString);
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -78,7 +91,17 @@ public class Caller implements ICaller, Runnable {
         lock.lock();
         try {
             //look whom to call
-            Pair<Method, Object> pair = calleeMap.get(request.getMethod());
+            Pair<Method, Object> pair = calleeMap.get(request.getMethodname());
+            if (pair == null) {
+                // Logging
+                System.out.println("Method not found: " + request.getMethodname());
+                return;
+            }
+            if (pair.getKey() == null || pair.getValue() == null) {
+                // Logging
+                System.out.println("Invalid Pair: " + pair);
+                return;
+            }
             Method method = pair.getKey();
             callee = pair.getValue();
 
@@ -97,10 +120,15 @@ public class Caller implements ICaller, Runnable {
             method.invoke(callee, args.toArray());
 
         } catch (InvocationTargetException e) {
+            System.out.println("Error in method invocation: " + e.getMessage());
+
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
+            System.out.println("Error: " + e.getMessage());
+
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
+            System.out.println("Error during JSON processing: " + e.getMessage());
             throw new RuntimeException(e);
         } finally {
             lock.unlock();
@@ -111,7 +139,12 @@ public class Caller implements ICaller, Runnable {
     public void run() {
         while (true) {
             //take stuff from receiveQueue
-            byte[] data = receiveQueue.take();
+            byte[] data = new byte[0];
+            try {
+                data = receiveQueue.take();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             //process it
             JsonRequest request = unmarshall(data);
             makeCall(request);

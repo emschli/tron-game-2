@@ -1,7 +1,7 @@
 package haw.vs.view;
 
 import haw.vs.common.ICallee;
-import haw.vs.common.IGameState;
+import haw.vs.common.GameState;
 import haw.vs.middleware.MethodTypes;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.IServerStub;
@@ -26,50 +26,50 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
     public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("startGame", IGameState.class));
-            methods.add(this.getClass().getMethod("update", IGameState.class));
-            methods.add(this.getClass().getMethod("playerLost", IGameState.class));
-            methods.add(this.getClass().getMethod("playerWon", IGameState.class));
-            methods.add(this.getClass().getMethod("updatePlayerCountView", int.class, int.class));
-            methods.add(this.getClass().getMethod("setMatchId", long.class));
+            methods.add(this.getClass().getMethod("startGameView", GameState.class));
+            methods.add(this.getClass().getMethod("updateView", GameState.class));
+            methods.add(this.getClass().getMethod("playerLostView", GameState.class));
+            methods.add(this.getClass().getMethod("playerWonView", GameState.class));
+            methods.add(this.getClass().getMethod("updatePlayerCountViewView", int.class, int.class));
+            methods.add(this.getClass().getMethod("setMatchIdView", long.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        serverStub.register(methods, this, MethodTypes.SPECIFIC);
+        serverStub.register(methods, this, MethodTypes.SPECIFIC); //TODO: hier kommt playerID zurück und muss in PlayerInfo übernommen werden
     }
 
     @Override
-    public void startGame(IGameState gameState) {
-        viewFacade.startGame(gameState);
+    public void startGameView(GameState gameState) {
+        viewFacade.startGameView(gameState);
     }
 
     @Override
-    public void update(IGameState gameState) {
-        viewFacade.update(gameState);
+    public void updateView(GameState gameState) {
+        viewFacade.updateView(gameState);
     }
 
     @Override
-    public void playerLost(IGameState gameState) {
-        viewFacade.playerLost(gameState);
+    public void playerLostView(GameState gameState) {
+        viewFacade.playerLostView(gameState);
     }
 
     @Override
-    public void playerWon(IGameState gameState) {
-        viewFacade.playerWon(gameState);
+    public void playerWonView(GameState gameState) {
+        viewFacade.playerWonView(gameState);
     }
 
     @Override
-    public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
-        viewFacade.updatePlayerCountView(playerCount, targetPlayerCount);
+    public void updatePlayerCountViewView(int playerCount, int targetPlayerCount) {
+        viewFacade.updatePlayerCountViewView(playerCount, targetPlayerCount);
     }
 
     @Override
-    public void showMainMenu() {
-        viewFacade.showMainMenu();
+    public void showMainMenuView() {
+        viewFacade.showMainMenuView();
     }
 
     @Override
-    public void setMatchId(long matchId) {
-        viewFacade.setMatchId(matchId);
+    public void setMatchIdView(long matchId) {
+        viewFacade.setMatchIdView(matchId);
     }
 }

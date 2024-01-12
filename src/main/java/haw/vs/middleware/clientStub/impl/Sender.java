@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 
 public class Sender {
 
+
     private SendQueue sendQueue;
 
     public Sender() {
@@ -26,17 +27,13 @@ public class Sender {
         try {
             serverport = MiddlewarePropertiesHelper.getSynchronousTcpPort();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         try (Socket socket = new Socket(InetAddress.getByName(sendTo), serverport)) {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            try {
-                outputStream.writeInt(data.length);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
             outputStream.write(data);
 
             //For Example "ok" or "error";

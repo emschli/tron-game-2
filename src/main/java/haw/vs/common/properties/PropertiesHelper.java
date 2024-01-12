@@ -15,11 +15,11 @@ public class PropertiesHelper {
      * Set the properties file that should be used
      * @param filename of properties file located in resources folder
      */
-    public static void setPropertiesFile(String filename) {
+    public static synchronized void setPropertiesFile(String filename) {
         PROPERTIES_FILE = filename;
     }
 
-    public static boolean isTest(ComponentType componentType) throws PropertiesException {
+    public static synchronized boolean isTest(ComponentType componentType) throws PropertiesException {
         load();
         String isTestString = PROPERTIES.getProperty(componentType.toString().toLowerCase() + "_test");
         return Boolean.parseBoolean(isTestString);
@@ -30,7 +30,7 @@ public class PropertiesHelper {
      * @return the AppType
      * @throws PropertiesException if properties file cannot be found or there is no valid value
      */
-    public static AppType getAppType() throws PropertiesException {
+    public static synchronized AppType getAppType() throws PropertiesException {
         load();
         String appType = PROPERTIES.getProperty("app_type");
         if (appType == null) {
@@ -50,7 +50,7 @@ public class PropertiesHelper {
      * @return true if it should be deployed and false if set to false or null
      * @throws PropertiesException if properties file cannot be found
      */
-    public static boolean shouldBeDeployed(ComponentType componentType) throws PropertiesException {
+    public static synchronized boolean shouldBeDeployed(ComponentType componentType) throws PropertiesException {
         String componentKey = componentType.toString().toLowerCase();
         load();
         return Boolean.parseBoolean(PROPERTIES.getProperty(componentKey));
@@ -61,7 +61,7 @@ public class PropertiesHelper {
      * @return a List of ComponentTypes
      * @throws PropertiesException if properties file cannot be found
      */
-    public static List<ComponentType> getAllComponents() throws PropertiesException {
+    public synchronized static List<ComponentType> getAllComponents() throws PropertiesException {
         List<ComponentType> result = new ArrayList<>();
         load();
 
@@ -80,7 +80,7 @@ public class PropertiesHelper {
      * @return Property for key or null if there is no entry
      * @throws PropertiesException if properties file cannot be found
      */
-    public static String getProperty(String key) throws PropertiesException {
+    public static synchronized String getProperty(String key) throws PropertiesException {
         load();
         return PROPERTIES.getProperty(key);
     }

@@ -23,11 +23,11 @@ public class Marshaller implements IClientStub {
     public byte[] marshall(Object[] args, String methodName) {
 
         JsonRequest request = new JsonRequest();
-        request.setMethod(methodName);
+        request.setMethodname(methodName);
         request.setParams(args);
 
         try {
-            return objectMapper.writeValueAsString(request).getBytes();
+            return objectMapper.writeValueAsBytes(request);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

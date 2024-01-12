@@ -1,26 +1,26 @@
 package haw.vs.controller.api;
 
-import haw.vs.common.IGameState;
+import haw.vs.common.GameState;
 
 public interface IGameViewUpdate {
     // Methode, um das Spiel für einen Spieler zu starten
-    void startGame(long playerId, IGameState gameState);
+    void startGameController(long playerId, GameState gameState);
 
     // Methode zur Aktualisierung der Ansicht für einen Spieler
-    void updateView(long playerId, IGameState gameState);
+    void updateController(long playerId, GameState gameState);
 
     // Methode, um einem Spieler mitzuteilen, dass er gewonnen hat
-    void playerWon(long playerId, IGameState gameState);
+    void playerWonController(long playerId, GameState gameState);
 
     // Methode, um einem Spieler mitzuteilen, dass er verloren hat
-    void playerLost(long playerId, IGameState gameState);
+    void playerLostController(long playerId, GameState gameState);
 
     // Methode zur Aktualisierung der Spieleranzahl in der Ansicht für einen Spieler
-    void updatePlayerCountView(long playerId, int playerCount, int targetPlayerCount);
+    void updatePlayerCountViewController(long playerId, int playerCount, int targetPlayerCount);
 
     // Methode, um das Hauptmenü für einen Spieler anzuzeigen
-    void showMainMenu(long playerId);
+    void showMainMenuController(long playerId);
 
     // Methode zur Festlegung der Match-ID für einen Spieler
-    void setMatchId(long playerId, long matchId);
+    void setMatchIdController(long playerId, long matchId);
 }

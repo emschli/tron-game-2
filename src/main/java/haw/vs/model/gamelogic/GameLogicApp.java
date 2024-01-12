@@ -7,15 +7,24 @@ import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.model.gamelogic.api.GameStateProcessorFactory;
+import haw.vs.view.api.IComponentApp;
 
-public class GameLogicApp {
-    public void startApp(){
+import java.util.concurrent.CountDownLatch;
+
+public class GameLogicApp implements IComponentApp {
+    @Override
+    public void startApp(CountDownLatch viewStartedCountDownLatch, CountDownLatch everyBodyElseStartedCountDownLatch){
         try {
             if (PropertiesHelper.getAppType() == AppType.DISTRIBUTED) {
+                viewStartedCountDownLatch.await();
                 ICallee gameStateProcessor = (ICallee) GameStateProcessorFactory.getGameStateProcessor(ComponentType.GAME_LOGIC);
                 gameStateProcessor.register();
+
+                everyBodyElseStartedCountDownLatch.countDown();
             }
         } catch (PropertiesException | NameServiceException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

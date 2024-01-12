@@ -51,6 +51,8 @@ public class ReceiveTcpThread implements Runnable {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
             try{
                 clientSocket.close();

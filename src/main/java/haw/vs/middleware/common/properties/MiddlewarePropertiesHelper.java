@@ -19,11 +19,11 @@ public class MiddlewarePropertiesHelper {
      * Set the properties file that should be used
      * @param filename of properties file located in resources folder
      */
-    public static void setPropertiesFile(String filename) {
+    public static synchronized void setPropertiesFile(String filename) {
         PROPERTIES_FILE = filename;
     }
 
-    public static MiddlewareAppType getMiddlewareAppType() throws MiddlewarePropertiesException {
+    public static synchronized MiddlewareAppType getMiddlewareAppType() throws MiddlewarePropertiesException {
         load();
         String appType = PROPERTIES.getProperty("app_type");
         if (appType == null) {
@@ -37,22 +37,22 @@ public class MiddlewarePropertiesHelper {
         }
     }
 
-    public static int getSynchronousTcpPort()  throws MiddlewarePropertiesException {
+    public static synchronized int getSynchronousTcpPort()  throws MiddlewarePropertiesException {
         return getPort(SYNC_TCP_PORT);
     }
 
-    public static int getAsynchronousTcpPort()  throws MiddlewarePropertiesException {
+    public static synchronized int getAsynchronousTcpPort()  throws MiddlewarePropertiesException {
         return getPort(ASYNC_TCP_PORT);
     }
-    public static int getAsynchronousUdpPort()  throws MiddlewarePropertiesException {
+    public static synchronized int getAsynchronousUdpPort()  throws MiddlewarePropertiesException {
         return getPort(ASYNC_UDP_PORT);
     }
 
-    public static int getNameServicePort() throws MiddlewarePropertiesException {
+    public static synchronized int getNameServicePort() throws MiddlewarePropertiesException {
         return getPort(NAME_SERVICE_PORT);
     }
 
-    public static String getNameServiceHost() throws MiddlewarePropertiesException {
+    public static synchronized String getNameServiceHost() throws MiddlewarePropertiesException {
         load();
         String hostName = PROPERTIES.getProperty(NAME_SERVICE_HOST);
 

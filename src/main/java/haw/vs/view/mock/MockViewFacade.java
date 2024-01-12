@@ -1,41 +1,41 @@
 package haw.vs.view.mock;
 
-import haw.vs.common.IGameState;
+import haw.vs.common.GameState;
 import haw.vs.view.api.IViewFacade;
 
 public class MockViewFacade implements IViewFacade {
     @Override
-    public void startGame(IGameState gameState) {
+    public void startGameView(GameState gameState) {
         System.out.printf("ViewFacade:   startGame(%s)\n", gameState);
     }
 
     @Override
-    public void update(IGameState gameState) {
+    public void updateView(GameState gameState) {
         System.out.printf("ViewFacade:   update(%s)\n", gameState);
     }
 
     @Override
-    public void playerLost(IGameState gameState) {
+    public void playerLostView(GameState gameState) {
         System.out.printf("ViewFacade:   playerLost(%s)\n", gameState);
     }
 
     @Override
-    public void playerWon(IGameState gameState) {
+    public void playerWonView(GameState gameState) {
         System.out.printf("ViewFacade:   playerWon(%s)\n", gameState);
     }
 
     @Override
-    public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
+    public void updatePlayerCountViewView(int playerCount, int targetPlayerCount) {
         System.out.printf("ViewFacade:   updatePlayerCountView(%s, %s)\n", playerCount, targetPlayerCount);
     }
 
     @Override
-    public void showMainMenu() {
+    public void showMainMenuView() {
         System.out.print("ViewFacade:   showMainMenu()\n");
     }
 
     @Override
-    public void setMatchId(long matchId) {
+    public void setMatchIdView(long matchId) {
         System.out.printf("ViewFacade:   setMatchId(%s)\n", matchId);
     }
 

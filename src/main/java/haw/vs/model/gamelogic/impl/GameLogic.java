@@ -22,7 +22,7 @@ public class GameLogic implements IGameLogic {
     }
 
     @Override
-    public void processMatch(Match match) {
+    public void processMatchGameLogic(Match match) {
         if (match.getState().equals(MatchState.READY)) {
             positionPlayersForStart(match);
         } else {

@@ -34,7 +34,7 @@ public class TCPSendThread implements Runnable{
 
         try (Socket socket = new Socket(address, serverport)) {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-            outputStream.writeInt(data.length);
+
             outputStream.write(data);
         } catch (IOException e) {
             e.printStackTrace();

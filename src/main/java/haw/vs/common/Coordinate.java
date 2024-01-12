@@ -3,12 +3,15 @@ package haw.vs.common;
 import java.util.Objects;
 
 public class Coordinate {
-    public final int x;
-    public final int y;
+    public int x;
+    public int y;
 
     public Coordinate(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    public Coordinate() {
     }
 
     public Coordinate add(Coordinate other){

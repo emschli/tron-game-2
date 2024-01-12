@@ -101,7 +101,7 @@ class GameLogicTest {
     // Test positioning of players
     @Test
     void testProcessMatchWithReadyMatch() {
-        gameLogic.processMatch(match1);
+        gameLogic.processMatchGameLogic(match1);
         assertEquals(1, match1.getPlayers().get(0).getTrace().size());
         assertEquals(1, match1.getPlayers().get(1).getTrace().size());
         assert (match1.getPlayers().get(0).getCurrentDirection() == Direction.DOWN);
@@ -112,17 +112,17 @@ class GameLogicTest {
 
     @Test
     void testProcessMatchDoingNothing() {
-        gameLogic.processMatch(match2); // position Players
+        gameLogic.processMatchGameLogic(match2); // position Players
         match2.setState(MatchState.RUNNING); // normally done by MatchManager
-        gameLogic.processMatch(match2);
-        gameLogic.processMatch(match2);
-        gameLogic.processMatch(match2);
-        gameLogic.processMatch(match2);
+        gameLogic.processMatchGameLogic(match2);
+        gameLogic.processMatchGameLogic(match2);
+        gameLogic.processMatchGameLogic(match2);
+        gameLogic.processMatchGameLogic(match2);
         assertEquals(5, match2.getPlayers().get(0).getTrace().size());
         assertEquals(5, match2.getPlayers().get(1).getTrace().size());
         assertEquals(5, match2.getPlayers().get(2).getTrace().size());
         assertEquals(5, match2.getPlayers().get(3).getTrace().size());
-        gameLogic.processMatch(match2); // nobody did anything, so everybody should crash in the middle
+        gameLogic.processMatchGameLogic(match2); // nobody did anything, so everybody should crash in the middle
         assertEquals(0, match2.getAlivePlayers().size());
         assertEquals(PlayerState.DEAD, match2.getPlayers().get(0).getState());
         assertEquals(MatchState.ENDED, match2.getState());
@@ -130,11 +130,11 @@ class GameLogicTest {
 
     @Test
     void testProcessMatchSetMatchState() {
-        gameLogic.processMatch(match1); // position Players
+        gameLogic.processMatchGameLogic(match1); // position Players
         match1.setState(MatchState.RUNNING); // normally done by MatchManager
-        gameLogic.processMatch(match1);
+        gameLogic.processMatchGameLogic(match1);
         match1.getPlayers().get(1).setState(PlayerState.DEAD); // one player alive in match
-        gameLogic.processMatch(match1);
+        gameLogic.processMatchGameLogic(match1);
         assertEquals(MatchState.ENDED, match1.getState());
     }
 
@@ -142,24 +142,24 @@ class GameLogicTest {
     void testProcessMatchSteering() {
         Player zadie = match1.getPlayers().get(0);
         Player chimamanda = match1.getPlayers().get(1);
-        gameLogic.processMatch(match1); // position Players
+        gameLogic.processMatchGameLogic(match1); // position Players
         match1.setState(MatchState.RUNNING); // normally done by MatchManager
         zadie.setState(PlayerState.PLAYING); // normally done by MatchManager
         chimamanda.setState(PlayerState.PLAYING); // normally done by MatchManager
 
-        gameLogic.processMatch(match1); // second
+        gameLogic.processMatchGameLogic(match1); // second
         zadie.setNextDirection(Direction.UP); // is reverse direction, should correct to current direction (down) and get on with it
         chimamanda.setNextDirection(Direction.RIGHT);
-        gameLogic.processMatch(match1); // third
+        gameLogic.processMatchGameLogic(match1); // third
         assertEquals(Direction.DOWN, zadie.getCurrentDirection());
         assertEquals(Direction.RIGHT, chimamanda.getCurrentDirection());
         chimamanda.setNextDirection(Direction.DOWN);
-        gameLogic.processMatch(match1); // fourth
+        gameLogic.processMatchGameLogic(match1); // fourth
         assertEquals(5, zadie.getHead().x);
         assertEquals(3, zadie.getHead().y);
         assertEquals(6, chimamanda.getHead().x);
         assertEquals(10, chimamanda.getHead().y);
-        gameLogic.processMatch(match1); // fifth
+        gameLogic.processMatchGameLogic(match1); // fifth
         assertEquals(PlayerState.WON, zadie.getState());
         assertEquals(PlayerState.DEAD, chimamanda.getState());
         assertEquals(MatchState.ENDED, match1.getState());

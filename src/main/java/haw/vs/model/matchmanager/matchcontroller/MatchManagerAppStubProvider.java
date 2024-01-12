@@ -26,9 +26,9 @@ public class MatchManagerAppStubProvider implements IMatchController, ICallee {
     public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("addPlayerToMatch", long.class, int.class, PlayerConfigData.class));
-            methods.add(this.getClass().getMethod("deletePlayerFromMatch", long.class, long.class, int.class));
-            methods.add(this.getClass().getMethod("movePlayer", long.class, long.class, Direction.class));
+            methods.add(this.getClass().getMethod("addPlayerToMatchMatchManager", long.class, int.class, PlayerConfigData.class));
+            methods.add(this.getClass().getMethod("deletePlayerFromMatchMatchManager", long.class, long.class, int.class));
+            methods.add(this.getClass().getMethod("movePlayerMatchManager", long.class, long.class, Direction.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -36,17 +36,17 @@ public class MatchManagerAppStubProvider implements IMatchController, ICallee {
     }
 
     @Override
-    public void addPlayerToMatch(long playerId, int numberOfPlayers, PlayerConfigData configData) {
-        matchController.addPlayerToMatch(playerId, numberOfPlayers, configData);
+    public void addPlayerToMatchMatchManager(long playerId, int numberOfPlayers, PlayerConfigData configData) {
+        matchController.addPlayerToMatchMatchManager(playerId, numberOfPlayers, configData);
     }
 
     @Override
-    public void deletePlayerFromMatch(long playerId, long matchId, int numberOfPlayers) {
-        matchController.deletePlayerFromMatch(playerId, matchId, numberOfPlayers);
+    public void deletePlayerFromMatchMatchManager(long playerId, long matchId, int numberOfPlayers) {
+        matchController.deletePlayerFromMatchMatchManager(playerId, matchId, numberOfPlayers);
     }
 
     @Override
-    public void movePlayer(long playerId, long matchId, Direction direction) {
-        matchController.movePlayer(playerId, matchId, direction);
+    public void movePlayerMatchManager(long playerId, long matchId, Direction direction) {
+        matchController.movePlayerMatchManager(playerId, matchId, direction);
     }
 }

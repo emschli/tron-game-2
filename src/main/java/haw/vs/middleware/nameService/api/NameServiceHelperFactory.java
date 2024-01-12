@@ -6,7 +6,7 @@ import haw.vs.middleware.nameService.impl.nameservicehelper.NameServiceHelper;
 import haw.vs.middleware.nameService.impl.nameservicehelper.NameServiceHelperCachingProxy;
 
 public class NameServiceHelperFactory {
-    public static INameServiceHelper getNameServiceHelper() {
+    public static synchronized INameServiceHelper getNameServiceHelper() {
         String nameServiceIp;
         int nameServicePort;
         try {

@@ -14,7 +14,7 @@ public class GameStateUpdaterAppStubConsumer implements IGameStateUpdater {
     }
 
     @Override
-    public void update(Match match) {
+    public void updateMatchManager(Match match) {
         try {
             clientStub.invokeSpecific(match.getMatchManagerId(), "update", ModeTypes.ASYNC_UDP, match);
         } catch (InvokeFailedException e) {
