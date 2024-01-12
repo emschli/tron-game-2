@@ -17,17 +17,17 @@ public class InputAppStubConsumer implements IInput {
     }
 
     @Override
-    public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
+    public void joinGameController(long playerId, int noOfPlayers, PlayerConfigData configData) {
         invoke("joinGame", ModeTypes.ASYNC_TCP, playerId, noOfPlayers,configData);
     }
 
     @Override
-    public void cancelWait(long playerId, long matchId, int noOfPlayers) {
+    public void cancelWaitController(long playerId, long matchId, int noOfPlayers) {
         invoke("cancelWait",ModeTypes.ASYNC_TCP, playerId, matchId, noOfPlayers);
     }
 
     @Override
-    public void handleGameAction(long playerId, long matchId, Direction dir) {
+    public void handleGameActionController(long playerId, long matchId, Direction dir) {
         invoke("handleGameAction", ModeTypes.ASYNC_UDP, playerId, matchId, dir);
     }
 

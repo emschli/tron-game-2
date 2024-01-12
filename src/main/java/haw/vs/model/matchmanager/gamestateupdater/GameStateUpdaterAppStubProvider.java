@@ -26,7 +26,7 @@ public class GameStateUpdaterAppStubProvider implements IGameStateUpdater, ICall
     public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("update", Match.class));
+            methods.add(this.getClass().getMethod("updateMatchManager", Match.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -35,7 +35,7 @@ public class GameStateUpdaterAppStubProvider implements IGameStateUpdater, ICall
     }
 
     @Override
-    public void update(Match match) {
-        gameStateUpdater.update(match);
+    public void updateMatchManager(Match match) {
+        gameStateUpdater.updateMatchManager(match);
     }
 }

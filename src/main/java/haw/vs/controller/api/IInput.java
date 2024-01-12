@@ -5,11 +5,11 @@ import haw.vs.common.PlayerConfigData;
 
 public interface IInput {
     // Ein Spieler tritt dem Spiel bei
-    void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData);
+    void joinGameController(long playerId, int noOfPlayers, PlayerConfigData configData);
 
     // Ein Spieler bricht das Warten ab
-    void cancelWait(long playerId, long matchId, int noOfPlayers);
+    void cancelWaitController(long playerId, long matchId, int noOfPlayers);
 
     // Verarbeitet die Spielaktion eines Spielers
-    void handleGameAction(long playerId,long matchId,  Direction dir);
+    void handleGameActionController(long playerId, long matchId, Direction dir);
 }

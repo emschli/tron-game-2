@@ -23,7 +23,7 @@ public class Marshaller implements IClientStub {
     public byte[] marshall(Object[] args, String methodName) {
 
         JsonRequest request = new JsonRequest();
-        request.setMethod(methodName);
+        request.setMethodname(methodName);
         request.setParams(args);
 
         try {

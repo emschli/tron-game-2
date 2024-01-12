@@ -1,7 +1,7 @@
 package haw.vs.view.api;
 
 import haw.vs.common.Coordinate;
-import haw.vs.common.IGameState;
+import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
 
 import java.util.List;
@@ -16,12 +16,12 @@ public class ViewFacade implements IViewFacade {
     }
 
     @Override
-    public void startGame(IGameState gameState) {
+    public void startGameView(GameState gameState) {
         tronViewAdapter.hideOverlay();
     }
 
     @Override
-    public void update(IGameState gameState) {
+    public void updateView(GameState gameState) {
 
         //all colors with their bikes
         Map<String, List<Coordinate>> gameStateMap = gameState.getPlayerPositionMap();
@@ -44,20 +44,20 @@ public class ViewFacade implements IViewFacade {
     }
 
     @Override
-    public void playerLost(IGameState gameState) {
-        update(gameState);
+    public void playerLostView(GameState gameState) {
+        updateView(gameState);
         tronViewAdapter.showOverlay("looser");
 
     }
 
     @Override
-    public void playerWon(IGameState gameState) {
-        update(gameState);
+    public void playerWonView(GameState gameState) {
+        updateView(gameState);
         tronViewAdapter.showOverlay("winner");
     }
 
     @Override
-    public void updatePlayerCountView(int playerCount, int targetPlayerCount) {
+    public void updatePlayerCountViewView(int playerCount, int targetPlayerCount) {
         tronViewAdapter.hideOverlay();
         PlayerInfo.setNoOfPlayers(targetPlayerCount);
         PlayerInfo.setActualNoOfPlayers(playerCount);
@@ -65,12 +65,12 @@ public class ViewFacade implements IViewFacade {
     }
 
     @Override
-    public void showMainMenu() {
+    public void showMainMenuView() {
         tronViewAdapter.showOverlay("main");
     }
 
     @Override
-    public void setMatchId(long matchId) {
+    public void setMatchIdView(long matchId) {
         PlayerInfo.setMatchId(matchId);
     }
 }

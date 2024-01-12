@@ -13,6 +13,6 @@ public class GameStateProcessedHandler implements IGameStateProcessedHandler {
 
     @Override
     public void updateMatch(Match match) {
-        gameStateUpdater.update(match);
+        gameStateUpdater.updateMatchManager(match);
     }
 }

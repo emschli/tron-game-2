@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 
 public class Sender {
 
+
     private SendQueue sendQueue;
 
     public Sender() {
@@ -26,7 +27,7 @@ public class Sender {
         try {
             serverport = MiddlewarePropertiesHelper.getSynchronousTcpPort();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         try (Socket socket = new Socket(InetAddress.getByName(sendTo), serverport)) {

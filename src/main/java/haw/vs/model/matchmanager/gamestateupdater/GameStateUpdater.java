@@ -12,7 +12,7 @@ public class GameStateUpdater implements IGameStateUpdater {
     }
 
     @Override
-    public void update(Match match) {
+    public void updateMatchManager(Match match) {
         matches.updateMatch(match);
     }
 }
