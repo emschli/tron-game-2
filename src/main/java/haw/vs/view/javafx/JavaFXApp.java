@@ -8,6 +8,9 @@ import javafx.stage.WindowEvent;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * Entrypoint for JavaFX App.
+ */
 public class JavaFXApp extends Application {
     public ITronView tronView;
 
@@ -24,8 +27,6 @@ public class JavaFXApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         tronView = TronView.getInstance();
-
-        //test tronView.showOverlay("playerCount");
 
         // configure and show stage
         stage.setTitle("TRON - the best game ever");
