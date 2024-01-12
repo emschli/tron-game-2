@@ -18,38 +18,38 @@ public class GameViewUpdateAppStubConsumer implements IGameViewUpdate {
     }
 
     @Override
-    public void startGameController(long playerId, GameState gameState) {
-        invoke("startGame", ModeTypes.ASYNC_TCP, playerId, gameState);
+    public void startGameController(Long playerId, GameState gameState) {
+        invoke("startGameController", ModeTypes.ASYNC_TCP, playerId, gameState);
     }
 
     @Override
-    public void updateController(long playerId, GameState gameState) {
+    public void updateController(Long playerId, GameState gameState) {
         invoke("updateController", ModeTypes.ASYNC_UDP, playerId, gameState);
     }
 
     @Override
-    public void playerWonController(long playerId, GameState gameState) {
-        invoke("playerWon", ModeTypes.ASYNC_TCP, playerId, gameState);
+    public void playerWonController(Long playerId, GameState gameState) {
+        invoke("playerWonController", ModeTypes.ASYNC_TCP, playerId, gameState);
     }
 
     @Override
-    public void playerLostController(long playerId, GameState gameState) {
-        invoke("playerLost",ModeTypes.ASYNC_TCP, playerId, gameState);
+    public void playerLostController(Long playerId, GameState gameState) {
+        invoke("playerLostController",ModeTypes.ASYNC_TCP, playerId, gameState);
     }
 
     @Override
-    public void updatePlayerCountViewController(long playerId, int playerCount, int targetPlayerCount) {
-        invoke("updatePlayerCountView", ModeTypes.ASYNC_TCP, playerId, playerCount, targetPlayerCount);
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
+        invoke("updatePlayerCountViewController", ModeTypes.ASYNC_TCP, playerId, playerCount, targetPlayerCount);
     }
 
     @Override
-    public void showMainMenuController(long playerId) {
-        invoke("showMainMenu", ModeTypes.ASYNC_TCP, playerId);
+    public void showMainMenuController(Long playerId) {
+        invoke("showMainMenuController", ModeTypes.ASYNC_TCP, playerId);
     }
 
     @Override
-    public void setMatchIdController(long playerId, long matchId) {
-        invoke("setMatchId", ModeTypes.SYNC_TCP, playerId, matchId);
+    public void setMatchIdController(Long playerId, Long matchId) {
+        invoke("setMatchIdController", ModeTypes.SYNC_TCP, playerId, matchId);
     }
 
     private void invoke(String methodName, int modus, Object... args) {

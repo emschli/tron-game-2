@@ -25,7 +25,7 @@ public class MockViewFacade implements IViewFacade {
     }
 
     @Override
-    public void updatePlayerCountViewView(int playerCount, int targetPlayerCount) {
+    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
         System.out.printf("ViewFacade:   updatePlayerCountView(%s, %s)\n", playerCount, targetPlayerCount);
     }
 
@@ -35,7 +35,7 @@ public class MockViewFacade implements IViewFacade {
     }
 
     @Override
-    public void setMatchIdView(long matchId) {
+    public void setMatchIdView(Long matchId) {
         System.out.printf("ViewFacade:   setMatchId(%s)\n", matchId);
     }
 

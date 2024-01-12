@@ -27,9 +27,9 @@ public class InputAppStubProvider implements IInput, ICallee {
     public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("joinGameController", long.class, int.class, PlayerConfigData.class));
-            methods.add(this.getClass().getMethod("cancelWaitController", long.class, long.class, int.class));
-            methods.add(this.getClass().getMethod("handleGameActionController", long.class, long.class, Direction.class));
+            methods.add(this.getClass().getMethod("joinGameController", Long.class, Integer.class, PlayerConfigData.class));
+            methods.add(this.getClass().getMethod("cancelWaitController", Long.class, Long.class, Integer.class));
+            methods.add(this.getClass().getMethod("handleGameActionController", Long.class, Long.class, Direction.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -39,17 +39,17 @@ public class InputAppStubProvider implements IInput, ICallee {
 
 
     @Override
-    public void joinGameController(long playerId, int noOfPlayers, PlayerConfigData configData) {
+    public void joinGameController(Long playerId, Integer noOfPlayers, PlayerConfigData configData) {
         input.joinGameController(playerId, noOfPlayers, configData);
     }
 
     @Override
-    public void cancelWaitController(long playerId, long matchId, int noOfPlayers) {
+    public void cancelWaitController(Long playerId, Long matchId, Integer noOfPlayers) {
         input.cancelWaitController(playerId, matchId, noOfPlayers);
     }
 
     @Override
-    public void handleGameActionController(long playerId, long matchId, Direction dir) {
+    public void handleGameActionController(Long playerId, Long matchId, Direction dir) {
         input.handleGameActionController(playerId, matchId, dir);
     }
 }

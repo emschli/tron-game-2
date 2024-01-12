@@ -48,7 +48,7 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
     }
 
     @Override
-    public void updatePlayerCountViewView(int playerCount, int targetPlayerCount) {
+    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
         invoke("updatePlayerCountViewView", ModeTypes.ASYNC_UDP, playerCount, targetPlayerCount);
     }
 
@@ -58,7 +58,7 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
     }
 
     @Override
-    public void setMatchIdView(long matchId) {
+    public void setMatchIdView(Long matchId) {
         invoke("setMatchIdView", ModeTypes.ASYNC_TCP, matchId);
     }
 }

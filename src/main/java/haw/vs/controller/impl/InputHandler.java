@@ -14,12 +14,12 @@ public class InputHandler implements IInput {
     }
 
     @Override
-    public void joinGameController(long playerId, int noOfPlayers, PlayerConfigData configData) {
+    public void joinGameController(Long playerId, Integer noOfPlayers, PlayerConfigData configData) {
         matchController.addPlayerToMatchMatchManager(playerId, noOfPlayers, configData);
     }
 
     @Override
-    public void cancelWaitController(long playerId, long matchId, int noOfPlayers) {
+    public void cancelWaitController(Long playerId, Long matchId, Integer noOfPlayers) {
 
         //brauchen wir hier überhaupt noOfPlayers?
         //int noOfPlayers = 4;
@@ -27,7 +27,7 @@ public class InputHandler implements IInput {
     }
 
     @Override
-    public void handleGameActionController(long playerId, long matchId, Direction dir) {
+    public void handleGameActionController(Long playerId, Long matchId, Direction dir) {
         matchController.movePlayerMatchManager(playerId, matchId, dir);
     }
 }

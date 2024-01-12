@@ -1,7 +1,6 @@
 package haw.vs.middleware.serverStub.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.StreamReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
 import haw.vs.middleware.common.JsonRequest;

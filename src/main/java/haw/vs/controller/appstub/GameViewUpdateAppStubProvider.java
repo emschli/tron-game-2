@@ -25,13 +25,13 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
     public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("startGameController", long.class, GameState.class));
-            methods.add(this.getClass().getMethod("updateController", long.class, GameState.class));
-            methods.add(this.getClass().getMethod("playerWonController", long.class, GameState.class));
-            methods.add(this.getClass().getMethod("playerLostController", long.class, GameState.class));
-            methods.add(this.getClass().getMethod("updatePlayerCountViewController", long.class, int.class, int.class));
-            methods.add(this.getClass().getMethod("showMainMenuController", long.class));
-            methods.add(this.getClass().getMethod("setMatchIdController", long.class, long.class));
+            methods.add(this.getClass().getMethod("startGameController", Long.class, GameState.class));
+            methods.add(this.getClass().getMethod("updateController", Long.class, GameState.class));
+            methods.add(this.getClass().getMethod("playerWonController", Long.class, GameState.class));
+            methods.add(this.getClass().getMethod("playerLostController", Long.class, GameState.class));
+            methods.add(this.getClass().getMethod("updatePlayerCountViewController", Long.class, Integer.class, Integer.class));
+            methods.add(this.getClass().getMethod("showMainMenuController", Long.class));
+            methods.add(this.getClass().getMethod("setMatchIdController", Long.class, Long.class));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -41,37 +41,37 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
 
 
     @Override
-    public void startGameController(long playerId, GameState gameState) {
+    public void startGameController(Long playerId, GameState gameState) {
         gameViewUpdate.startGameController(playerId, gameState);
     }
 
     @Override
-    public void updateController(long playerId, GameState gameState) {
+    public void updateController(Long playerId, GameState gameState) {
         gameViewUpdate.updateController(playerId, gameState);
     }
 
     @Override
-    public void playerWonController(long playerId, GameState gameState) {
+    public void playerWonController(Long playerId, GameState gameState) {
         gameViewUpdate.playerWonController(playerId, gameState);
     }
 
     @Override
-    public void playerLostController(long playerId, GameState gameState) {
+    public void playerLostController(Long playerId, GameState gameState) {
         gameViewUpdate.playerLostController(playerId, gameState);
     }
 
     @Override
-    public void updatePlayerCountViewController(long playerId, int playerCount, int targetPlayerCount) {
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
         gameViewUpdate.updatePlayerCountViewController(playerId, playerCount, targetPlayerCount);
     }
 
     @Override
-    public void showMainMenuController(long playerId) {
+    public void showMainMenuController(Long playerId) {
         gameViewUpdate.showMainMenuController(playerId);
     }
 
     @Override
-    public void setMatchIdController(long playerId, long matchId) {
+    public void setMatchIdController(Long playerId, Long matchId) {
         gameViewUpdate.setMatchIdController(playerId, matchId);
     }
 

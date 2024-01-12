@@ -6,17 +6,17 @@ import haw.vs.model.matchmanager.api.IMatchController;
 
 public class MockMatchController implements IMatchController {
     @Override
-    public void addPlayerToMatchMatchManager(long playerId, int numberOfPlayers, PlayerConfigData configData) {
+    public void addPlayerToMatchMatchManager(Long playerId, Integer numberOfPlayers, PlayerConfigData configData) {
 
     }
 
     @Override
-    public void deletePlayerFromMatchMatchManager(long playerId, long matchId, int numberOfPlayers) {
+    public void deletePlayerFromMatchMatchManager(Long playerId, Long matchId, Integer numberOfPlayers) {
 
     }
 
     @Override
-    public void movePlayerMatchManager(long playerId, long matchId, Direction direction) {
+    public void movePlayerMatchManager(Long playerId, Long matchId, Direction direction) {
 
     }
 }
