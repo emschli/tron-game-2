@@ -44,13 +44,26 @@ public class Caller implements ICaller, Runnable {
         return instance;
     }
 
+    /**
+     * This method registers methods at the calleeMap and returns their given ids
+     * @param methods the methods to be registered
+     * @param callee tho object where the methods will be registered at
+     * @param type
+     * @return id of the registered method
+     * @throws NameServiceException by bind() method
+     */
     @Override
     public long register(List<Method> methods, Object callee, int type) throws NameServiceException {
         lock.lock();
         long id;
         try {
             for (Method method : methods) {
-                calleeMap.put(method.getName(),  new Pair<>(method, callee));
+                String methodName = method.getName();
+                if(calleeMap.containsKey(methodName)){
+                    throw new RuntimeException("register() failed, methodname: \'" + methodName + "\' is already a key in calleeMap");
+                } else {
+                    calleeMap.put(method.getName(),  new Pair<>(method, callee));
+                }
             }
             List<String> methodNames = methods.stream().map(Method::getName).collect(Collectors.toList());
             id = nameServiceHelper.bind(methodNames, type);
