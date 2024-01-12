@@ -5,6 +5,7 @@ import haw.vs.common.GameState;
 
 public interface IViewFacade {
 
+    void setPlayerId(long playerId);
     void startGameView(GameState gameState);
     void updateView(GameState gameState);
     void playerLostView(GameState gameState);

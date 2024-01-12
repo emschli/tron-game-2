@@ -39,6 +39,11 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
     }
 
     @Override
+    public void setPlayerId(long playerId) {
+
+    }
+
+    @Override
     public void startGameView(GameState gameState) {
         viewFacade.startGameView(gameState);
     }

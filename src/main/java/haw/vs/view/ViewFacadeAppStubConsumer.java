@@ -10,19 +10,24 @@ import haw.vs.view.api.IViewFacade;
 public class ViewFacadeAppStubConsumer implements IViewFacade {
 
     private IClientStub clientStub;
+    private long playerId;
 
     public ViewFacadeAppStubConsumer(IClientStub clientStub) {
         this.clientStub = clientStub;
+        this.playerId = 1;
     }
 
     private void invoke(String methodName, int mod, Object... args) {
         try {
-            clientStub.invoke(methodName, mod, args);
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
+            clientStub.invokeSpecific(playerId, methodName, mod, args);
         } catch (InvokeFailedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
     }
 
     @Override
