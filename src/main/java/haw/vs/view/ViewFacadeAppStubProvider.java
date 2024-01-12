@@ -30,7 +30,7 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
             methods.add(this.getClass().getMethod("updateView", GameState.class));
             methods.add(this.getClass().getMethod("playerLostView", GameState.class));
             methods.add(this.getClass().getMethod("playerWonView", GameState.class));
-            methods.add(this.getClass().getMethod("updatePlayerCountViewView", int.class, int.class));
+            methods.add(this.getClass().getMethod("updatePlayerCountViewView", Integer.class, Integer.class));
             methods.add(this.getClass().getMethod("setMatchIdView", Long.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
