@@ -16,6 +16,11 @@ public class ViewFacade implements IViewFacade {
     }
 
     @Override
+    public void setPlayerId(long playerId) {
+
+    }
+
+    @Override
     public void startGameView(GameState gameState) {
         tronViewAdapter.hideOverlay();
     }

@@ -5,6 +5,11 @@ import haw.vs.view.api.IViewFacade;
 
 public class MockViewFacade implements IViewFacade {
     @Override
+    public void setPlayerId(long playerId) {
+
+    }
+
+    @Override
     public void startGameView(GameState gameState) {
         System.out.printf("ViewFacade:   startGame(%s)\n", gameState);
     }

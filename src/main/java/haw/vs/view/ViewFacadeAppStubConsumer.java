@@ -11,9 +11,11 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
     private long playerId = 1;
 
     private IClientStub clientStub;
+    private long playerId;
 
     public ViewFacadeAppStubConsumer(IClientStub clientStub) {
         this.clientStub = clientStub;
+        this.playerId = 1;
     }
 
     private void invoke(String methodName, int mod, Object... args) {
@@ -22,6 +24,11 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
         } catch (InvokeFailedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
     }
 
     @Override

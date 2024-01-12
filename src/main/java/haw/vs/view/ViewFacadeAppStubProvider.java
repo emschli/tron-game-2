@@ -7,6 +7,7 @@ import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.IServerStub;
 import haw.vs.view.api.IViewFacade;
+import haw.vs.view.api.PlayerInfo;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -37,7 +38,12 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        serverStub.register(methods, this, MethodTypes.SPECIFIC); //TODO: hier kommt playerID zurück und muss in PlayerInfo übernommen werden
+        PlayerInfo.setPlayerId(serverStub.register(methods, this, MethodTypes.SPECIFIC)); //TODO: hier kommt playerID zurück und muss in PlayerInfo übernommen werden
+    }
+
+    @Override
+    public void setPlayerId(long playerId) {
+
     }
 
     @Override
