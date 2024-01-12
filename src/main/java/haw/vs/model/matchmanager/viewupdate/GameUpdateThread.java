@@ -47,7 +47,7 @@ public class GameUpdateThread implements Runnable {
                     Match match = matches.getNextMatchForViewUpdate();
                     matchUpdateHandler.updateView(match);
                 } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt(); // clear interrupted flag //TODO: ok like this?
+                    e.printStackTrace();
                 }
             }
 
