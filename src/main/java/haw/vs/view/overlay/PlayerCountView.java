@@ -22,7 +22,7 @@ public class PlayerCountView extends VBox {
     private final Button btnCancel;
 
     //counter which counts the number of Players
-    private int counter;
+    //private int counter;
 
     public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
