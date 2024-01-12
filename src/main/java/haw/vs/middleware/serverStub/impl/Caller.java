@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
 import haw.vs.middleware.common.JsonRequest;
 import haw.vs.middleware.common.Pair;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
@@ -60,13 +61,16 @@ public class Caller implements ICaller, Runnable {
             for (Method method : methods) {
                 String methodName = method.getName();
                 if(calleeMap.containsKey(methodName)){
-                    throw new RuntimeException("register() failed, methodname: \'" + methodName + "\' is already a key in calleeMap");
+                    throw new MethodNameAlreadyExistsException("register() failed, methodname: \'" + methodName + "\' is already a key in calleeMap");
                 } else {
                     calleeMap.put(method.getName(),  new Pair<>(method, callee));
                 }
             }
             List<String> methodNames = methods.stream().map(Method::getName).collect(Collectors.toList());
             id = nameServiceHelper.bind(methodNames, type);
+        } catch (MethodNameAlreadyExistsException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             lock.unlock();
         }
