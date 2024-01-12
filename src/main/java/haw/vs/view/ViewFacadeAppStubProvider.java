@@ -38,7 +38,7 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        PlayerInfo.setPlayerId(serverStub.register(methods, this, MethodTypes.SPECIFIC)); //TODO: hier kommt playerID zurück und muss in PlayerInfo übernommen werden
+        PlayerInfo.setPlayerId(serverStub.register(methods, this, MethodTypes.SPECIFIC));
     }
 
     @Override

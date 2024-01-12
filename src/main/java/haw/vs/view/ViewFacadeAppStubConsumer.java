@@ -8,8 +8,6 @@ import haw.vs.view.api.IViewFacade;
 
 public class ViewFacadeAppStubConsumer implements IViewFacade {
 
-    private long playerId = 1;
-
     private IClientStub clientStub;
     private long playerId;
 
