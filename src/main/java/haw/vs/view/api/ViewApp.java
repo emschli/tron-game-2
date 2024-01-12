@@ -7,6 +7,7 @@ import haw.vs.common.properties.AppType;
 import haw.vs.common.properties.ComponentType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.view.javafx.JavaFXApp;
 import javafx.application.Application;
@@ -31,7 +32,7 @@ public class ViewApp implements IComponentApp, Runnable {
     }
 
     @Override
-    public void startApp(CountDownLatch viewStartedCountDownLatch, CountDownLatch everyBodyElseStartedCountDownLatch) {
+    public void startApp(CountDownLatch viewStartedCountDownLatch, CountDownLatch everyBodyElseStartedCountDownLatch) throws MethodNameAlreadyExistsException {
         ViewApp.viewStartedCountDownLatch = viewStartedCountDownLatch;
         ViewApp.everyBodyElseStartedCountDownLatch = everyBodyElseStartedCountDownLatch;
 

@@ -6,6 +6,7 @@ import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.controller.ControllerApp;
 import haw.vs.middleware.MiddlewareApp;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.model.gamelogic.GameLogicApp;
 import haw.vs.model.matchmanager.MatchManagerApp;
 import haw.vs.view.api.IComponentApp;
@@ -68,6 +69,8 @@ public class Main {
                     throw new RuntimeException("Invalid AppType");
             }
         } catch (PropertiesException e) {
+            throw new RuntimeException(e);
+        } catch (MethodNameAlreadyExistsException e) {
             throw new RuntimeException(e);
         }
 

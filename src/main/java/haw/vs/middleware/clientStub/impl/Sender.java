@@ -52,21 +52,16 @@ public class Sender {
 
     public void sendAsynchronouslyTcp(String sendTo, byte[] data) {
         try {
-            sendQueue.getTcpSendQueue().put(new Pair<>(InetAddress.getByName(sendTo), data));
+            sendQueue.putTcpQueue(new Pair<>(InetAddress.getByName(sendTo), data));
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
-
     }
 
     public void sendAsynchronouslyUdp(String sendTo, byte[] data) {
         try {
-            sendQueue.getUdpSendQueue().put(new Pair<>(InetAddress.getByName(sendTo), data));
+            sendQueue.putUdpQueue(new Pair<>(InetAddress.getByName(sendTo), data));
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

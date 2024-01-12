@@ -15,19 +15,19 @@ public class MatchManager implements IMatchController {
     }
 
     @Override
-    public void addPlayerToMatchMatchManager(long playerId, int numberOfPlayers, PlayerConfigData configData) {
+    public void addPlayerToMatchMatchManager(Long playerId, Integer numberOfPlayers, PlayerConfigData configData) {
         MenuEvent event = new MenuEvent(playerId, null, numberOfPlayers, configData, MenuEventType.ADD_PLAYER);
         matches.addMenuEvent(event);
     }
 
     @Override
-    public void deletePlayerFromMatchMatchManager(long playerId, long matchId, int numberOfPlayers) {
+    public void deletePlayerFromMatchMatchManager(Long playerId, Long matchId, Integer numberOfPlayers) {
         MenuEvent event = new MenuEvent(playerId, matchId, numberOfPlayers, null, MenuEventType.PLAYER_CANCELED);
         matches.addMenuEvent(event);
     }
 
     @Override
-    public void movePlayerMatchManager(long playerId, long matchId, Direction direction) {
+    public void movePlayerMatchManager(Long playerId, Long matchId, Direction direction) {
         matches.makePlayerMove(playerId, matchId, direction);
     }
 }

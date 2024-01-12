@@ -1,5 +1,6 @@
 package haw.vs.middleware.serverstub;
 
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.common.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
@@ -16,7 +17,7 @@ public class TestCallee implements ICallee {
     }
 
     @Override
-    public void register() throws NameServiceException {
+    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
         try {
             List<Method> methods = new ArrayList<>();
             Method method = this.getClass().getMethod("foo", long.class, TestParamObject.class);

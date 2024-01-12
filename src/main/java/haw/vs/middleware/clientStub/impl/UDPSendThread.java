@@ -19,7 +19,7 @@ public class UDPSendThread implements Runnable{
     public void run() {
         while (true) {
             try {
-                Pair<InetAddress, byte[]> pair = sendQueue.getUdpSendQueue().take();
+                Pair<InetAddress, byte[]> pair = sendQueue.takeUdpQueue();
                 send(pair.getKey(), pair.getValue());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

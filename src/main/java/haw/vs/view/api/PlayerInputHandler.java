@@ -20,8 +20,9 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     @Override
     public void onGameStart(int numOfPlayers) {
-        //TODO ConfigData? muss ggfls noch festgelegt werden
         PlayerConfigData configData = new PlayerConfigData(600, 600);
+        PlayerInfo.setNoOfPlayers(numOfPlayers);
+        PlayerInfo.setActualNoOfPlayers(1);
         inputController.joinGameController(getPlayerId(), numOfPlayers, configData);
     }
 

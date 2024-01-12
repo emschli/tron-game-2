@@ -3,9 +3,11 @@ package haw.vs.view;
 import haw.vs.common.ICallee;
 import haw.vs.common.GameState;
 import haw.vs.middleware.MethodTypes;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.IServerStub;
 import haw.vs.view.api.IViewFacade;
+import haw.vs.view.api.PlayerInfo;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -23,19 +25,25 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
     }
 
     @Override
-    public void register() throws NameServiceException {
+    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
         List<Method> methods = new ArrayList<>();
         try {
             methods.add(this.getClass().getMethod("startGameView", GameState.class));
             methods.add(this.getClass().getMethod("updateView", GameState.class));
             methods.add(this.getClass().getMethod("playerLostView", GameState.class));
             methods.add(this.getClass().getMethod("playerWonView", GameState.class));
-            methods.add(this.getClass().getMethod("updatePlayerCountViewView", int.class, int.class));
-            methods.add(this.getClass().getMethod("setMatchIdView", long.class));
+            methods.add(this.getClass().getMethod("updatePlayerCountViewView", Integer.class, Integer.class));
+            methods.add(this.getClass().getMethod("setMatchIdView", Long.class));
+            methods.add(this.getClass().getMethod("showMainMenuView"));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        serverStub.register(methods, this, MethodTypes.SPECIFIC); //TODO: hier kommt playerID zurück und muss in PlayerInfo übernommen werden
+        PlayerInfo.setPlayerId(serverStub.register(methods, this, MethodTypes.SPECIFIC));
+    }
+
+    @Override
+    public void setPlayerId(long playerId) {
+
     }
 
     @Override
@@ -59,7 +67,7 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
     }
 
     @Override
-    public void updatePlayerCountViewView(int playerCount, int targetPlayerCount) {
+    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
         viewFacade.updatePlayerCountViewView(playerCount, targetPlayerCount);
     }
 
@@ -69,7 +77,7 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
     }
 
     @Override
-    public void setMatchIdView(long matchId) {
+    public void setMatchIdView(Long matchId) {
         viewFacade.setMatchIdView(matchId);
     }
 }

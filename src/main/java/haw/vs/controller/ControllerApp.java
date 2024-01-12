@@ -7,6 +7,7 @@ import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.controller.api.GameViewUpdateFactory;
 import haw.vs.controller.api.InputFactory;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.view.api.IComponentApp;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class ControllerApp implements IComponentApp {
     @Override
-    public void startApp(CountDownLatch viewStartedCountDownLatch, CountDownLatch everyBodyElseStartedCountDownLatch) {
+    public void startApp(CountDownLatch viewStartedCountDownLatch, CountDownLatch everyBodyElseStartedCountDownLatch) throws MethodNameAlreadyExistsException {
         try {
             if (PropertiesHelper.getAppType() == AppType.DISTRIBUTED) {
                 viewStartedCountDownLatch.await();

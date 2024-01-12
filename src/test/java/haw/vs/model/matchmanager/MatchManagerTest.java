@@ -30,18 +30,18 @@ public class MatchManagerTest {
         PlayerConfigData configData = new PlayerConfigData(10, 10);
 
         //Add Player To Game
-        matchController.addPlayerToMatchMatchManager(1, 3, configData);
+        matchController.addPlayerToMatchMatchManager(1L, 3, configData);
         //Remove Only Player from Game
-        matchController.deletePlayerFromMatchMatchManager(1, 1, 3);
+        matchController.deletePlayerFromMatchMatchManager(1L, 1L, 3);
 
         //Remove One Player from Game
-        matchController.addPlayerToMatchMatchManager(2, 3, configData);
-        matchController.addPlayerToMatchMatchManager(1, 3, configData);
-        matchController.deletePlayerFromMatchMatchManager(1, 1, 3);
+        matchController.addPlayerToMatchMatchManager(2L, 3, configData);
+        matchController.addPlayerToMatchMatchManager(1L, 3, configData);
+        matchController.deletePlayerFromMatchMatchManager(1L, 1L, 3);
 
         // Make the Game Full
-        matchController.addPlayerToMatchMatchManager(1, 3, configData);
-        matchController.addPlayerToMatchMatchManager(3, 3, configData);
+        matchController.addPlayerToMatchMatchManager(1L, 3, configData);
+        matchController.addPlayerToMatchMatchManager(3L, 3, configData);
 
         Match match = getInitialMatch();
         Thread.sleep(2000);
@@ -56,7 +56,7 @@ public class MatchManagerTest {
         }
 
         //Player can make Input
-        matchController.movePlayerMatchManager(1, 2, Direction.DOWN);
+        matchController.movePlayerMatchManager(1L, 2L, Direction.DOWN);
 
         //One Player Dies
         match.getPlayers().get(0).setState(PlayerState.DEAD);

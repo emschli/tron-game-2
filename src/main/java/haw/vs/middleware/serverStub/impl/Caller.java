@@ -1,11 +1,11 @@
 package haw.vs.middleware.serverStub.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.StreamReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
 import haw.vs.middleware.common.JsonRequest;
 import haw.vs.middleware.common.Pair;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
@@ -25,12 +25,14 @@ public class Caller implements ICaller, Runnable {
     private static Caller instance;
 
     private Map<String, Pair<Method, Object>> calleeMap;
+    private Map<String, ReentrantLock> lockMap;
     private Lock lock;
     private ObjectMapper objectMapper;
     private ReceiveQueue receiveQueue;
 
     private Caller() {
         calleeMap = new HashMap<>();
+        lockMap = new HashMap<>();
         lock = new ReentrantLock();
         objectMapper = new ObjectMapper();
         this.receiveQueue = ReceiveQueue.getInstance();
@@ -44,13 +46,27 @@ public class Caller implements ICaller, Runnable {
         return instance;
     }
 
+    /**
+     * This method registers methods at the calleeMap and returns their given ids
+     * @param methods the methods to be registered
+     * @param callee tho object where the methods will be registered at
+     * @param type
+     * @return id of the registered method
+     * @throws NameServiceException by bind() method
+     */
     @Override
-    public long register(List<Method> methods, Object callee, int type) throws NameServiceException {
+    public long register(List<Method> methods, Object callee, int type) throws NameServiceException, MethodNameAlreadyExistsException {
         lock.lock();
         long id;
         try {
             for (Method method : methods) {
-                calleeMap.put(method.getName(),  new Pair<>(method, callee));
+                String methodName = method.getName();
+                if(calleeMap.containsKey(methodName)){
+                    throw new MethodNameAlreadyExistsException("register() failed, methodname: \'" + methodName + "\' is already a key in calleeMap");
+                } else {
+                    calleeMap.put(method.getName(),  new Pair<>(method, callee));
+                    lockMap.put(method.getName(), new ReentrantLock());
+                }
             }
             List<String> methodNames = methods.stream().map(Method::getName).collect(Collectors.toList());
             id = nameServiceHelper.bind(methodNames, type);
@@ -88,7 +104,6 @@ public class Caller implements ICaller, Runnable {
     @VisibleForTesting
     private void makeCall(JsonRequest request) {
         Object callee;
-        lock.lock();
         try {
             //look whom to call
             Pair<Method, Object> pair = calleeMap.get(request.getMethodname());
@@ -117,7 +132,10 @@ public class Caller implements ICaller, Runnable {
                 args.add(arg);
             }
 
+            Lock calleLock = lockMap.get(request.getMethodname());
+            calleLock.lock();
             method.invoke(callee, args.toArray());
+            calleLock.unlock();
 
         } catch (InvocationTargetException e) {
             System.out.println("Error in method invocation: " + e.getMessage());
@@ -130,8 +148,6 @@ public class Caller implements ICaller, Runnable {
         } catch (JsonProcessingException e) {
             System.out.println("Error during JSON processing: " + e.getMessage());
             throw new RuntimeException(e);
-        } finally {
-            lock.unlock();
         }
     }
 

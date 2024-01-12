@@ -4,7 +4,7 @@ import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 
 public interface IMatchController {
-    void addPlayerToMatchMatchManager(long playerId, int numberOfPlayers, PlayerConfigData configData);
-    void deletePlayerFromMatchMatchManager(long playerId, long matchId, int numberOfPlayers);
-    void movePlayerMatchManager(long playerId, long matchId, Direction direction);
+    void addPlayerToMatchMatchManager(Long playerId, Integer numberOfPlayers, PlayerConfigData configData);
+    void deletePlayerFromMatchMatchManager(Long playerId, Long matchId, Integer numberOfPlayers);
+    void movePlayerMatchManager(Long playerId, Long matchId, Direction direction);
 }

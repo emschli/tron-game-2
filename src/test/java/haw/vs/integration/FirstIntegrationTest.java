@@ -20,9 +20,9 @@ public class FirstIntegrationTest {
         PlayerConfigData configData = new PlayerConfigData(500, 600);
 
         //Start Game 2 players
-        input.joinGameController(1, 3, configData);
-        input.joinGameController(2, 3, configData);
-        input.cancelWaitController(1, 1, 3);
+        input.joinGameController(1L, 3, configData);
+        input.joinGameController(2L, 3, configData);
+        input.cancelWaitController(1L, 1L, 3);
 
         System.out.println("");
 

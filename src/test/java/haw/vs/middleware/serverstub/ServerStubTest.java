@@ -3,6 +3,7 @@ package haw.vs.middleware.serverstub;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import haw.vs.middleware.common.JsonRequest;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
 import haw.vs.middleware.nameService.impl.NameServiceThread;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
@@ -10,7 +11,7 @@ import haw.vs.middleware.serverStub.impl.Caller;
 import haw.vs.middleware.serverStub.impl.ServerStubFacade;
 
 public class ServerStubTest {
-    public static void main(String[] args) throws NameServiceException, JsonProcessingException {
+    public static void main(String[] args) throws NameServiceException, JsonProcessingException, MethodNameAlreadyExistsException {
         MiddlewarePropertiesHelper.setPropertiesFile("middleware/middleware.properties");
 
         //Start NameService
@@ -24,7 +25,7 @@ public class ServerStubTest {
 
         //Build Request
         JsonRequest jsonRequest = new JsonRequest();
-        jsonRequest.setMethod("foo");
+        jsonRequest.setMethodname("foo");
         Object[] params = new Object[] {
                 1L,
                 new TestParamObject(42, "blupp!")

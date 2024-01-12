@@ -26,7 +26,7 @@ public class ReceiveUdpThread implements Runnable {
     @Override
     public void run() {
         try (DatagramSocket socket = new DatagramSocket(UDP_PORT)){
-            byte[] receiveData = new byte[1024];
+            byte[] receiveData = new byte[32_000];
 
             while (true){
                 DatagramPacket packet = new DatagramPacket(receiveData, receiveData.length);

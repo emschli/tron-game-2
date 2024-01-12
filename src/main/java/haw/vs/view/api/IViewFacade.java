@@ -5,12 +5,13 @@ import haw.vs.common.GameState;
 
 public interface IViewFacade {
 
+    void setPlayerId(long playerId);
     void startGameView(GameState gameState);
     void updateView(GameState gameState);
     void playerLostView(GameState gameState);
     void playerWonView(GameState gameState);
-    void updatePlayerCountViewView(int playerCount, int targetPlayerCount);
+    void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount);
     void showMainMenuView();
-    void setMatchIdView(long matchId);
+    void setMatchIdView(Long matchId);
 
 }

@@ -19,7 +19,7 @@ public class TCPSendThread implements Runnable{
     public void run() {
         while (true) {
             try {
-                Pair<InetAddress, byte[]> pair = sendQueue.getTcpSendQueue().take();
+                Pair<InetAddress, byte[]> pair = sendQueue.takeTcpQueue();
                 send(pair.getKey(), pair.getValue());
             } catch (InterruptedException | MiddlewarePropertiesException e) {
                 Thread.currentThread().interrupt();
