@@ -1,55 +1,64 @@
 package haw.vs.view.api;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Datenstruktur um die Playerinfo zu haben
  */
 public class PlayerInfo {
 
-    private static long playerId;
+    private static long playerId = 1;
 
     private static long matchId;
 
     private static int noOfPlayers;
     private static int actualNoOfPlayers;
 
-    private static final long ONE = 1;
+    public static StringProperty waitingScreenText;
 
-    /**
-     * Default PlayerId is 1
-     */
-    public PlayerInfo() {
-        this.playerId = ONE;
+    static {
+        waitingScreenText = new SimpleStringProperty("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
+                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
     }
 
     public static long getPlayerId() {
         return playerId;
     }
 
-    public static long getMatchId() {
-        return matchId;
-    }
-
-    public static int getNoOfPlayers() {
-        return noOfPlayers;
-    }
-    public static int getActualNoOfPlayers() {
-        return actualNoOfPlayers;
-    }
-
     public static void setPlayerId(long playerId) {
         PlayerInfo.playerId = playerId;
+    }
+
+    public static long getMatchId() {
+        return matchId;
     }
 
     public static void setMatchId(long matchId) {
         PlayerInfo.matchId = matchId;
     }
 
+    public static int getNoOfPlayers() {
+        return noOfPlayers;
+    }
+
     public static void setNoOfPlayers(int noOfPlayers) {
         PlayerInfo.noOfPlayers = noOfPlayers;
+        updateStringProperty();
+    }
+
+    public static int getActualNoOfPlayers() {
+        return actualNoOfPlayers;
     }
 
     public static void setActualNoOfPlayers(int actualNoOfPlayers) {
         PlayerInfo.actualNoOfPlayers = actualNoOfPlayers;
+        updateStringProperty();
+    }
+
+    private static void updateStringProperty() {
+        waitingScreenText.set("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
+                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
     }
 }
 
