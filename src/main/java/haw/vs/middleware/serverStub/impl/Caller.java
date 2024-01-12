@@ -24,12 +24,14 @@ public class Caller implements ICaller, Runnable {
     private static Caller instance;
 
     private Map<String, Pair<Method, Object>> calleeMap;
+    private Map<String, ReentrantLock> lockMap;
     private Lock lock;
     private ObjectMapper objectMapper;
     private ReceiveQueue receiveQueue;
 
     private Caller() {
         calleeMap = new HashMap<>();
+        lockMap = new HashMap<>();
         lock = new ReentrantLock();
         objectMapper = new ObjectMapper();
         this.receiveQueue = ReceiveQueue.getInstance();
@@ -50,6 +52,7 @@ public class Caller implements ICaller, Runnable {
         try {
             for (Method method : methods) {
                 calleeMap.put(method.getName(),  new Pair<>(method, callee));
+                lockMap.put(method.getName(), new ReentrantLock());
             }
             List<String> methodNames = methods.stream().map(Method::getName).collect(Collectors.toList());
             id = nameServiceHelper.bind(methodNames, type);
@@ -87,7 +90,6 @@ public class Caller implements ICaller, Runnable {
     @VisibleForTesting
     private void makeCall(JsonRequest request) {
         Object callee;
-        lock.lock();
         try {
             //look whom to call
             Pair<Method, Object> pair = calleeMap.get(request.getMethodname());
@@ -116,7 +118,10 @@ public class Caller implements ICaller, Runnable {
                 args.add(arg);
             }
 
+            Lock calleLock = lockMap.get(request.getMethodname());
+            calleLock.lock();
             method.invoke(callee, args.toArray());
+            calleLock.unlock();
 
         } catch (InvocationTargetException e) {
             System.out.println("Error in method invocation: " + e.getMessage());
@@ -129,8 +134,6 @@ public class Caller implements ICaller, Runnable {
         } catch (JsonProcessingException e) {
             System.out.println("Error during JSON processing: " + e.getMessage());
             throw new RuntimeException(e);
-        } finally {
-            lock.unlock();
         }
     }
 
