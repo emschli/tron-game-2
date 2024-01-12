@@ -4,7 +4,6 @@ import haw.vs.common.GameState;
 import haw.vs.middleware.ModeTypes;
 import haw.vs.middleware.clientStub.api.IClientStub;
 import haw.vs.middleware.common.exceptions.InvokeFailedException;
-import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.view.api.IViewFacade;
 
 public class ViewFacadeAppStubConsumer implements IViewFacade {
