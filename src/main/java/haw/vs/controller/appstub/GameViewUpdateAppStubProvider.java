@@ -3,6 +3,7 @@ package haw.vs.controller.appstub;
 import haw.vs.common.*;
 import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.middleware.MethodTypes;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
@@ -22,7 +23,7 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
     }
 
     @Override
-    public void register() throws NameServiceException {
+    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
         List<Method> methods = new ArrayList<>();
         try {
             methods.add(this.getClass().getMethod("startGameController", Long.class, GameState.class));

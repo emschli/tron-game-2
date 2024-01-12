@@ -3,6 +3,7 @@ package haw.vs.model.matchmanager.matchcontroller;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.middleware.MethodTypes;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.common.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
@@ -23,7 +24,7 @@ public class MatchManagerAppStubProvider implements IMatchController, ICallee {
     }
 
     @Override
-    public void register() throws NameServiceException {
+    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
         List<Method> methods = new ArrayList<>();
         try {
             methods.add(this.getClass().getMethod("addPlayerToMatchMatchManager", Long.class, Integer.class, PlayerConfigData.class));
@@ -32,7 +33,11 @@ public class MatchManagerAppStubProvider implements IMatchController, ICallee {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        serverStub.register(methods, this, MethodTypes.STATEFUL);
+        try {
+            serverStub.register(methods, this, MethodTypes.STATEFUL);
+        } catch (haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

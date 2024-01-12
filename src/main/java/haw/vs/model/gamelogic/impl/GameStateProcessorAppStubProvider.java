@@ -2,6 +2,7 @@ package haw.vs.model.gamelogic.impl;
 
 import haw.vs.common.ICallee;
 import haw.vs.middleware.MethodTypes;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.IServerStub;
 import haw.vs.model.common.Match;
@@ -21,7 +22,7 @@ public class GameStateProcessorAppStubProvider implements IGameStateProcessor, I
     }
 
     @Override
-    public void register() throws NameServiceException {
+    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
         List<Method> methods = new ArrayList<>();
         try {
             methods.add(this.getClass().getMethod("addTask", Match.class));

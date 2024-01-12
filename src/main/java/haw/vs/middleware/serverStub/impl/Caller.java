@@ -55,7 +55,7 @@ public class Caller implements ICaller, Runnable {
      * @throws NameServiceException by bind() method
      */
     @Override
-    public long register(List<Method> methods, Object callee, int type) throws NameServiceException {
+    public long register(List<Method> methods, Object callee, int type) throws NameServiceException, MethodNameAlreadyExistsException {
         lock.lock();
         long id;
         try {
