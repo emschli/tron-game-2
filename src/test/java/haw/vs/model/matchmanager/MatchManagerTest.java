@@ -5,6 +5,7 @@ import haw.vs.common.PlayerConfigData;
 import haw.vs.common.properties.ComponentType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class MatchManagerTest {
-    public static void main(String[] args) throws InterruptedException, PropertiesException {
+    public static void main(String[] args) throws InterruptedException, PropertiesException, MethodNameAlreadyExistsException {
         PropertiesHelper.setPropertiesFile("model/matchmanager/match_manager_test.properties");
         MatchManagerApp app = new MatchManagerApp();
         app.startApp(new CountDownLatch(0), new CountDownLatch(1));

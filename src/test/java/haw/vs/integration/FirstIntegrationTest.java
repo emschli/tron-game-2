@@ -6,12 +6,13 @@ import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.controller.api.IInput;
 import haw.vs.controller.api.InputFactory;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.model.matchmanager.MatchManagerApp;
 
 import java.util.concurrent.CountDownLatch;
 
 public class FirstIntegrationTest {
-    public static void main(String[] args) throws PropertiesException {
+    public static void main(String[] args) throws PropertiesException, MethodNameAlreadyExistsException {
         PropertiesHelper.setPropertiesFile("integration/first_integration_test.properties");
         MatchManagerApp app = new MatchManagerApp();
         app.startApp(new CountDownLatch(0), new CountDownLatch(1));
