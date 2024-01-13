@@ -1,6 +1,6 @@
 package haw.vs.view.overlay;
 
-import edu.cads.bai5.vsp.tron.view.Coordinate;
+import haw.vs.common.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;

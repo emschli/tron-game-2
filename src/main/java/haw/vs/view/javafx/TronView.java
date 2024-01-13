@@ -1,6 +1,6 @@
 package haw.vs.view.javafx;
 
-import edu.cads.bai5.vsp.tron.view.Coordinate;
+import haw.vs.common.Coordinate;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
 import haw.vs.view.overlay.Looser;
