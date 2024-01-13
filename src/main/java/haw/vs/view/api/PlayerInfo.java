@@ -57,8 +57,8 @@ public class PlayerInfo {
     }
 
     private static void updateStringProperty() {
-        waitingScreenText.set("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
-                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+//        waitingScreenText.set("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
+//                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
     }
 }
 

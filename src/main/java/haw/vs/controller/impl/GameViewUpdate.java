@@ -13,6 +13,7 @@ public class GameViewUpdate implements IGameViewUpdate {
 
     @Override
     public void startGameController(Long playerId, GameState gameState) {
+        viewFacade.setPlayerId(playerId);
         viewFacade.startGameView(gameState);
     }
 

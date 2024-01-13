@@ -50,7 +50,12 @@ public class MiddlewareApp {
     }
 
     private void startNameService() {
-        Thread nameServiceThread = new Thread(new NameServiceThread(), "NameServiceThread");
+        Thread nameServiceThread = null;
+        try {
+            nameServiceThread = new Thread(new NameServiceThread(), "NameServiceThread");
+        } catch (MiddlewarePropertiesException e) {
+            throw new RuntimeException(e);
+        }
         nameServiceThread.start();
     }
 }

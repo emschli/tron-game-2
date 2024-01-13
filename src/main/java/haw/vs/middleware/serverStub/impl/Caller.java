@@ -84,25 +84,23 @@ public class Caller implements ICaller, Runnable {
 
     private JsonRequest unmarshall(byte[] data) {
         String jsonString = null;
+        JsonRequest request = null;
         try {
-            System.out.println("Unmarshalling: ");
             jsonString = new String(data, StandardCharsets.UTF_8);
-            // Logging
-            System.out.println("Received JSON data: " + jsonString);
-            JsonRequest request = objectMapper.readValue(data, JsonRequest.class);
-            System.out.println("Unmarschalling success "+ request.toString());
-
-            return request;
+            request = objectMapper.readValue(data, JsonRequest.class);
         } catch (IOException e) {
             System.out.println("Error during unmarshalling: " + e.getMessage());
             System.out.println("JSON String: " + jsonString);
             e.printStackTrace();
-            throw new RuntimeException(e);
         }
+        return request;
     }
 
     @VisibleForTesting
     private void makeCall(JsonRequest request) {
+        if (request == null) {
+            return;
+        }
         Object callee;
         try {
             //look whom to call
@@ -134,6 +132,7 @@ public class Caller implements ICaller, Runnable {
 
             Lock calleLock = lockMap.get(request.getMethodname());
             calleLock.lock();
+            System.out.println("Making Call: " + request.getMethodname() + " with args: " + args);
             method.invoke(callee, args.toArray());
             calleLock.unlock();
 
@@ -143,7 +142,6 @@ public class Caller implements ICaller, Runnable {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             System.out.println("Error: " + e.getMessage());
-
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
             System.out.println("Error during JSON processing: " + e.getMessage());

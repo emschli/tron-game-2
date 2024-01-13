@@ -1,5 +1,6 @@
 package haw.vs.middleware.nameservice;
 
+import haw.vs.middleware.common.properties.MiddlewarePropertiesException;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
 import haw.vs.middleware.nameService.api.INameServiceHelper;
 import haw.vs.middleware.nameService.api.NameServiceHelperFactory;
@@ -16,7 +17,7 @@ public class NameServiceHelperTest {
     private static String METHOD_NAME_2 = "methodName2";
     private static String METHOD_NAME_3 = "methodName3";
     private static String METHOD_NAME_4 = "methodName4";
-    public static void main(String[] args) throws NameServiceException {
+    public static void main(String[] args) throws NameServiceException, MiddlewarePropertiesException {
         MiddlewarePropertiesHelper.setPropertiesFile("middleware/nameservice/middleware.properties");
 
         //Start NameService
