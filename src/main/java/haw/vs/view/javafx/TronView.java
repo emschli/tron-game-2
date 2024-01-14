@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class TronView implements haw.vs.view.javafx.ITronView {
-    //theirs:
+public class TronView implements ITronView {
+    //The following Code was written by Author: Daniel Sarnow (daniel.sarnow@haw-hamburg.de)
     private Scene scene;
     private Canvas gameBoard;
     final int WIDTH;
@@ -36,27 +36,30 @@ public class TronView implements haw.vs.view.javafx.ITronView {
     private StackPane base;
     private Map<String, Node> overlays;
     private Color gameBoardBackgroundColor;
-    //ours:
+    //End of Daniel Sarnows Code
+
     public static haw.vs.view.javafx.ITronView tronView;
     public static IPlayerInputHandler inputHandler;
     public final static String VIEW_CONFIG_FILE = "app.properties";
 
-    //theirs:
+    //The following Constructor Code was written by Author: Daniel Sarnow (daniel.sarnow@haw-hamburg.de)
     private TronView() throws IOException, NumberFormatException {
         this("view.properties", Color.BLUEVIOLET.darker().darker().darker().desaturate());
     }
 
+    //The following Constructor Code was written by Author: Daniel Sarnow (daniel.sarnow@haw-hamburg.de)
     private TronView(String configFile) throws IOException, NumberFormatException {
 
         this(configFile, Color.BLUEVIOLET.darker().darker().darker().desaturate());
 
     }
 
+    //The following Constructor Code was written by Author: Daniel Sarnow (daniel.sarnow@haw-hamburg.de)
+    //except line 61
     private TronView(String configFile, Color gameBoardBackgroundColor) throws IOException {
         //ours:
         inputHandler = ViewFactory.getInputHandler();
 
-        //theirs:
         this.gameBoardBackgroundColor = gameBoardBackgroundColor;
         Properties prop = new Properties();
         prop.load(getFileFromResourceAsStream(configFile));
@@ -120,6 +123,7 @@ public class TronView implements haw.vs.view.javafx.ITronView {
         return tronView;
     }
 
+    //The following methods were written by Author: Daniel Sarnow (daniel.sarnow@haw-hamburg.de)
     @Override
     public Scene getScene() {
         return scene;
@@ -206,6 +210,6 @@ public class TronView implements haw.vs.view.javafx.ITronView {
         }
 
     }
-
+    //End of Daniel Sarnows Code
 
 }

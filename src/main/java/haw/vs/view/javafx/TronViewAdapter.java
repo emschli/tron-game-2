@@ -4,7 +4,6 @@ import haw.vs.common.Coordinate;
 import haw.vs.view.api.IView;
 import javafx.scene.paint.Color;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public class TronViewAdapter implements IView {
 
-    private ITronView tronView;
+    private final ITronView tronView;
 
     public TronViewAdapter(){
         this.tronView = TronView.getInstance();
@@ -24,17 +23,11 @@ public class TronViewAdapter implements IView {
     }
 
     @Override
-    public void draw(List<haw.vs.common.Coordinate> bike, String color) {
-        //convert "our" Coordinate to eduCoordinate
-        List<Coordinate> coordinates = new LinkedList<>();
-        for (int i = 0; i < bike.size(); i++) {
-            Coordinate coordinate = new Coordinate(bike.get(i).x, bike.get(i).y);
-            coordinates.add(coordinate);
-        }
+    public void draw(List<Coordinate> bike, String color) {
         //convert String to Color
         Color bikeColor = Color.valueOf(color);
         //draw the bikes:
-        tronView.draw(coordinates, bikeColor);
+        tronView.draw(bike, bikeColor);
     }
 
     @Override

@@ -66,13 +66,14 @@ public class MainMenu extends VBox {
                 });
             } else {
                 //if the value is allowed, the overlay hides
-                view.hideOverlays(); //TODO löschen ?
+                view.hideOverlays();
+                //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
+                //get the IntegerValue of the text field
+                PlayerInfo.setNoOfPlayers(Integer.valueOf(textField.getText()));
+                //use PlayerInputHandler
+                inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
             }
-            //the input was allowed -> and after the overlay hided the PlayerCountView needs to be shown:
-            //get the IntegerValue of the text field
-            PlayerInfo.setNoOfPlayers(Integer.valueOf(textField.getText()));
-            //use PlayerInputHandler
-            inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
+
         });
         //add all the elements in the MainMenu View
 
