@@ -1,5 +1,6 @@
 package haw.vs.view.api;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -57,8 +58,10 @@ public class PlayerInfo {
     }
 
     private static void updateStringProperty() {
-//        waitingScreenText.set("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
-//                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+        Platform.runLater(() -> {
+            waitingScreenText.set("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
+                    PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+        });
     }
 }
 

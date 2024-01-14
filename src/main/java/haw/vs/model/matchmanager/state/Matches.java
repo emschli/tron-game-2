@@ -140,7 +140,13 @@ public class Matches {
     public void makePlayerMove(long playerId, long matchId, Direction direction) {
         inputLock.lock();
         Match match = getRunningMatch(matchId);
+        if(match == null){
+            return;
+        }
         Player player = match.getPlayerById(playerId);
+        if(player == null){
+            return;
+        }
         player.setNextDirection(direction);
         inputLock.unlock();
     }
