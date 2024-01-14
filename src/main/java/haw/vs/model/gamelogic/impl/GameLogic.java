@@ -213,7 +213,7 @@ public class GameLogic implements IGameLogic {
                 if (alivePlayerCount == 1) {
                     match.getAlivePlayers().get(0).setState(PlayerState.WON);
                 }
-                if (alivePlayerCount <= 1) {
+                if (alivePlayerCount < 1) {
                     match.setState(MatchState.ENDED);
                 }
         }
