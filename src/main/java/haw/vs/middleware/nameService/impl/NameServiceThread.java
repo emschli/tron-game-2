@@ -2,6 +2,8 @@ package haw.vs.middleware.nameService.impl;
 
 import haw.vs.middleware.common.properties.MiddlewarePropertiesException;
 import haw.vs.middleware.common.properties.MiddlewarePropertiesHelper;
+import haw.vs.middleware.nameService.impl.exception.NameServiceBindException;
+import haw.vs.middleware.nameService.impl.exception.NameServiceLookupException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +32,7 @@ public class NameServiceThread implements Runnable {
         try {
            port = MiddlewarePropertiesHelper.getNameServicePort();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
 
         try {
@@ -71,9 +73,11 @@ public class NameServiceThread implements Runnable {
                     } else {
                         response = "error";
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (NameServiceLookupException e) {
+                    System.err.println(e.getMessage());
                     response = "error";
+                } catch (NameServiceBindException e) {
+                    System.err.println(e.getMessage());
                 } finally {
                     out.println(response);
                     out.close();
@@ -84,7 +88,8 @@ public class NameServiceThread implements Runnable {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }

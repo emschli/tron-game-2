@@ -24,19 +24,19 @@ public class MatchManagerAppStubProvider implements IMatchController, ICallee {
     }
 
     @Override
-    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
+    public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
             methods.add(this.getClass().getMethod("addPlayerToMatchMatchManager", Long.class, Integer.class, PlayerConfigData.class));
             methods.add(this.getClass().getMethod("deletePlayerFromMatchMatchManager", Long.class, Long.class, Integer.class));
             methods.add(this.getClass().getMethod("movePlayerMatchManager", Long.class, Long.class, Direction.class));
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
         try {
             serverStub.register(methods, this, MethodTypes.STATEFUL);
         } catch (haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
     }
 

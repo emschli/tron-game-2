@@ -18,7 +18,7 @@ public class ReceiveSyncTcpThread implements Runnable {
         try {
             TCP_SYNC_PORT = MiddlewarePropertiesHelper.getSynchronousTcpPort();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
     }
 
@@ -35,21 +35,20 @@ public class ReceiveSyncTcpThread implements Runnable {
                 Socket syncSocket = welcomeSocket.accept();
 
                 Thread clientHandler = new Thread(() -> {
-                    try {
-                        dealWithSync(syncSocket);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+
+                    dealWithSync(syncSocket);
+
                 });
                 clientHandler.start();
             }
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
-    private void dealWithSync(Socket syncSocket) throws IOException {
+    private void dealWithSync(Socket syncSocket) {
         OutputStream outgoing = null;
         try {
             InputStream incoming = syncSocket.getInputStream();
@@ -68,14 +67,18 @@ public class ReceiveSyncTcpThread implements Runnable {
         } catch (IOException e) {
             String error = "error";
             assert outgoing != null;
-            outgoing.write(error.getBytes());
-            outgoing.flush();
-            throw new RuntimeException(e);
+            try {
+                outgoing.write(error.getBytes());
+                outgoing.flush();
+            } catch (IOException ex) {
+                System.err.println("Couldn't write to outputStream: " + ex.getMessage());
+            }
+            //throw new RuntimeException(e);
         } finally {
             try {
                 syncSocket.close();
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
 

@@ -22,14 +22,18 @@ public class GameStateProcessorAppStubProvider implements IGameStateProcessor, I
     }
 
     @Override
-    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
+    public void register() throws NameServiceException {
         List<Method> methods = new ArrayList<>();
         try {
             methods.add(this.getClass().getMethod("addTask", Match.class));
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
-    serverStub.register(methods, this, MethodTypes.STATELESS);
+        try {
+            serverStub.register(methods, this, MethodTypes.STATELESS);
+        } catch (MethodNameAlreadyExistsException e) {
+            throw new RuntimeException(e); //✅
+        }
     }
 
     @Override

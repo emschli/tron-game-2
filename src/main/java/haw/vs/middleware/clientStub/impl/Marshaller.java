@@ -29,7 +29,7 @@ public class Marshaller implements IClientStub {
         try {
             return objectMapper.writeValueAsBytes(request);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //❓
         }
     }
 

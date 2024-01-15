@@ -35,7 +35,7 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
             methods.add(this.getClass().getMethod("setMatchIdController", Long.class, Long.class));
 
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
         serverStub.register(methods, this, MethodTypes.STATELESS);
     }

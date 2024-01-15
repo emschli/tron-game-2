@@ -31,7 +31,7 @@ public class GameStateUpdaterFactory {
                     return new MockGameStateUpdater();
             }
         } catch (PropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
     }
 }

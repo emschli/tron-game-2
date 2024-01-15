@@ -25,7 +25,7 @@ public class MatchManagerApp implements IComponentApp {
         try {
             viewStartedCountDownLatch.await();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //🧵
         }
 
         CountDownLatch initDoneCountDownLatch = new CountDownLatch(3);
@@ -56,7 +56,7 @@ public class MatchManagerApp implements IComponentApp {
         try {
             initDoneCountDownLatch.await();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //🧵
         }
 
         try {
@@ -66,10 +66,8 @@ public class MatchManagerApp implements IComponentApp {
                 matchController.register();
                 gameStateUpdater.register();
             }
-        } catch (PropertiesException e) {
-            throw new RuntimeException(e);
-        } catch (NameServiceException e) {
-            throw new RuntimeException(e);
+        } catch (PropertiesException | NameServiceException e) {
+            throw new RuntimeException(e); //✅
         }
 
         everyBodyElseStartedCountDownLatch.countDown();

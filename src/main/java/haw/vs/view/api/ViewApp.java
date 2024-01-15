@@ -46,9 +46,9 @@ public class ViewApp implements IComponentApp, Runnable {
                 viewFacade.register();
             }
         } catch (PropertiesException | NameServiceException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no game without props, no dist game without name service
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //🧵
         }
 
     }

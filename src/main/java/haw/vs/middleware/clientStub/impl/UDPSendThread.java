@@ -36,7 +36,7 @@ public class UDPSendThread implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
     }
 }

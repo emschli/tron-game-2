@@ -17,7 +17,7 @@ public class ReceiveTcpThread implements Runnable {
         try {
             TCP_PORT = MiddlewarePropertiesHelper.getAsynchronousTcpPort();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
     }
 
@@ -35,7 +35,8 @@ public class ReceiveTcpThread implements Runnable {
                 clientHandler.start();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -50,14 +51,15 @@ public class ReceiveTcpThread implements Runnable {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            e.printStackTrace();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //🧵
         } finally {
             try{
                 clientSocket.close();
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
     }

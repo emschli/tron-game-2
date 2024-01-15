@@ -27,7 +27,7 @@ public class Sender {
         try {
             serverport = MiddlewarePropertiesHelper.getSynchronousTcpPort();
         } catch (MiddlewarePropertiesException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //❓
         }
 
         try (Socket socket = new Socket(InetAddress.getByName(sendTo), serverport)) {
@@ -54,7 +54,7 @@ public class Sender {
         try {
             sendQueue.putTcpQueue(new Pair<>(InetAddress.getByName(sendTo), data));
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
     }
 
@@ -62,7 +62,7 @@ public class Sender {
         try {
             sendQueue.putUdpQueue(new Pair<>(InetAddress.getByName(sendTo), data));
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
     }
 }

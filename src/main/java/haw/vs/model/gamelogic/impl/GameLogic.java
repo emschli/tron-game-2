@@ -51,7 +51,7 @@ public class GameLogic implements IGameLogic {
 
         if (numberOfPlayers > 1) {
             Player p2 = players.get(1);
-            p2.getTrace().add(new Coordinate(match.getMaxGridX() / 2, match.getMaxGridY()-1));
+            p2.getTrace().add(new Coordinate(match.getMaxGridX() / 2, match.getMaxGridY() - 1));
             p2.setCurrentDirection(Direction.UP);
             p2.setNextDirection(Direction.UP);
         }
@@ -65,7 +65,7 @@ public class GameLogic implements IGameLogic {
 
         if (numberOfPlayers == 4) {
             Player p4 = players.get(3);
-            p4.getTrace().add(new Coordinate(match.getMaxGridX()-1, match.getMaxGridY() / 2));
+            p4.getTrace().add(new Coordinate(match.getMaxGridX() - 1, match.getMaxGridY() / 2));
             p4.setCurrentDirection(Direction.LEFT);
             p4.setNextDirection(Direction.LEFT);
         }
@@ -84,8 +84,10 @@ public class GameLogic implements IGameLogic {
             }
             // add coordinate to trace and set current direction
             Coordinate newHead = getNextCoordinate(player.getNextDirection(), player.getHead());
-            player.getTrace().add(newHead);
-            player.setCurrentDirection(player.getNextDirection());
+            if (!newHead.equals(player.getHead())) {
+                player.getTrace().add(newHead);
+                player.setCurrentDirection(player.getNextDirection());
+            }
         }
     }
 
@@ -107,9 +109,8 @@ public class GameLogic implements IGameLogic {
             case RIGHT:
                 return head.add(new Coordinate(1, 0)); // x++
             default:
-                throw new RuntimeException("No Valid Direction");
-                // Handle default case here if needed
-                // head.add(new Coordinate(0, 0));
+                //throw new RuntimeException("No Valid Direction"); //✅
+                return head;
         }
 
 //        return switch (going) {
@@ -193,7 +194,7 @@ public class GameLogic implements IGameLogic {
      */
     private boolean inBoundaries(Coordinate newHead, int maxX, int maxY) {
         //return newHead.x >= 0 && newHead.x <= maxX && newHead.y >= 0 && newHead.y <= maxY;
-        return newHead.x >= 1 && newHead.x < (maxX-1) && newHead.y >= 1 && newHead.y < (maxY-1);
+        return newHead.x >= 1 && newHead.x < (maxX - 1) && newHead.y >= 1 && newHead.y < (maxY - 1);
     }
 
     /**
@@ -210,12 +211,12 @@ public class GameLogic implements IGameLogic {
                 match.setState(MatchState.ENDED);
             }
         } else {
-                if (alivePlayerCount == 1) {
-                    match.getAlivePlayers().get(0).setState(PlayerState.WON);
-                }
-                if (alivePlayerCount < 1) {
-                    match.setState(MatchState.ENDED);
-                }
+            if (alivePlayerCount == 1) {
+                match.getAlivePlayers().get(0).setState(PlayerState.WON);
+            }
+            if (alivePlayerCount < 1) {
+                match.setState(MatchState.ENDED);
+            }
         }
 
     }

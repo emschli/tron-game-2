@@ -35,9 +35,9 @@ public class InputAppStubConsumer implements IInput {
         try {
             clientStub.invoke(methodName, mode, args);
         } catch (NameServiceException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         } catch (InvokeFailedException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
     }
 }

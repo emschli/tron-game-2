@@ -24,7 +24,8 @@ public class TestCallee implements ICallee {
             methods.add(method);
             serverStub.register(methods, this, 1);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

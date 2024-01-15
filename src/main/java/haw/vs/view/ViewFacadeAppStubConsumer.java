@@ -20,7 +20,8 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
         try {
             clientStub.invokeSpecific(playerId, methodName, mod, args);
         } catch (InvokeFailedException e) {
-            throw new RuntimeException(e);
+            System.err.println("Couldn't invoke setMatchIdController via syncTCP.");
+            throw new RuntimeException(e); //❓
         }
     }
 

@@ -32,7 +32,7 @@ public class InputFactory {
             }
 
         } catch (PropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
     }
 }

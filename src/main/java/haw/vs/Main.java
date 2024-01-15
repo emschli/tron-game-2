@@ -66,12 +66,12 @@ public class Main {
                     }
                     break;
                 default:
-                    throw new RuntimeException("Invalid AppType");
+                    throw new RuntimeException("Invalid AppType"); //✅ - has to be one of given apptypes
             }
         } catch (PropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ - no props no fun
         } catch (MethodNameAlreadyExistsException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ - name-service can't work with two same method names
         }
 
     }

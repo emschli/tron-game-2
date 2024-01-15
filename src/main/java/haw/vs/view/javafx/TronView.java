@@ -89,7 +89,7 @@ public class TronView implements ITronView {
             try {
                 tronView = new TronView(VIEW_CONFIG_FILE);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e); //✅ no view no game
             }
 
             // Build and register main menu to put player count in the form

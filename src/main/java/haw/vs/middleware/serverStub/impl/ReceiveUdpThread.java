@@ -16,28 +16,30 @@ public class ReceiveUdpThread implements Runnable {
         try {
             UDP_PORT = MiddlewarePropertiesHelper.getAsynchronousUdpPort();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
     }
+
     public ReceiveUdpThread() {
         this.receiveQueue = ReceiveQueue.getInstance();
     }
 
     @Override
     public void run() {
-        try (DatagramSocket socket = new DatagramSocket(UDP_PORT)){
+        try (DatagramSocket socket = new DatagramSocket(UDP_PORT)) {
             byte[] receiveData = new byte[32_000];
 
-            while (true){
+            while (true) {
                 DatagramPacket packet = new DatagramPacket(receiveData, receiveData.length);
                 socket.receive(packet);
                 receiveQueue.put(packet.getData());
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            System.err.println("Sth went wrong receiving UDP: " + e.getMessage());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //🧵
         }
     }
 }

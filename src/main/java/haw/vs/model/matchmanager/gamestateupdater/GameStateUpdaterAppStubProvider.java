@@ -29,7 +29,7 @@ public class GameStateUpdaterAppStubProvider implements IGameStateUpdater, ICall
         try {
             methods.add(this.getClass().getMethod("updateMatchManager", Match.class));
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
         long id = serverStub.register(methods, this, MethodTypes.SPECIFIC);
         MatchManagerInfo.setMatchManagerId(id);

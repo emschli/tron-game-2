@@ -36,7 +36,7 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
             methods.add(this.getClass().getMethod("setMatchIdView", Long.class));
             methods.add(this.getClass().getMethod("showMainMenuView"));
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
         PlayerInfo.setPlayerId(serverStub.register(methods, this, MethodTypes.SPECIFIC));
     }

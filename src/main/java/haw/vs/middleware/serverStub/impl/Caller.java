@@ -139,13 +139,13 @@ public class Caller implements ICaller, Runnable {
         } catch (InvocationTargetException e) {
             System.out.println("Error in method invocation: " + e.getMessage());
 
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //❓
         } catch (IllegalAccessException e) {
             System.out.println("Error: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //❓
         } catch (JsonProcessingException e) {
             System.out.println("Error during JSON processing: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //❓
         }
     }
 
@@ -157,7 +157,7 @@ public class Caller implements ICaller, Runnable {
             try {
                 data = receiveQueue.take();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e); //🧵
             }
             //process it
             JsonRequest request = unmarshall(data);

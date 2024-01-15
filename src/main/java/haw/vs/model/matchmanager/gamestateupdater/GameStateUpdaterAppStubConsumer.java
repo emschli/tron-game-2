@@ -17,8 +17,10 @@ public class GameStateUpdaterAppStubConsumer implements IGameStateUpdater {
     public void updateMatchManager(Match match) {
         try {
             clientStub.invokeSpecific(match.getMatchManagerId(), "updateMatchManager", ModeTypes.ASYNC_UDP, match);
-        } catch (InvokeFailedException e) {
-            throw new RuntimeException(e);
+        } catch (InvokeFailedException e) { //only happens with sync tcp calls
+            //throw new RuntimeException(e);
+            e.printStackTrace();
+
         }
     }
 }

@@ -28,9 +28,9 @@ public class ControllerApp implements IComponentApp {
                 everyBodyElseStartedCountDownLatch.countDown();
             }
         } catch (PropertiesException | NameServiceException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ - no props, no name service, no fun
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //🧵
         }
     }
 }

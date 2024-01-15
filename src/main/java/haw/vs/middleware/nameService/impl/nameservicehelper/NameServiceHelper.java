@@ -60,9 +60,9 @@ public class NameServiceHelper implements INameServiceHelper {
             in.close();
             clientSocket.close();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e); // App can't work properly if NameService is unavailable
+            throw new RuntimeException(e); //✅ App can't work properly if NameService is unavailable
         } catch (IOException e) {
-            throw new RuntimeException(e); // ...
+            throw new RuntimeException(e); //❓...
         }
 
         if (response.equals(ERROR)) {

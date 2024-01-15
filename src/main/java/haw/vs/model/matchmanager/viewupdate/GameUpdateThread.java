@@ -25,7 +25,7 @@ public class GameUpdateThread implements Runnable {
         try {
             everybodyElseFinishedCountDownLatch.await();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //🧵
         }
 
         while (true) {

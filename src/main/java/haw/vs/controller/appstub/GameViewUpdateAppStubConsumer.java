@@ -56,9 +56,10 @@ public class GameViewUpdateAppStubConsumer implements IGameViewUpdate {
         try {
             clientStub.invoke(methodName, modus, args);
         } catch (NameServiceException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         } catch (InvokeFailedException e) {
-            throw new RuntimeException(e);
+            System.err.println("Couldn't invoke setMatchIdController via syncTCP.");
+            throw new RuntimeException(e); //❓
         }
     }
 

@@ -29,7 +29,7 @@ public class MiddlewareApp {
                     startMiddleware();
             }
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ - no props no fun
         }
     }
 
@@ -54,7 +54,7 @@ public class MiddlewareApp {
         try {
             nameServiceThread = new Thread(new NameServiceThread(), "NameServiceThread");
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ - no props no fun
         }
         nameServiceThread.start();
     }

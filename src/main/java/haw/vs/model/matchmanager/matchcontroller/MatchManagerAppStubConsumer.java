@@ -34,9 +34,9 @@ public class MatchManagerAppStubConsumer implements IMatchController {
         try {
             clientStub.invoke(methodName, modus, stateId, args);
         } catch (NameServiceException e) {
-            throw new RuntimeException(e);
-        } catch (InvokeFailedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
+        } catch (InvokeFailedException e) { //should only happen with syncTCP calls
+            //throw new RuntimeException(e);
         }
     }
 }

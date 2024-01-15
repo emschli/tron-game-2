@@ -32,7 +32,7 @@ public class InputAppStubProvider implements IInput, ICallee {
             methods.add(this.getClass().getMethod("cancelWaitController", Long.class, Long.class, Integer.class));
             methods.add(this.getClass().getMethod("handleGameActionController", Long.class, Long.class, Direction.class));
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅
         }
         serverStub.register(methods, this, MethodTypes.STATELESS);
     }

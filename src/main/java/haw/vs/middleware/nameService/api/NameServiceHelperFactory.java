@@ -13,7 +13,7 @@ public class NameServiceHelperFactory {
             nameServiceIp = MiddlewarePropertiesHelper.getNameServiceHost();
             nameServicePort = MiddlewarePropertiesHelper.getNameServicePort();
         } catch (MiddlewarePropertiesException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ no props no fun
         }
 
         return new NameServiceHelperCachingProxy(new NameServiceHelper(nameServiceIp, nameServicePort));

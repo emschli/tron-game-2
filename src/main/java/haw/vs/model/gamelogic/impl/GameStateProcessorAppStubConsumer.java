@@ -20,9 +20,10 @@ public class GameStateProcessorAppStubConsumer implements IGameStateProcessor {
         try {
             clientStub.invoke("addTask", ModeTypes.ASYNC_UDP, match);
         } catch (NameServiceException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //✅ we need the nameservice for lookup
         } catch (InvokeFailedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            //throw new RuntimeException(e); //✅ shouldn't happen, since this is no syncTCP call, maybe the asyncModes should not have to deal with this?
         }
     }
 }
