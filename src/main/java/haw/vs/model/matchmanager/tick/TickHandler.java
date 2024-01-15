@@ -30,11 +30,14 @@ public class TickHandler implements ITickHandler {
         matches.viewUpdateLock.lock();
         matches.startWork.signalAll();
         matches.viewUpdateLock.unlock();
+        int matchesSent = 0;
         for (Match match : matches.getRunningMatches()) {
             gameStateProcessor.addTask(match.copy());
+            matchesSent++;
         }
-        long elapsedTime = System.currentTimeMillis() - startTime;
+        System.out.printf("Sent %s Matches to Game Logic%n", matchesSent);
 
+        long elapsedTime = System.currentTimeMillis() - startTime;
         //Sleep for the rest of the computation Interval
         long sleepInterval = COMPUTATION_INTERVAL - elapsedTime;
         if (sleepInterval >= 0) {
