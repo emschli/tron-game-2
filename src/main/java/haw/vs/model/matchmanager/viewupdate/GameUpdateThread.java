@@ -50,6 +50,7 @@ public class GameUpdateThread implements Runnable {
                 try {
                     Match match = matches.getNextMatchForViewUpdate();
                     matchUpdateHandler.updateView(match);
+                    didSomeWork = true;
                     updatedMatchesCounter++;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
