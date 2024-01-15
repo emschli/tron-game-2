@@ -31,11 +31,13 @@ public class GameUpdateThread implements Runnable {
         while (true) {
             matches.viewUpdateLock.lock();
             int updatedMatchesCounter = 0;
+            boolean didSomeWork = false;
             try {
                 matches.startWork.await();
 
                 while (!Thread.interrupted()) {
                     Match match = matches.getNextMatchForViewUpdate();
+                    didSomeWork = true;
                     matchUpdateHandler.updateView(match);
                     updatedMatchesCounter++;
                 }
@@ -54,7 +56,9 @@ public class GameUpdateThread implements Runnable {
                 }
             }
 
-            System.out.println(String.format("Updated View of %s Matches", updatedMatchesCounter));
+            if (didSomeWork) {
+                System.out.println(String.format("Updated View of %s Matches", updatedMatchesCounter));
+            }
             //cleanup done -> tell tick thread
             matches.cleanupDone.signalAll();
             matches.viewUpdateLock.unlock();
