@@ -7,6 +7,7 @@ import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.matchmanager.MatchManagerInfo;
+import haw.vs.model.matchmanager.tick.TickSummary;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -128,6 +129,7 @@ public class Matches {
         matchToUpdate.setMaxGridY(match.getMaxGridY());
         matchToUpdate.setPlayers(match.getPlayers());
         matchesReadyForViewUpdate.add(matchToUpdate);
+        TickSummary.addMatchesReceivedFromGameLogic();
         updateLock.unlock();
     }
 

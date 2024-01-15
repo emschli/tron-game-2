@@ -30,15 +30,9 @@ public class TickHandler implements ITickHandler {
         matches.viewUpdateLock.lock();
         matches.startWork.signalAll();
         matches.viewUpdateLock.unlock();
-        int matchesSent = 0;
-        boolean didSomeWork = false;
         for (Match match : matches.getRunningMatches()) {
-            didSomeWork = true;
             gameStateProcessor.addTask(match.copy());
-            matchesSent++;
-        }
-        if (didSomeWork) {
-            System.out.printf("Sent %s Matches to Game Logic%n", matchesSent);
+            TickSummary.addMatchesSentToGameLogic();
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
@@ -68,6 +62,10 @@ public class TickHandler implements ITickHandler {
             System.err.printf("Clean up Took too long! + %s ms\n", Math.abs(sleepInterval2));
         }
 
+        if(TickSummary.anythingHappened()) {
+            System.out.println(TickSummary.getTickSummaryMessage());
+            TickSummary.clearAll();
+        }
         matches.inputLock.unlock(); // allow Inputs again
     }
 }
