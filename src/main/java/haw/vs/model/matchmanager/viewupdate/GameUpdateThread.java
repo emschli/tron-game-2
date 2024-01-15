@@ -2,6 +2,7 @@ package haw.vs.model.matchmanager.viewupdate;
 
 import haw.vs.model.common.Match;
 import haw.vs.model.matchmanager.state.Matches;
+import haw.vs.model.matchmanager.tick.TickSummary;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -36,6 +37,7 @@ public class GameUpdateThread implements Runnable {
                 while (!Thread.interrupted()) {
                     Match match = matches.getNextMatchForViewUpdate();
                     matchUpdateHandler.updateView(match);
+                    TickSummary.addMatchesSentToView();
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // clear interrupted flag
@@ -46,6 +48,7 @@ public class GameUpdateThread implements Runnable {
                 try {
                     Match match = matches.getNextMatchForViewUpdate();
                     matchUpdateHandler.updateView(match);
+                    TickSummary.addMatchesSentToView();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
