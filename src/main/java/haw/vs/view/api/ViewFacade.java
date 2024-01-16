@@ -20,11 +20,19 @@ public class ViewFacade implements IViewFacade {
 
     }
 
+    /**
+     * Starts the game view -> the overlay hides
+     * @param gameState
+     */
     @Override
     public void startGameView(GameState gameState) {
         tronViewAdapter.hideOverlay();
     }
 
+    /**
+     * Draws all the bikes and their lines and highlights their heads.
+     * @param gameState
+     */
     @Override
     public void updateView(GameState gameState) {
 
@@ -48,19 +56,31 @@ public class ViewFacade implements IViewFacade {
         }
     }
 
+    /**
+     * Updates the gameView a last time. Shows the overlay to tell the user, that he lost
+     * @param gameState
+     */
     @Override
     public void playerLostView(GameState gameState) {
         updateView(gameState);
         tronViewAdapter.showOverlay("looser");
 
     }
-
+    /**
+     * Updates the gameView a last time. Shows the overlay to tell the user, that he won
+     * @param gameState
+     */
     @Override
     public void playerWonView(GameState gameState) {
         updateView(gameState);
         tronViewAdapter.showOverlay("winner");
     }
 
+    /**
+     * Updates the Player Count Menu to show the player how many other players are waiting with them.
+     * @param playerCount
+     * @param targetPlayerCount
+     */
     @Override
     public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
         tronViewAdapter.hideOverlay();
@@ -69,11 +89,18 @@ public class ViewFacade implements IViewFacade {
         tronViewAdapter.showOverlay("playerCount");
     }
 
+    /**
+     * Shows the overlay with the main menu.
+     */
     @Override
     public void showMainMenuView() {
         tronViewAdapter.showOverlay("main");
     }
 
+    /**
+     * Sets the MatchId für the Player
+     * @param matchId
+     */
     @Override
     public void setMatchIdView(Long matchId) {
         PlayerInfo.setMatchId(matchId);
