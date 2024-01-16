@@ -6,14 +6,12 @@ import java.util.concurrent.CountDownLatch;
 
 public class TickThread implements Runnable {
     private final ITickHandler tickHandler;
-    private final Thread gameUpdateThread;
     private final Matches matches;
     private final CountDownLatch initDoneCountDownLatch;
     private final CountDownLatch everybodyElseFinishedCountDownLatch;
 
-    public TickThread(ITickHandler tickHandler, Thread gameUpdateThread, Matches matches, CountDownLatch initDoneCountDownLatch, CountDownLatch everybodyElseFinishedCountDownLatch) {
+    public TickThread(ITickHandler tickHandler, Matches matches, CountDownLatch initDoneCountDownLatch, CountDownLatch everybodyElseFinishedCountDownLatch) {
         this.tickHandler = tickHandler;
-        this.gameUpdateThread = gameUpdateThread;
         this.matches = matches;
         this.initDoneCountDownLatch = initDoneCountDownLatch;
         this.everybodyElseFinishedCountDownLatch = everybodyElseFinishedCountDownLatch;
@@ -27,7 +25,7 @@ public class TickThread implements Runnable {
         try {
             everybodyElseFinishedCountDownLatch.await();
             while (true) {
-                tickHandler.handleTick(gameUpdateThread);
+                tickHandler.handleTick();
             }
         } catch (InterruptedException e) {
 

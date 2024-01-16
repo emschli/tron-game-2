@@ -12,7 +12,6 @@ import haw.vs.model.matchmanager.tick.TickSummary;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
@@ -32,10 +31,6 @@ public class Matches {
 
     public ReentrantLock inputLock = new ReentrantLock();
     public ReentrantLock updateLock = new ReentrantLock();
-    public ReentrantLock viewUpdateLock = new ReentrantLock();
-    public Condition startWork = viewUpdateLock.newCondition();
-    public Condition cleanupDone = viewUpdateLock.newCondition();
-
 
     private Matches() {
         waitingQueues = new HashMap<>();
