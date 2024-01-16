@@ -22,9 +22,9 @@ public class PlayerInfo {
     private static TranslationServiceAI translationServiceAI = new TranslationServiceAI();;
 
     static {
-        waitingScreenText = new SimpleStringProperty(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") +
-                PlayerInfo.getActualNoOfPlayers() + translationServiceAI.translateText(" of ") +
-                PlayerInfo.getNoOfPlayers() + translationServiceAI.translateText(" Players ready. \n"));
+        waitingScreenText = new SimpleStringProperty(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") + " "+
+                PlayerInfo.getActualNoOfPlayers() + " " + translationServiceAI.translateText(" of ") + " "+
+                PlayerInfo.getNoOfPlayers() + " " + translationServiceAI.translateText(" Players ready. \n"));
     }
 
     public static long getPlayerId() {
@@ -63,9 +63,9 @@ public class PlayerInfo {
 
     private static void updateStringProperty() {
         Platform.runLater(() -> {
-            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") +
-                    PlayerInfo.getActualNoOfPlayers() + translationServiceAI.translateText(" of ") +
-                    PlayerInfo.getNoOfPlayers() + translationServiceAI.translateText(" Players ready. \n"));
+            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") + " "+
+                    PlayerInfo.getActualNoOfPlayers()+ " " + translationServiceAI.translateText(" of ") + " " +
+                    PlayerInfo.getNoOfPlayers() + " "+ translationServiceAI.translateText(" Players ready. \n"));
         });
     }
 }
