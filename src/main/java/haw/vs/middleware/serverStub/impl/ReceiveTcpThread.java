@@ -30,11 +30,9 @@ public class ReceiveTcpThread implements Runnable {
         try (ServerSocket welcomeSocket = new ServerSocket(TCP_PORT)) {
             while (true) {
                 Socket clientSocket = welcomeSocket.accept();
-//
-//                Thread clientHandler = new Thread(() -> dealWithClient(clientSocket));
-//                clientHandler.start();
 
-                dealWithClient(clientSocket);
+                Thread clientHandler = new Thread(() -> dealWithClient(clientSocket));
+                clientHandler.start();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
