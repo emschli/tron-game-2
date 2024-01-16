@@ -3,14 +3,10 @@ package haw.vs.model.matchmanager.viewupdate;
 import haw.vs.common.GameState;
 import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.model.common.Match;
-import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
-import haw.vs.model.common.PlayerState;
 import haw.vs.model.matchmanager.state.GameStateCreator;
 import haw.vs.model.matchmanager.state.Matches;
 import haw.vs.model.matchmanager.state.MenuEvent;
-
-import java.util.ArrayList;
 
 public class MatchUpdateHandler implements IMatchUpdateHandler {
     private final IGameViewUpdate gameViewUpdate;
@@ -34,7 +30,7 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
                 updateEndedGame(match);
                 break;
             default:
-                throw new IllegalArgumentException("Invalid Match State!");
+                System.out.println("Invalid Game State: " + match.getState());
         }
     }
 
@@ -55,22 +51,17 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
     private void startGame(Match match) {
         GameState gameState = GameStateCreator.createGameState(match);
         for (Player player : match.getPlayers()) {
-            player.setState(PlayerState.PLAYING);
             gameViewUpdate.startGameController(player.getPlayerId(), gameState);
         }
-        match.setState(MatchState.RUNNING);
     }
 
     private void updateRunningGame(Match match) {
         GameState gameState = GameStateCreator.createGameState(match);
-        for (Player player : new ArrayList<>(match.getPlayers())) {
+        for (Player player : match.getPlayers()) {
             switch (player.getState()) {
                 case DEAD:
-                {
                     gameViewUpdate.playerLostController(player.getPlayerId(), gameState);
-                    match.removePlayer(player);
                     break;
-                }
                 case PLAYING:
                     gameViewUpdate.updateController(player.getPlayerId(), gameState);
             }
@@ -88,8 +79,6 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
                     gameViewUpdate.playerWonController(player.getPlayerId(), gameState);
             }
         }
-
-        matches.removeEndedMatch(match);
     }
 
     private void addPlayer(MenuEvent event) {
@@ -105,7 +94,7 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
     }
 
     private void removePlayer(MenuEvent event) {
-        Match match = matches.removePlayerFromMatch(event.playerId(), event.matchId(), event.numberOfPlayers());
+        Match match = matches.removePlayerFromMatchWaiting(event.playerId(), event.matchId(), event.numberOfPlayers());
         gameViewUpdate.showMainMenuController(event.playerId());
         if (match != null) {
             updateWaitingScreen(match);

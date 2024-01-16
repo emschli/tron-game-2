@@ -77,7 +77,7 @@ public class Matches {
      * Removes Player from waiting Match
      * @return The Match the player was removed from or null if there was no match or the Player was the last one in the match
      */
-    public Match removePlayerFromMatch(long playerId, long matchId, int numberOfPlayers) {
+    public Match removePlayerFromMatchWaiting(long playerId, long matchId, int numberOfPlayers) {
         Match match = waitingQueues.get(numberOfPlayers)
                 .stream()
                 .filter(m -> m.getMatchId() == matchId)
@@ -128,12 +128,26 @@ public class Matches {
         matchToUpdate.setMaxGridX(match.getMaxGridX());
         matchToUpdate.setMaxGridY(match.getMaxGridY());
         matchToUpdate.setPlayers(match.getPlayers());
-        matchesReadyForViewUpdate.add(matchToUpdate);
+
+        switch (match.getState()) {
+            case READY:
+                startGame(matchToUpdate);
+                matchToUpdate.setState(MatchState.RUNNING);
+                break;
+            case RUNNING:
+                updateRunningMatch(matchToUpdate);
+                break;
+            case ENDED:
+                updateEndedMatch(matchToUpdate);
+                break;
+        }
+
+        matchesReadyForViewUpdate.add(match); //just add the copy
         TickSummary.addMatchesReceivedFromGameLogic();
         updateLock.unlock();
     }
 
-    public void removeEndedMatch(Match match) {
+    private void removeEndedMatch(Match match) {
         runningMatchesMutex.lock();
         runningMatches.remove(match.getMatchId());
         runningMatchesMutex.unlock();
@@ -204,5 +218,23 @@ public class Matches {
             waitingQueues.get(numberOfPlayers).add(newMatch);
             return newMatch;
         }
+    }
+
+    private void startGame(Match match) {
+        for (Player player : match.getPlayers()) {
+            player.setState(PlayerState.PLAYING);
+        }
+    }
+
+    private void updateRunningMatch(Match match) {
+        for (Player player: new ArrayList<>(match.getPlayers())) {
+            if (player.getState() == PlayerState.DEAD) {
+                match.removePlayer(player);
+            }
+        }
+    }
+
+    private void updateEndedMatch(Match match) {
+        removeEndedMatch(match);
     }
 }
