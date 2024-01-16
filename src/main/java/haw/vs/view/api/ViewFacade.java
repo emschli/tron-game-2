@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Offers methods to trigger different view appearences
+ */
 public class ViewFacade implements IViewFacade {
     private final IView tronViewAdapter;
 
