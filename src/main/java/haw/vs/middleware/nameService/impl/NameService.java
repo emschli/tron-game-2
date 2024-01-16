@@ -46,11 +46,11 @@ public class NameService implements INameService {
 
     @Override
     public String lookup(String methodName) throws NameServiceLookupException {
-        Long methodId = loadBalancer.choose(methodName);
-
-        if (methodId == null) {
+        if (!nameServiceData.methodNameExists(methodName)) {
             throw new NameServiceLookupException(String.format("No Entry for methodName %s", methodName));
         }
+
+        Long methodId = loadBalancer.choose(methodName);
         return nameServiceData.getMethodFromMainMap(methodId).getIp();
     }
 
@@ -58,7 +58,11 @@ public class NameService implements INameService {
     public String lookup(String methodName, long stateId) throws NameServiceLookupException {
         Integer methodType = nameServiceData.getMethodType(methodName);
 
-        if (methodType != null && methodType == STATE_INITIALIZING) {
+        if (methodType == null) {
+            throw new NameServiceLookupException(String.format("No entry for methodName %s", methodName));
+        }
+
+        if (methodType == STATE_INITIALIZING) {
             Long methodId = loadBalancer.choose(methodName);
             MethodObject methodObject = nameServiceData.getMethodFromMainMap(methodId);
 
@@ -72,7 +76,7 @@ public class NameService implements INameService {
 
             return methodObject.getIp();
 
-        } else if (methodType != null && methodType == STATEFUL) {
+        } else if (methodType == STATEFUL) {
             Long methodId = nameServiceData.getMethodIdFromStateMap(stateId, methodName);
             if (methodId == null) {
                 throw new NameServiceLookupException(String.format("No entry in state map for stateId %s and methodName %s", stateId, methodName));
@@ -80,7 +84,7 @@ public class NameService implements INameService {
                 return nameServiceData.getMethodFromMainMap(methodId).getIp();
             }
         } else {
-            throw new NameServiceLookupException(String.format("No entry in main map for %s", methodName));
+            throw new NameServiceLookupException(String.format("No entry for methodName %s", methodName));
         }
     }
 

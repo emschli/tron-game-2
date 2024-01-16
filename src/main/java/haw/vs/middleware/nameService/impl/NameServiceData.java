@@ -133,6 +133,11 @@ public class NameServiceData {
         return stateMap.get(key);
     }
 
+    public boolean methodNameExists(String methodName) {
+        List<Long> result = methodNameAccessMap.get(methodName);
+        return result != null && !result.isEmpty();
+    }
+
     private MethodObject createNewMethodEntry(String methodName, long bundleId, int type, String ip) {
         long methodId = METHOD_ID_COUNTER;
         METHOD_ID_COUNTER++;
