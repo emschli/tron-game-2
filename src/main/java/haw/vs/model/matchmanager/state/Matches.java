@@ -112,10 +112,6 @@ public class Matches {
         return matchesReadyForViewUpdate.take();
     }
 
-    public boolean hasNextMatchForViewUpdate() {
-        return !matchesReadyForViewUpdate.isEmpty();
-    }
-
     public void updateMatch(Match match) {
         updateLock.lock();
         Match matchToUpdate = getRunningMatch(match.getMatchId());
