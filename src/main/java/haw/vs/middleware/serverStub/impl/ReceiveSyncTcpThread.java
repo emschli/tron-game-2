@@ -33,15 +33,17 @@ public class ReceiveSyncTcpThread implements Runnable {
         try (ServerSocket welcomeSocket = new ServerSocket(TCP_SYNC_PORT)) {
             while (true) {
                 Socket syncSocket = welcomeSocket.accept();
+//
+//                Thread clientHandler = new Thread(() -> {
+//                    try {
+//                        dealWithSync(syncSocket);
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                });
+//                clientHandler.start();
 
-                Thread clientHandler = new Thread(() -> {
-                    try {
-                        dealWithSync(syncSocket);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-                clientHandler.start();
+                dealWithSync(syncSocket);
             }
 
         } catch (Exception e) {
