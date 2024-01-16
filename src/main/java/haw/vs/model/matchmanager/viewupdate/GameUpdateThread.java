@@ -30,33 +30,14 @@ public class GameUpdateThread implements Runnable {
         }
 
         while (true) {
-            matches.viewUpdateLock.lock();
             try {
-                matches.startWork.await();
-
-                while (!Thread.interrupted()) {
-                    Match match = matches.getNextMatchForViewUpdate();
-                    matchUpdateHandler.updateView(match);
-                    TickSummary.addMatchesSentToView();
-                }
+                Match match = matches.getNextMatchForViewUpdate();
+                matchUpdateHandler.updateView(match);
+                TickSummary.addMatchesSentToView();
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // clear interrupted flag
+                System.out.println("GameUpdateThread go Interrupted!");
+                break;
             }
-
-            //Interrupt came in -> time to clean up
-            while (matches.hasNextMatchForViewUpdate()) {
-                try {
-                    Match match = matches.getNextMatchForViewUpdate();
-                    matchUpdateHandler.updateView(match);
-                    TickSummary.addMatchesSentToView();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            //cleanup done -> tell tick thread
-            matches.cleanupDone.signalAll();
-            matches.viewUpdateLock.unlock();
         }
     }
 }

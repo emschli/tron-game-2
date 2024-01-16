@@ -43,7 +43,6 @@ public class MatchManagerApp implements IComponentApp {
         Thread gameUpdateThreadThread = new Thread(gameUpdateThread, "GameUpdateThread");
 
         TickThread tickThread = new TickThread(TickHandlerFactory.getTickHandler(),
-                gameUpdateThreadThread,
                 Matches.getInstance(),
                 initDoneCountDownLatch,
                 everyBodyElseStartedCountDownLatch);
