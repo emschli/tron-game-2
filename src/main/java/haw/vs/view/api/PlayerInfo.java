@@ -1,5 +1,6 @@
 package haw.vs.view.api;
 
+import haw.vs.view.translateAI.TranslationServiceAI;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -18,9 +19,12 @@ public class PlayerInfo {
 
     public static StringProperty waitingScreenText;
 
+    private static TranslationServiceAI translationServiceAI = new TranslationServiceAI();;
+
     static {
-        waitingScreenText = new SimpleStringProperty("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
-                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+        waitingScreenText = new SimpleStringProperty(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") +
+                PlayerInfo.getActualNoOfPlayers() + translationServiceAI.translateText(" of ") +
+                PlayerInfo.getNoOfPlayers() + translationServiceAI.translateText(" Players ready. \n"));
     }
 
     public static long getPlayerId() {
@@ -59,8 +63,9 @@ public class PlayerInfo {
 
     private static void updateStringProperty() {
         Platform.runLater(() -> {
-            waitingScreenText.set("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
-                    PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") +
+                    PlayerInfo.getActualNoOfPlayers() + translationServiceAI.translateText(" of ") +
+                    PlayerInfo.getNoOfPlayers() + translationServiceAI.translateText(" Players ready. \n"));
         });
     }
 }
