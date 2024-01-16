@@ -35,6 +35,7 @@ public class GameUpdateThread implements Runnable {
                 matchUpdateHandler.updateView(match);
                 TickSummary.addMatchesSentToView();
             } catch (InterruptedException e) {
+                System.out.println("GameUpdateThread go Interrupted!");
                 break;
             }
         }
