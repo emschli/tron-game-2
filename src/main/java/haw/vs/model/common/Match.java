@@ -98,7 +98,7 @@ public class Match {
         this.tickTimeStamp = tickTimeStamp;
     }
 
-    @JsonIgnore
+    @DoNotLookHere
     public boolean isFull() {
         return numberOfPlayers == players.size();
     }

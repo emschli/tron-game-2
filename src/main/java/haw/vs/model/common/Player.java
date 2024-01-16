@@ -73,11 +73,11 @@ public class Player {
         this.configData = configData;
     }
 
-    @JsonIgnore
+    @DoNotLookHere
     public boolean isAlive() {
         return this.state == PlayerState.PLAYING;
     }
-    @JsonIgnore
+    @DoNotLookHere
     public Coordinate getHead(){ return trace.get(trace.size()-1);}
 
     @Override
