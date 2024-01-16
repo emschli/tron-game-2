@@ -22,6 +22,7 @@ public class TickHandler implements ITickHandler {
 
     @Override
     public void handleTick(Thread gameUpdateThread) throws InterruptedException {
+        long tickStart = System.nanoTime();
         Thread.sleep(INPUT_INTERVAL); //allow input for first half of tick
 
         long startTime = System.currentTimeMillis();
@@ -31,6 +32,8 @@ public class TickHandler implements ITickHandler {
         matches.startWork.signalAll();
         matches.viewUpdateLock.unlock();
         for (Match match : matches.getRunningMatches()) {
+            Match matchCopy = match.copy();
+            matchCopy.setTickTimeStamp(tickStart);
             gameStateProcessor.addTask(match.copy());
             TickSummary.addMatchesSentToGameLogic();
         }

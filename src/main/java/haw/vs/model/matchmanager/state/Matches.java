@@ -43,8 +43,8 @@ public class Matches {
             waitingQueues.put(i, new LinkedList<>());
         }
         runningMatches = new HashMap<>();
-        matchesReadyForViewUpdate = new LinkedBlockingDeque<>(200); //TODO: capacity ok?
-        menuEvents = new LinkedBlockingDeque<>(200); //TODO: capacity ok?
+        matchesReadyForViewUpdate = new LinkedBlockingDeque<>(200);
+        menuEvents = new LinkedBlockingDeque<>(200);
     }
 
     public static synchronized Matches getInstance() {
@@ -124,10 +124,18 @@ public class Matches {
     public void updateMatch(Match match) {
         updateLock.lock();
         Match matchToUpdate = getRunningMatch(match.getMatchId());
+
+        // Match has already been updated during more recent tick
+        if (matchToUpdate.getTickTimeStamp() > match.getTickTimeStamp()) {
+            updateLock.unlock();
+            return;
+        }
+
         matchToUpdate.setState(match.getState());
         matchToUpdate.setMaxGridX(match.getMaxGridX());
         matchToUpdate.setMaxGridY(match.getMaxGridY());
         matchToUpdate.setPlayers(match.getPlayers());
+        matchToUpdate.setTickTimeStamp(match.getTickTimeStamp());
 
         switch (match.getState()) {
             case READY:
