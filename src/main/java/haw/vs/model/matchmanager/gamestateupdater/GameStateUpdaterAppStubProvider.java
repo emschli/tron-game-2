@@ -1,6 +1,7 @@
 package haw.vs.model.matchmanager.gamestateupdater;
 
 import haw.vs.middleware.MethodTypes;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.common.ICallee;
 import haw.vs.middleware.serverStub.api.IServerStub;
@@ -23,10 +24,10 @@ public class GameStateUpdaterAppStubProvider implements IGameStateUpdater, ICall
     }
 
     @Override
-    public void register() throws NameServiceException {
+    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("update", Match.class));
+            methods.add(this.getClass().getMethod("updateMatchManager", Match.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -35,7 +36,7 @@ public class GameStateUpdaterAppStubProvider implements IGameStateUpdater, ICall
     }
 
     @Override
-    public void update(Match match) {
-        gameStateUpdater.update(match);
+    public void updateMatchManager(Match match) {
+        gameStateUpdater.updateMatchManager(match);
     }
 }

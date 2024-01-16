@@ -2,15 +2,18 @@ package haw.vs.middleware.common;
 
 public class JsonRequest {
 
-    private String method;
+    private String methodname;
     private Object[] params;
 
-    public String getMethod() {
-        return method;
+    public JsonRequest() {
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public String getMethodname() {
+        return methodname;
+    }
+
+    public void setMethodname(String methodname) {
+        this.methodname = methodname;
     }
 
     public Object[] getParams() {

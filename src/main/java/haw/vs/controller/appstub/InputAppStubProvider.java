@@ -5,10 +5,10 @@ import haw.vs.common.ICallee;
 import haw.vs.common.PlayerConfigData;
 import haw.vs.controller.api.IInput;
 import haw.vs.middleware.MethodTypes;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.IServerStub;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +25,12 @@ public class InputAppStubProvider implements IInput, ICallee {
     }
 
     @Override
-    public void register() throws NameServiceException {
+    public void register() throws NameServiceException, MethodNameAlreadyExistsException {
         List<Method> methods = new ArrayList<>();
         try {
-            methods.add(this.getClass().getMethod("joinGame", long.class, int.class, PlayerConfigData.class));
-            methods.add(this.getClass().getMethod("cancelWait", long.class, long.class, int.class));
-            methods.add(this.getClass().getMethod("handleGameAction", long.class, long.class, Direction.class));
+            methods.add(this.getClass().getMethod("joinGameController", Long.class, Integer.class, PlayerConfigData.class));
+            methods.add(this.getClass().getMethod("cancelWaitController", Long.class, Long.class, Integer.class));
+            methods.add(this.getClass().getMethod("handleGameActionController", Long.class, Long.class, Direction.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -40,17 +40,17 @@ public class InputAppStubProvider implements IInput, ICallee {
 
 
     @Override
-    public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
-        input.joinGame(playerId, noOfPlayers, configData);
+    public void joinGameController(Long playerId, Integer noOfPlayers, PlayerConfigData configData) {
+        input.joinGameController(playerId, noOfPlayers, configData);
     }
 
     @Override
-    public void cancelWait(long playerId, long matchId, int noOfPlayers) {
-        input.cancelWait(playerId, matchId, noOfPlayers);
+    public void cancelWaitController(Long playerId, Long matchId, Integer noOfPlayers) {
+        input.cancelWaitController(playerId, matchId, noOfPlayers);
     }
 
     @Override
-    public void handleGameAction(long playerId, long matchId, Direction dir) {
-        input.handleGameAction(playerId, matchId, dir);
+    public void handleGameActionController(Long playerId, Long matchId, Direction dir) {
+        input.handleGameActionController(playerId, matchId, dir);
     }
 }

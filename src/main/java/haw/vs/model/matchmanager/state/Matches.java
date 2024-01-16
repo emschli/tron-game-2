@@ -7,11 +7,11 @@ import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.matchmanager.MatchManagerInfo;
+import haw.vs.model.matchmanager.tick.TickSummary;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
@@ -31,10 +31,6 @@ public class Matches {
 
     public ReentrantLock inputLock = new ReentrantLock();
     public ReentrantLock updateLock = new ReentrantLock();
-    public ReentrantLock viewUpdateLock = new ReentrantLock();
-    public Condition startWork = viewUpdateLock.newCondition();
-    public Condition cleanupDone = viewUpdateLock.newCondition();
-
 
     private Matches() {
         waitingQueues = new HashMap<>();
@@ -42,8 +38,8 @@ public class Matches {
             waitingQueues.put(i, new LinkedList<>());
         }
         runningMatches = new HashMap<>();
-        matchesReadyForViewUpdate = new LinkedBlockingDeque<>(200); //TODO: capacity ok?
-        menuEvents = new LinkedBlockingDeque<>(200); //TODO: capacity ok?
+        matchesReadyForViewUpdate = new LinkedBlockingDeque<>(200);
+        menuEvents = new LinkedBlockingDeque<>(200);
     }
 
     public static synchronized Matches getInstance() {
@@ -76,7 +72,7 @@ public class Matches {
      * Removes Player from waiting Match
      * @return The Match the player was removed from or null if there was no match or the Player was the last one in the match
      */
-    public Match removePlayerFromMatch(long playerId, long matchId, int numberOfPlayers) {
+    public Match removePlayerFromMatchWaiting(long playerId, long matchId, int numberOfPlayers) {
         Match match = waitingQueues.get(numberOfPlayers)
                 .stream()
                 .filter(m -> m.getMatchId() == matchId)
@@ -116,22 +112,41 @@ public class Matches {
         return matchesReadyForViewUpdate.take();
     }
 
-    public boolean hasNextMatchForViewUpdate() {
-        return !matchesReadyForViewUpdate.isEmpty();
-    }
-
     public void updateMatch(Match match) {
         updateLock.lock();
         Match matchToUpdate = getRunningMatch(match.getMatchId());
+
+        // Match has already been updated during more recent tick
+        if (matchToUpdate.getTickTimeStamp() > match.getTickTimeStamp()) {
+            updateLock.unlock();
+            return;
+        }
+
         matchToUpdate.setState(match.getState());
         matchToUpdate.setMaxGridX(match.getMaxGridX());
         matchToUpdate.setMaxGridY(match.getMaxGridY());
         matchToUpdate.setPlayers(match.getPlayers());
-        matchesReadyForViewUpdate.add(matchToUpdate);
+        matchToUpdate.setTickTimeStamp(match.getTickTimeStamp());
+
+        switch (match.getState()) {
+            case READY:
+                startGame(matchToUpdate);
+                matchToUpdate.setState(MatchState.RUNNING);
+                break;
+            case RUNNING:
+                updateRunningMatch(matchToUpdate);
+                break;
+            case ENDED:
+                updateEndedMatch(matchToUpdate);
+                break;
+        }
+
+        matchesReadyForViewUpdate.add(match); //just add the copy
+        TickSummary.addMatchesReceivedFromGameLogic();
         updateLock.unlock();
     }
 
-    public void removeEndedMatch(Match match) {
+    private void removeEndedMatch(Match match) {
         runningMatchesMutex.lock();
         runningMatches.remove(match.getMatchId());
         runningMatchesMutex.unlock();
@@ -140,7 +155,13 @@ public class Matches {
     public void makePlayerMove(long playerId, long matchId, Direction direction) {
         inputLock.lock();
         Match match = getRunningMatch(matchId);
+        if(match == null){
+            return;
+        }
         Player player = match.getPlayerById(playerId);
+        if(player == null){
+            return;
+        }
         player.setNextDirection(direction);
         inputLock.unlock();
     }
@@ -196,5 +217,23 @@ public class Matches {
             waitingQueues.get(numberOfPlayers).add(newMatch);
             return newMatch;
         }
+    }
+
+    private void startGame(Match match) {
+        for (Player player : match.getPlayers()) {
+            player.setState(PlayerState.PLAYING);
+        }
+    }
+
+    private void updateRunningMatch(Match match) {
+        for (Player player: new ArrayList<>(match.getPlayers())) {
+            if (player.getState() == PlayerState.DEAD) {
+                match.removePlayer(player);
+            }
+        }
+    }
+
+    private void updateEndedMatch(Match match) {
+        removeEndedMatch(match);
     }
 }

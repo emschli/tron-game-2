@@ -19,7 +19,7 @@ public class TCPSendThread implements Runnable{
     public void run() {
         while (true) {
             try {
-                Pair<InetAddress, byte[]> pair = sendQueue.getTcpSendQueue().take();
+                Pair<InetAddress, byte[]> pair = sendQueue.takeTcpQueue();
                 send(pair.getKey(), pair.getValue());
             } catch (InterruptedException | MiddlewarePropertiesException e) {
                 Thread.currentThread().interrupt();
@@ -34,7 +34,7 @@ public class TCPSendThread implements Runnable{
 
         try (Socket socket = new Socket(address, serverport)) {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-            outputStream.writeInt(data.length);
+
             outputStream.write(data);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,22 +1,17 @@
 package haw.vs.view.api;
 
 
-import haw.vs.common.IGameState;
+import haw.vs.common.GameState;
 
 public interface IViewFacade {
 
-    public void startGame(IGameState gameState);
-
-    public void update(IGameState gameState);
-
-    public void playerLost(IGameState gameState);
-
-    public void playerWon(IGameState gameState);
-
-    public void updatePlayerCountView(int playerCount, int targetPlayerCount);
-
-    public void showMainMenu();
-
-    public void setMatchId(long matchId);
+    void setPlayerId(long playerId);
+    void startGameView(GameState gameState);
+    void updateView(GameState gameState);
+    void playerLostView(GameState gameState);
+    void playerWonView(GameState gameState);
+    void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount);
+    void showMainMenuView();
+    void setMatchIdView(Long matchId);
 
 }

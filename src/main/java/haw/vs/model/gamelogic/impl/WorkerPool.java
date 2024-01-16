@@ -33,7 +33,7 @@ public class WorkerPool implements IWorkerPool {
     public void addTask(Match match) {
         // wrap match in a runnable
         Runnable task = () -> {
-            gameLogic.processMatch(match);
+            gameLogic.processMatchGameLogic(match);
         };
         // add runnable to Queue
         try {

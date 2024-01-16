@@ -1,43 +1,43 @@
 package haw.vs.controller.mock;
 
-import haw.vs.common.IGameState;
+import haw.vs.common.GameState;
 import haw.vs.controller.api.IGameViewUpdate;
 
 public class MockGameViewUpdate implements IGameViewUpdate {
     @Override
-    public void startGame(long playerId, IGameState gameState) {
+    public void startGameController(Long playerId, GameState gameState) {
         System.out.printf("GameViewUpdate:   startGame(%s, %s)\n", playerId, gameState);
     }
 
     @Override
-    public void updateView(long playerId, IGameState gameState) {
+    public void updateController(Long playerId, GameState gameState) {
         System.out.printf("GameViewUpdate:   updateView(%s, %s)\n", playerId, gameState);
     }
 
     @Override
-    public void playerWon(long playerId, IGameState gameState) {
+    public void playerWonController(Long playerId, GameState gameState) {
         System.out.printf("GameViewUpdate:   playerWon(%s, %s)\n", playerId, gameState);
     }
 
     @Override
-    public void playerLost(long playerId, IGameState gameState) {
+    public void playerLostController(Long playerId, GameState gameState) {
         System.out.printf("GameViewUpdate:   playerLost(%s, %s)\n", playerId, gameState);
     }
 
     @Override
-    public void updatePlayerCountView(long playerId, int playerCount, int targetPlayerCount) {
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
         System.out.printf("GameViewUpdate:  updatePlayerCountView(%s, %s, %s)\n", playerId, playerCount, targetPlayerCount);
 
     }
 
     @Override
-    public void showMainMenu(long playerId) {
+    public void showMainMenuController(Long playerId) {
         System.out.printf("GameViewUpdate:  showMainMenu(%s)\n", playerId);
 
     }
 
     @Override
-    public void setMatchId(long playerId, long matchId) {
+    public void setMatchIdController(Long playerId, Long matchId) {
         System.out.printf("GameViewUpdate:  setMatchId(%s, %s)\n", playerId, matchId);
     }
 }

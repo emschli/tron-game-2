@@ -15,26 +15,25 @@ public class InputAppStubConsumer implements IInput {
     public InputAppStubConsumer(IClientStub clientStub) {
         this.clientStub = clientStub;
     }
-    public InputAppStubConsumer() {
-    }
+
     @Override
-    public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
-        invoke("joinGame", ModeTypes.ASYNC_TCP, playerId, noOfPlayers,configData);
+    public void joinGameController(Long playerId, Integer noOfPlayers, PlayerConfigData configData) {
+        invoke("joinGameController", ModeTypes.ASYNC_TCP, playerId, noOfPlayers,configData);
     }
 
     @Override
-    public void cancelWait(long playerId, long matchId, int noOfPlayers) {
-        invoke("cancelWait",ModeTypes.ASYNC_TCP, playerId, matchId, noOfPlayers);
+    public void cancelWaitController(Long playerId, Long matchId, Integer noOfPlayers) {
+        invoke("cancelWaitController",ModeTypes.ASYNC_TCP, playerId, matchId, noOfPlayers);
     }
 
     @Override
-    public void handleGameAction(long playerId, long matchId, Direction dir) {
-        invoke("handleGameAction", ModeTypes.ASYNC_UDP, playerId, matchId, dir);
+    public void handleGameActionController(Long playerId, Long matchId, Direction dir) {
+        invoke("handleGameActionController", ModeTypes.ASYNC_UDP, playerId, matchId, dir);
     }
 
-    private void invoke(String methodName, int mode, long playerId, Object... args) {
+    private void invoke(String methodName, int mode, Object... args) {
         try {
-            clientStub.invoke(methodName, mode, playerId, args);
+            clientStub.invoke(methodName, mode, args);
         } catch (NameServiceException e) {
             throw new RuntimeException(e);
         } catch (InvokeFailedException e) {

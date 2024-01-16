@@ -34,15 +34,15 @@ public class MiddlewareApp {
     }
 
     private void startMiddleware() throws MiddlewarePropertiesException {
-        Thread tcpSendThread = new Thread(new TCPSendThread());
-        Thread udpSendThread = new Thread(new UDPSendThread());
+        Thread tcpSendThread = new Thread(new TCPSendThread(), "SendTcpThread");
+        Thread udpSendThread = new Thread(new UDPSendThread(), "SendUdpThread");
         tcpSendThread.start();
         udpSendThread.start();
         //server stub
-        Thread receiveSyncTcpThread = new Thread(new ReceiveSyncTcpThread());
-        Thread receiveTcpThread = new Thread(new ReceiveTcpThread());
-        Thread receiveUdpThread = new Thread(new ReceiveUdpThread());
-        Thread caller = new Thread(Caller.getInstance());
+        Thread receiveSyncTcpThread = new Thread(new ReceiveSyncTcpThread(), "ReceiveSyncTcpThread");
+        Thread receiveTcpThread = new Thread(new ReceiveTcpThread(), "ReceiveTcpThread");
+        Thread receiveUdpThread = new Thread(new ReceiveUdpThread(), "ReceiveUdpThread");
+        Thread caller = new Thread(Caller.getInstance(), "CallerThread");
         receiveSyncTcpThread.start();
         receiveTcpThread.start();
         receiveUdpThread.start();
@@ -50,7 +50,12 @@ public class MiddlewareApp {
     }
 
     private void startNameService() {
-        Thread nameServiceThread = new Thread(new NameServiceThread());
+        Thread nameServiceThread = null;
+        try {
+            nameServiceThread = new Thread(new NameServiceThread(), "NameServiceThread");
+        } catch (MiddlewarePropertiesException e) {
+            throw new RuntimeException(e);
+        }
         nameServiceThread.start();
     }
 }

@@ -1,5 +1,6 @@
 package haw.vs.middleware.serverStub.impl;
 
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.middleware.serverStub.api.ICaller;
 import haw.vs.middleware.serverStub.api.IServerStub;
@@ -15,7 +16,7 @@ public class ServerStubFacade implements IServerStub {
     }
 
     @Override
-    public long register(List<Method> methods, Object callee, int type) throws NameServiceException {
+    public long register(List<Method> methods, Object callee, int type) throws NameServiceException, MethodNameAlreadyExistsException {
         return caller.register(methods, callee, type);
     }
 }

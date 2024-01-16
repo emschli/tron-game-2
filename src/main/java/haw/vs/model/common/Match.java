@@ -16,6 +16,7 @@ public class Match {
     private List<Player> players = new ArrayList<>();
 
     private Long matchManagerId;
+    private Long tickTimeStamp = 0L;
 
     public void addPlayer(Player player) {
         players.add(player);
@@ -89,6 +90,14 @@ public class Match {
         this.matchManagerId = matchManagerId;
     }
 
+    public Long getTickTimeStamp() {
+        return tickTimeStamp;
+    }
+
+    public void setTickTimeStamp(Long tickTimeStamp) {
+        this.tickTimeStamp = tickTimeStamp;
+    }
+
     @JsonIgnore
     public boolean isFull() {
         return numberOfPlayers == players.size();
@@ -138,6 +147,7 @@ public class Match {
         }
         match.setPlayers(players);
         match.setMatchManagerId(this.matchManagerId);
+        match.setTickTimeStamp(this.tickTimeStamp);
         return match;
     }
 }

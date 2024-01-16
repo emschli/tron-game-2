@@ -1,6 +1,6 @@
 package haw.vs.controller.impl;
 
-import haw.vs.common.IGameState;
+import haw.vs.common.GameState;
 import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.view.api.IViewFacade;
 
@@ -12,42 +12,44 @@ public class GameViewUpdate implements IGameViewUpdate {
     }
 
     @Override
-    public void startGame(long playerId, IGameState gameState) {
-        viewFacade.startGame(gameState);
+    public void startGameController(Long playerId, GameState gameState) {
+        viewFacade.setPlayerId(playerId);
+        viewFacade.startGameView(gameState);
     }
 
     @Override
-    public void updateView(long playerId, IGameState gameState) {
-        viewFacade.update(gameState);
-
+    public void updateController(Long playerId, GameState gameState) {
+        viewFacade.setPlayerId(playerId);
+        viewFacade.updateView(gameState);
     }
 
     @Override
-    public void playerWon(long playerId, IGameState gameState) {
-        viewFacade.playerWon(gameState);
-
+    public void playerWonController(Long playerId, GameState gameState) {
+        viewFacade.setPlayerId(playerId);
+        viewFacade.playerWonView(gameState);
     }
 
     @Override
-    public void playerLost(long playerId, IGameState gameState) {
-        viewFacade.playerLost(gameState);
-
+    public void playerLostController(Long playerId, GameState gameState) {
+        viewFacade.setPlayerId(playerId);
+        viewFacade.playerLostView(gameState);
     }
 
     @Override
-    public void updatePlayerCountView(long playerId, int playerCount, int targetPlayerCount) {
-        viewFacade.updatePlayerCountView(playerCount, targetPlayerCount);
-
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
+        viewFacade.setPlayerId(playerId);
+        viewFacade.updatePlayerCountViewView(playerCount, targetPlayerCount);
     }
 
     @Override
-    public void showMainMenu(long playerId) {
-        viewFacade.showMainMenu();
-
+    public void showMainMenuController(Long playerId) {
+        viewFacade.setPlayerId(playerId);
+        viewFacade.showMainMenuView();
     }
 
     @Override
-    public void setMatchId(long playerId, long matchId) {
-        viewFacade.setMatchId(matchId);
+    public void setMatchIdController(Long playerId, Long matchId) {
+        viewFacade.setPlayerId(playerId);
+        viewFacade.setMatchIdView(matchId);
     }
 }

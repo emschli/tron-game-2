@@ -22,7 +22,7 @@ public class GameLogic implements IGameLogic {
     }
 
     @Override
-    public void processMatch(Match match) {
+    public void processMatchGameLogic(Match match) {
         if (match.getState().equals(MatchState.READY)) {
             positionPlayersForStart(match);
         } else {
@@ -51,7 +51,7 @@ public class GameLogic implements IGameLogic {
 
         if (numberOfPlayers > 1) {
             Player p2 = players.get(1);
-            p2.getTrace().add(new Coordinate(match.getMaxGridX() / 2, match.getMaxGridY()));
+            p2.getTrace().add(new Coordinate(match.getMaxGridX() / 2, match.getMaxGridY()-1));
             p2.setCurrentDirection(Direction.UP);
             p2.setNextDirection(Direction.UP);
         }
@@ -65,7 +65,7 @@ public class GameLogic implements IGameLogic {
 
         if (numberOfPlayers == 4) {
             Player p4 = players.get(3);
-            p4.getTrace().add(new Coordinate(match.getMaxGridX(), match.getMaxGridY() / 2));
+            p4.getTrace().add(new Coordinate(match.getMaxGridX()-1, match.getMaxGridY() / 2));
             p4.setCurrentDirection(Direction.LEFT);
             p4.setNextDirection(Direction.LEFT);
         }

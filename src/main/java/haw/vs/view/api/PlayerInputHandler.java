@@ -21,17 +21,20 @@ public class PlayerInputHandler implements IPlayerInputHandler {
     @Override
     public void onGameStart(int numOfPlayers) {
         PlayerConfigData configData = new PlayerConfigData(600, 600);
-        inputController.joinGame(getPlayerId(), numOfPlayers, configData);
+        PlayerInfo.setNoOfPlayers(numOfPlayers);
+        PlayerInfo.setActualNoOfPlayers(1);
+        inputController.joinGameController(getPlayerId(), numOfPlayers, configData);
     }
 
     @Override
     public void onKeyPressed(String pressedKey) {
-        inputController.handleGameAction(getPlayerId(), getMatchId() , getDirectionFromString(pressedKey));
+                System.out.println("Hilfsausgabe im PlayerInputHandler. Pressed Key: "+ pressedKey );
+        inputController.handleGameActionController(getPlayerId(), getMatchId() , getDirectionFromString(pressedKey));
     }
 
     @Override
     public void onCancel() {
-        inputController.cancelWait(getPlayerId(), getMatchId(), getNoOfPlayers());
+        inputController.cancelWaitController(getPlayerId(), getMatchId(), getNoOfPlayers());
     }
 
     private Direction getDirectionFromString(String string) {

@@ -14,20 +14,20 @@ public class InputHandler implements IInput {
     }
 
     @Override
-    public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
-        matchController.addPlayerToMatch(playerId, noOfPlayers, configData);
+    public void joinGameController(Long playerId, Integer noOfPlayers, PlayerConfigData configData) {
+        matchController.addPlayerToMatchMatchManager(playerId, noOfPlayers, configData);
     }
 
     @Override
-    public void cancelWait(long playerId, long matchId, int noOfPlayers) {
+    public void cancelWaitController(Long playerId, Long matchId, Integer noOfPlayers) {
 
         //brauchen wir hier überhaupt noOfPlayers?
         //int noOfPlayers = 4;
-        matchController.deletePlayerFromMatch(playerId, matchId, noOfPlayers );
+        matchController.deletePlayerFromMatchMatchManager(playerId, matchId, noOfPlayers );
     }
 
     @Override
-    public void handleGameAction(long playerId, long matchId, Direction dir) {
-        matchController.movePlayer(playerId, matchId, dir);
+    public void handleGameActionController(Long playerId, Long matchId, Direction dir) {
+        matchController.movePlayerMatchManager(playerId, matchId, dir);
     }
 }

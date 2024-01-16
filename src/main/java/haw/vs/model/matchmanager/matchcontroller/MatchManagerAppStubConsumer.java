@@ -16,23 +16,23 @@ public class MatchManagerAppStubConsumer implements IMatchController {
     }
 
     @Override
-    public void addPlayerToMatch(long playerId, int numberOfPlayers, PlayerConfigData configData) {
-        invoke("addPlayerToMatch", ModeTypes.ASYNC_TCP, playerId, numberOfPlayers, configData);
+    public void addPlayerToMatchMatchManager(Long playerId, Integer numberOfPlayers, PlayerConfigData configData) {
+        invoke("addPlayerToMatchMatchManager", ModeTypes.ASYNC_TCP,playerId, playerId, numberOfPlayers, configData);
     }
 
     @Override
-    public void deletePlayerFromMatch(long playerId, long matchId, int numberOfPlayers) {
-        invoke("deletePlayerFromMatch", ModeTypes.ASYNC_TCP, playerId, matchId, numberOfPlayers);
+    public void deletePlayerFromMatchMatchManager(Long playerId, Long matchId, Integer numberOfPlayers) {
+        invoke("deletePlayerFromMatchMatchManager", ModeTypes.ASYNC_TCP,playerId, playerId, matchId, numberOfPlayers);
     }
 
     @Override
-    public void movePlayer(long playerId, long matchId, Direction direction) {
-        invoke("movePlayer", ModeTypes.ASYNC_UDP, playerId, matchId, direction);
+    public void movePlayerMatchManager(Long playerId, Long matchId, Direction direction) {
+        invoke("movePlayerMatchManager", ModeTypes.ASYNC_UDP,playerId, playerId, matchId, direction);
     }
 
-    private void invoke(String methodName, int modus, Object... args) {
+    private void invoke(String methodName, int modus, long stateId, Object... args) {
         try {
-            clientStub.invoke(methodName, modus, args);
+            clientStub.invoke(methodName, modus, stateId, args);
         } catch (NameServiceException e) {
             throw new RuntimeException(e);
         } catch (InvokeFailedException e) {

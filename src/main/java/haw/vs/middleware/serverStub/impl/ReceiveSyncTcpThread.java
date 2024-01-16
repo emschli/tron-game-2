@@ -24,7 +24,7 @@ public class ReceiveSyncTcpThread implements Runnable {
 
     private ICaller caller;
 
-    public ReceiveSyncTcpThread() throws MiddlewarePropertiesException {
+    public ReceiveSyncTcpThread() {
         this.caller = Caller.getInstance();
     }
 
@@ -58,6 +58,7 @@ public class ReceiveSyncTcpThread implements Runnable {
 
             while ((bytesRead = incoming.read(buffi)) != -1) {
                 caller.callSynchronously(Arrays.copyOf(buffi, bytesRead));
+                break;
             }
 
             outgoing = syncSocket.getOutputStream();

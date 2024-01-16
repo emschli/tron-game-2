@@ -5,6 +5,7 @@ import haw.vs.common.PlayerConfigData;
 import haw.vs.common.properties.ComponentType;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
+import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
@@ -16,12 +17,13 @@ import haw.vs.model.matchmanager.api.MatchControllerFactory;
 import haw.vs.model.matchmanager.state.Colors;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class MatchManagerTest {
-    public static void main(String[] args) throws InterruptedException, PropertiesException {
+    public static void main(String[] args) throws InterruptedException, PropertiesException, MethodNameAlreadyExistsException {
         PropertiesHelper.setPropertiesFile("model/matchmanager/match_manager_test.properties");
         MatchManagerApp app = new MatchManagerApp();
-        app.startApp();
+        app.startApp(new CountDownLatch(0), new CountDownLatch(1));
 
         IMatchController matchController = MatchControllerFactory.getMatchController(ComponentType.MATCH_MANAGER);
         IGameStateUpdater gameStateUpdater = GameStateUpdaterFactory.getGameStateUpdater(ComponentType.MATCH_MANAGER);
@@ -29,24 +31,24 @@ public class MatchManagerTest {
         PlayerConfigData configData = new PlayerConfigData(10, 10);
 
         //Add Player To Game
-        matchController.addPlayerToMatch(1, 3, configData);
+        matchController.addPlayerToMatchMatchManager(1L, 3, configData);
         //Remove Only Player from Game
-        matchController.deletePlayerFromMatch(1, 1, 3);
+        matchController.deletePlayerFromMatchMatchManager(1L, 1L, 3);
 
         //Remove One Player from Game
-        matchController.addPlayerToMatch(2, 3, configData);
-        matchController.addPlayerToMatch(1, 3, configData);
-        matchController.deletePlayerFromMatch(1, 1, 3);
+        matchController.addPlayerToMatchMatchManager(2L, 3, configData);
+        matchController.addPlayerToMatchMatchManager(1L, 3, configData);
+        matchController.deletePlayerFromMatchMatchManager(1L, 1L, 3);
 
         // Make the Game Full
-        matchController.addPlayerToMatch(1, 3, configData);
-        matchController.addPlayerToMatch(3, 3, configData);
+        matchController.addPlayerToMatchMatchManager(1L, 3, configData);
+        matchController.addPlayerToMatchMatchManager(3L, 3, configData);
 
         Match match = getInitialMatch();
         Thread.sleep(2000);
 
         // Game should start
-        gameStateUpdater.update(match.copy());
+        gameStateUpdater.updateMatchManager(match.copy());
 
         Thread.sleep(2000);
         match.setState(MatchState.RUNNING);
@@ -55,11 +57,11 @@ public class MatchManagerTest {
         }
 
         //Player can make Input
-        matchController.movePlayer(1, 2, Direction.DOWN);
+        matchController.movePlayerMatchManager(1L, 2L, Direction.DOWN);
 
         //One Player Dies
         match.getPlayers().get(0).setState(PlayerState.DEAD);
-        gameStateUpdater.update(match.copy());
+        gameStateUpdater.updateMatchManager(match.copy());
 
         Thread.sleep(2000);
 
@@ -69,7 +71,7 @@ public class MatchManagerTest {
         match.getPlayers().get(0).setState(PlayerState.DEAD);
         match.getPlayers().get(1).setState(PlayerState.WON);
 
-        gameStateUpdater.update(match.copy());
+        gameStateUpdater.updateMatchManager(match.copy());
     }
 
     private static Match getInitialMatch() {

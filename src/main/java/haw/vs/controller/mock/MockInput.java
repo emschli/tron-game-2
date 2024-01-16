@@ -6,17 +6,17 @@ import haw.vs.controller.api.IInput;
 
 public class MockInput implements IInput {
     @Override
-    public void joinGame(long playerId, int noOfPlayers, PlayerConfigData configData) {
+    public void joinGameController(Long playerId, Integer noOfPlayers, PlayerConfigData configData) {
         System.out.printf("InputHandler:   joinGame(%s, %s, %s)\n", playerId, noOfPlayers, configData);
     }
 
     @Override
-    public void cancelWait(long playerId, long matchId, int noOfPlayers) {
+    public void cancelWaitController(Long playerId, Long matchId, Integer noOfPlayers) {
         System.out.printf("InputHandler:   cancelWait(%s, %s, %s)\n", playerId, matchId, noOfPlayers);
     }
 
     @Override
-    public void handleGameAction(long playerId, long matchId, Direction dir) {
+    public void handleGameActionController(Long playerId, Long matchId, Direction dir) {
         System.out.printf("InputHandler:   handleGameAction(%s, %s, %s)\n", playerId, matchId, dir);
 
     }

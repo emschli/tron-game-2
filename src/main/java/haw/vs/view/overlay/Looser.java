@@ -1,6 +1,6 @@
 package haw.vs.view.overlay;
 
-import edu.cads.bai5.vsp.tron.view.ViewUtility;
+import haw.vs.common.ViewUtility;
 import haw.vs.view.javafx.ITronView;
 import haw.vs.view.translateAI.TranslationServiceAI;
 import javafx.geometry.Pos;

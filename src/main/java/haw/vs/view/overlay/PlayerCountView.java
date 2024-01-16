@@ -1,6 +1,6 @@
 package haw.vs.view.overlay;
 
-import edu.cads.bai5.vsp.tron.view.ViewUtility;
+import haw.vs.common.ViewUtility;
 import haw.vs.view.api.PlayerInfo;
 import haw.vs.view.javafx.ITronView;
 import haw.vs.view.translateAI.TranslationServiceAI;
@@ -23,7 +23,7 @@ public class PlayerCountView extends VBox {
     private final Button btnCancel;
 
     //counter which counts the number of Players
-    private int counter;
+    //private int counter;
     private TranslationServiceAI translationServiceAI;
 
 
@@ -32,16 +32,18 @@ public class PlayerCountView extends VBox {
         translationServiceAI = new TranslationServiceAI();
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
-        this.counter = PlayerInfo.getActualNoOfPlayers();
+        labelCount = new Label();
 
-        labelCount = new Label(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") + counter + translationServiceAI.translateText(" of ") +
-                PlayerInfo.getNoOfPlayers() + translationServiceAI.translateText(" Players ready. \n"));
         labelCount.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
+
+        labelCount.textProperty().bind(PlayerInfo.waitingScreenText);
+
 
         //Add the button to cancel/go back to main menu
         btnCancel = new Button(translationServiceAI.translateText("Cancel"));
         btnCancel.setOnAction(event -> {
             //call method in PlayerInputHandler to cancel the process of waiting and leave the (future) match
+            view.hideOverlays();
             inputHandler.onCancel();
         });
 

@@ -7,8 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,8 +16,11 @@ import static haw.vs.middleware.nameService.common.NameServiceConstants.*;
 public class NameServiceThread implements Runnable {
     private final INameService nameService;
 
-    public NameServiceThread() {
+    private final String nameServiceIp;
+
+    public NameServiceThread() throws MiddlewarePropertiesException {
         this.nameService = NameServiceFactory.getNameService();
+        this.nameServiceIp = MiddlewarePropertiesHelper.getNameServiceHost();
     }
 
     @Override
@@ -47,7 +49,13 @@ public class NameServiceThread implements Runnable {
                     if (nameServiceMethodType == BIND) {
                         List<String> methodNames = parseMethodNames(parameters[1]);
                         int methodType = Integer.parseInt(parameters[2]);
-                        String ip = clientSocket.getInetAddress().toString().replace("/","");
+                        InetAddress inetAddress = clientSocket.getInetAddress();
+                        String ip;
+                        if (inetAddress.isLoopbackAddress()) {
+                            ip = nameServiceIp;
+                        } else {
+                            ip = inetAddress.toString().replace("/","");
+                        }
                         response = String.valueOf(nameService.bind(methodNames, methodType, ip));
                     } else if (nameServiceMethodType == LOOKUP_STATELESS) {
                         String methodName = parameters[1];
