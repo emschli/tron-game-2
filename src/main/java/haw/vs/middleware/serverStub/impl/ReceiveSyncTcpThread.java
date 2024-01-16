@@ -10,9 +10,12 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ReceiveSyncTcpThread implements Runnable {
     private static final int TCP_SYNC_PORT;
+    private static final int NO_OF_RECEIVE_SYNC_THREADS = 3;
 
     static {
         try {
@@ -23,8 +26,10 @@ public class ReceiveSyncTcpThread implements Runnable {
     }
 
     private ICaller caller;
+    private final ExecutorService executorService;
 
     public ReceiveSyncTcpThread() {
+        this.executorService = Executors.newFixedThreadPool(NO_OF_RECEIVE_SYNC_THREADS);
         this.caller = Caller.getInstance();
     }
 
@@ -34,14 +39,13 @@ public class ReceiveSyncTcpThread implements Runnable {
             while (true) {
                 Socket syncSocket = welcomeSocket.accept();
 
-                Thread clientHandler = new Thread(() -> {
+                executorService.submit(()-> {
                     try {
                         dealWithSync(syncSocket);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 });
-                clientHandler.start();
             }
 
         } catch (Exception e) {
