@@ -115,7 +115,13 @@ public class TronView implements ITronView {
             tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
-                    inputHandler.onKeyPressed(event.getCode().toString());
+                    String pressedKey = event.getCode().toString();
+                    if(pressedKey.equals("DOWN")  ||
+                            pressedKey.equals("UP") ||
+                            pressedKey.equals("LEFT") ||
+                            pressedKey.equals("RIGHT")){
+                        inputHandler.onKeyPressed(event.getCode().toString());
+                    }
                 }
             });
 
