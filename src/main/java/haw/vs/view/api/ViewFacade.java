@@ -51,13 +51,16 @@ public class ViewFacade implements IViewFacade {
         for (int i = 0; i < playerColors.size(); i++) {
             tronViewAdapter.draw(gameStateMap.get(playerColors.get(i)), playerColors.get(i));
         }
-        //highlight the head
-        //users bike
-        int length = gameStateMap.get(PlayerInfo.getColor()).size();
-        //users head
-        Coordinate myHead = gameStateMap.get(PlayerInfo.getColor()).get(length - 1);
-        //highligt
-        tronViewAdapter.highlightCell(myHead.x,myHead.y);
+        //highlight the heads
+        //all bikes
+        List<List<Coordinate>> allBikes = gameStateMap.values().stream().collect(Collectors.toList());
+        //all heads
+        for (int i = 0; i < allBikes.size(); i++) {
+            int lenght = allBikes.get(i).size();
+            Coordinate head = allBikes.get(i).get(lenght-1);
+            //highlight them
+            tronViewAdapter.highlightCell(head.x, head.y);
+        }
     }
 
     /**
