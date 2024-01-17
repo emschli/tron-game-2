@@ -3,10 +3,7 @@ package haw.vs.view.javafx;
 import haw.vs.common.Coordinate;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
-import haw.vs.view.overlay.Looser;
-import haw.vs.view.overlay.MainMenu;
-import haw.vs.view.overlay.PlayerCountView;
-import haw.vs.view.overlay.Winner;
+import haw.vs.view.overlay.*;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -107,6 +104,10 @@ public class TronView implements ITronView {
             // Build and register looser menu to put player count in the form
             Looser looserMenu = new Looser("menu.css", tronView);
             tronView.registerOverlay("looser", looserMenu);
+
+            // Build and register countdown menu to put player count in the form
+            Countdown countdown = new Countdown("menu.css", tronView);
+            tronView.registerOverlay("countdown", countdown);
 
             //init view
             tronView.init();

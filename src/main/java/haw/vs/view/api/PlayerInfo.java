@@ -16,7 +16,10 @@ public class PlayerInfo {
     private static int noOfPlayers;
     private static int actualNoOfPlayers;
 
+    public static String color;
+
     public static StringProperty waitingScreenText;
+
 
     static {
         waitingScreenText = new SimpleStringProperty("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
@@ -55,6 +58,14 @@ public class PlayerInfo {
     public static void setActualNoOfPlayers(int actualNoOfPlayers) {
         PlayerInfo.actualNoOfPlayers = actualNoOfPlayers;
         updateStringProperty();
+    }
+
+    public static String getColor() {
+        return color;
+    }
+
+    public static void setColor(String color) {
+        PlayerInfo.color = color;
     }
 
     private static void updateStringProperty() {
