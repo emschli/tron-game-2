@@ -1,6 +1,6 @@
 package haw.vs.model.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import haw.vs.middleware.common.DoNotLookHere;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +98,7 @@ public class Match {
         this.tickTimeStamp = tickTimeStamp;
     }
 
-    @JsonIgnore
+    @DoNotLookHere
     public boolean isFull() {
         return numberOfPlayers == players.size();
     }

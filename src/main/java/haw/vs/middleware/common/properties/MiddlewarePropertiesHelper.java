@@ -13,6 +13,9 @@ public class MiddlewarePropertiesHelper {
     private static String NAME_SERVICE_PORT = "nameservice_port";
     private static String NAME_SERVICE_HOST= "nameservice_host";
 
+    private static String TCP_ASYNC_RECEIVE_THREADS = "tcp_async_threads";
+    private static String TCP_SYNC_RECEIVE_THREADS = "tcp_sync_threads";
+
     private static Properties PROPERTIES = new Properties();
 
     /**
@@ -61,6 +64,34 @@ public class MiddlewarePropertiesHelper {
         }
 
         return hostName;
+    }
+
+    public static synchronized int getTcpAsyncReceiveThreadCount() throws MiddlewarePropertiesException {
+        load();
+        String threadCount = PROPERTIES.getProperty(TCP_ASYNC_RECEIVE_THREADS, "1");
+
+        int threads;
+        try {
+            threads = Integer.parseInt(threadCount);
+        } catch (NumberFormatException e) {
+            return 1;
+        }
+
+        return threads;
+    }
+
+    public static synchronized int getTcpSyncReceiveThreadCount() throws MiddlewarePropertiesException {
+        load();
+        String threadCount = PROPERTIES.getProperty(TCP_SYNC_RECEIVE_THREADS, "1");
+
+        int threads;
+        try {
+            threads = Integer.parseInt(threadCount);
+        } catch (NumberFormatException e) {
+            return 1;
+        }
+
+        return threads;
     }
 
     private static int getPort(String portType) throws MiddlewarePropertiesException {

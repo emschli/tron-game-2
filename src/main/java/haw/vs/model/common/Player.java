@@ -1,9 +1,9 @@
 package haw.vs.model.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import haw.vs.common.Coordinate;
 import haw.vs.common.Direction;
 import haw.vs.common.PlayerConfigData;
+import haw.vs.middleware.common.DoNotLookHere;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,11 +73,11 @@ public class Player {
         this.configData = configData;
     }
 
-    @JsonIgnore
+    @DoNotLookHere
     public boolean isAlive() {
         return this.state == PlayerState.PLAYING;
     }
-    @JsonIgnore
+    @DoNotLookHere
     public Coordinate getHead(){ return trace.get(trace.size()-1);}
 
     @Override
