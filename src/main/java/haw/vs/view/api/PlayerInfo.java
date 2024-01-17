@@ -17,7 +17,6 @@ public class PlayerInfo {
     private static int actualNoOfPlayers;
 
     public static String color;
-
     public static StringProperty waitingScreenText;
 
 
