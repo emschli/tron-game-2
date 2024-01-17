@@ -39,7 +39,8 @@ public class PlayerCountView extends VBox {
         labelCount.textProperty().bind(PlayerInfo.waitingScreenText);
         //get color
         String getColor = PlayerInfo.getColor();
-        //String getColor = "red";
+        //System.out.println(color);
+        getColor = "red";
         color = Color.web(getColor);
 
         //text configuration

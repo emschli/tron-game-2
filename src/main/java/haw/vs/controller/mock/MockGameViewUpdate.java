@@ -25,8 +25,8 @@ public class MockGameViewUpdate implements IGameViewUpdate {
     }
 
     @Override
-    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
-        System.out.printf("GameViewUpdate:  updatePlayerCountView(%s, %s, %s)\n", playerId, playerCount, targetPlayerCount);
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount, String color) {
+        System.out.printf("GameViewUpdate:  updatePlayerCountView(%s, %s, %s, %s)\n", playerId, playerCount, targetPlayerCount, color);
 
     }
 

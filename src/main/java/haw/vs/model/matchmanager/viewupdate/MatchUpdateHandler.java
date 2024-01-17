@@ -105,7 +105,7 @@ public class MatchUpdateHandler implements IMatchUpdateHandler {
         int playerCount = match.getPlayers().size();
         int targetPlayerCount = match.getNumberOfPlayers();
         for (Player player : match.getPlayers()) {
-            gameViewUpdate.updatePlayerCountViewController(player.getPlayerId(), playerCount, targetPlayerCount);
+            gameViewUpdate.updatePlayerCountViewController(player.getPlayerId(), playerCount, targetPlayerCount, player.getColor());
         }
     }
 }

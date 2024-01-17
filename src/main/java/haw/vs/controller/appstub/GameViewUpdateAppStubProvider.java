@@ -30,7 +30,7 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
             methods.add(this.getClass().getMethod("updateController", Long.class, GameState.class));
             methods.add(this.getClass().getMethod("playerWonController", Long.class, GameState.class));
             methods.add(this.getClass().getMethod("playerLostController", Long.class, GameState.class));
-            methods.add(this.getClass().getMethod("updatePlayerCountViewController", Long.class, Integer.class, Integer.class));
+            methods.add(this.getClass().getMethod("updatePlayerCountViewController", Long.class, Integer.class, Integer.class, String.class));
             methods.add(this.getClass().getMethod("showMainMenuController", Long.class));
             methods.add(this.getClass().getMethod("setMatchIdController", Long.class, Long.class));
 
@@ -62,8 +62,8 @@ public class GameViewUpdateAppStubProvider implements IGameViewUpdate, ICallee {
     }
 
     @Override
-    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
-        gameViewUpdate.updatePlayerCountViewController(playerId, playerCount, targetPlayerCount);
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount, String color) {
+        gameViewUpdate.updatePlayerCountViewController(playerId, playerCount, targetPlayerCount, color);
     }
 
     @Override

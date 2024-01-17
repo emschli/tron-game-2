@@ -22,6 +22,10 @@ public class ViewFacade implements IViewFacade {
     public void setPlayerId(long playerId) {
 
     }
+    @Override
+    public void setPlayerColor(String playerColor) {
+        PlayerInfo.setColor(playerColor);
+    }
 
     /**
      * Starts the game view -> start the counter to show the color -> the overlay hides when counter is ready
@@ -48,15 +52,20 @@ public class ViewFacade implements IViewFacade {
             tronViewAdapter.draw(gameStateMap.get(playerColors.get(i)), playerColors.get(i));
         }
         //highlight the heads
+        //my bike
+        int length = gameStateMap.get(PlayerInfo.getColor()).size();
+        Coordinate myHead = gameStateMap.get(PlayerInfo.getColor()).get(length - 1);
+        tronViewAdapter.highlightCell(myHead.x,myHead.y);
         //all bikes
-        List<List<Coordinate>> allBikes = gameStateMap.values().stream().collect(Collectors.toList());
+       // List<List<Coordinate>> allBikes = gameStateMap.values().stream().collect(Collectors.toList());
         //all heads
-        for (int i = 0; i < allBikes.size(); i++) {
-            int lenght = allBikes.get(i).size();
-            Coordinate head = allBikes.get(i).get(lenght-1);
+        //for (int i = 0; i < allBikes.size(); i++) {
+        //        int lenght = allBikes.get(i).size();
+        //        Coordinate head = allBikes.get(i).get(lenght-1);
             //highlight them
-            tronViewAdapter.highlightCell(head.x, head.y);
-        }
+        //    tronViewAdapter.highlightCell(head.x, head.y);
+       // }
+
     }
 
     /**
@@ -85,11 +94,12 @@ public class ViewFacade implements IViewFacade {
      * @param targetPlayerCount
      */
     @Override
-    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
+    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount, String color) {
         tronViewAdapter.hideOverlay();
+        System.out.println("Color: " + color);
         PlayerInfo.setNoOfPlayers(targetPlayerCount);
         PlayerInfo.setActualNoOfPlayers(playerCount);
-       //TODO PlayerInfo.setColor(color);
+        PlayerInfo.setColor(color);
 
         tronViewAdapter.showOverlay("playerCount");
     }

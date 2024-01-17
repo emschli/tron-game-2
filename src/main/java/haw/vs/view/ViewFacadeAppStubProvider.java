@@ -32,7 +32,7 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
             methods.add(this.getClass().getMethod("updateView", GameState.class));
             methods.add(this.getClass().getMethod("playerLostView", GameState.class));
             methods.add(this.getClass().getMethod("playerWonView", GameState.class));
-            methods.add(this.getClass().getMethod("updatePlayerCountViewView", Integer.class, Integer.class));
+            methods.add(this.getClass().getMethod("updatePlayerCountViewView", Integer.class, Integer.class, String.class));
             methods.add(this.getClass().getMethod("setMatchIdView", Long.class));
             methods.add(this.getClass().getMethod("showMainMenuView"));
         } catch (NoSuchMethodException e) {
@@ -43,6 +43,10 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
 
     @Override
     public void setPlayerId(long playerId) {
+
+    }
+    @Override
+    public void setPlayerColor(String color) {
 
     }
 
@@ -67,8 +71,8 @@ public class ViewFacadeAppStubProvider implements IViewFacade, ICallee {
     }
 
     @Override
-    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
-        viewFacade.updatePlayerCountViewView(playerCount, targetPlayerCount);
+    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount, String color) {
+        viewFacade.updatePlayerCountViewView(playerCount, targetPlayerCount, color);
     }
 
     @Override
