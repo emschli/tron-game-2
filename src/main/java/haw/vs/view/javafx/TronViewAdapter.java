@@ -56,7 +56,6 @@ public class TronViewAdapter implements IView {
     public void setGridSize(int columns, int rows) {
         tronView.getScene().getWindow().setX(columns);
         tronView.getScene().getWindow().setY(rows);
-        //TODO ist das wirklich das Grid?
     }
 
 }
