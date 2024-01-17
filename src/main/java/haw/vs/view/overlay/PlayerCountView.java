@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import static haw.vs.view.javafx.TronView.inputHandler;
 
@@ -21,8 +22,10 @@ public class PlayerCountView extends VBox {
     //button to quit the (future) match and go back to main menu
     private final Button btnCancel;
 
-    //counter which counts the number of Players
-    //private int counter;
+    //textfied for the color
+    private Text yourColor;
+    //color of the player
+    private Color color;
 
     public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
@@ -34,7 +37,16 @@ public class PlayerCountView extends VBox {
         labelCount.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
 
         labelCount.textProperty().bind(PlayerInfo.waitingScreenText);
+        //get color
+        // String getColor = PlayerInfo.getColor();
+        String getColor = "red";
+        color = Color.web(getColor);
 
+        //text configuration
+        yourColor = new Text();
+        yourColor.setText("Your color is " + getColor);
+        yourColor.setFill(color);
+        yourColor.setStyle("-fx-font: bold 20px \"Sans\";\n");
 
         //Add the button to cancel/go back to main menu
         btnCancel = new Button("Cancel");
@@ -46,6 +58,7 @@ public class PlayerCountView extends VBox {
 
         //add all the elements to the overlay
         this.getChildren().add(labelCount);
+        this.getChildren().add(yourColor);
         this.getChildren().add(btnCancel);
 
     }

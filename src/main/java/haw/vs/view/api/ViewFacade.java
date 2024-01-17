@@ -24,12 +24,13 @@ public class ViewFacade implements IViewFacade {
     }
 
     /**
-     * Starts the game view -> the overlay hides
+     * Starts the game view -> start the counter to show the color -> the overlay hides when counter is ready
      * @param gameState
      */
     @Override
     public void startGameView(GameState gameState) {
         tronViewAdapter.hideOverlay();
+        //tronViewAdapter.showOverlay("countdown");
     }
 
     /**

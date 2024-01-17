@@ -23,7 +23,6 @@ import javafx.event.EventHandler;
 public class Countdown extends VBox {
     //Label to tell the player what is happening.
     private Label labelCount;
-    //button to quit the (future) match and go back to main menu
     private Text yourColor;
     //starttime
     private static final Integer STARTTIME = 10;
