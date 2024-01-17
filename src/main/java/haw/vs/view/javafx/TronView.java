@@ -105,10 +105,6 @@ public class TronView implements ITronView {
             Looser looserMenu = new Looser("menu.css", tronView);
             tronView.registerOverlay("looser", looserMenu);
 
-            // Build and register countdown menu to put player count in the form
-            Countdown countdown = new Countdown("menu.css", tronView);
-            tronView.registerOverlay("countdown", countdown);
-
             //init view
             tronView.init();
 

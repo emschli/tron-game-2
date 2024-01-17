@@ -30,7 +30,6 @@ public class ViewFacade implements IViewFacade {
     @Override
     public void startGameView(GameState gameState) {
         tronViewAdapter.hideOverlay();
-        //tronViewAdapter.showOverlay("countdown");
     }
 
     /**
@@ -90,6 +89,8 @@ public class ViewFacade implements IViewFacade {
         tronViewAdapter.hideOverlay();
         PlayerInfo.setNoOfPlayers(targetPlayerCount);
         PlayerInfo.setActualNoOfPlayers(playerCount);
+       //TODO PlayerInfo.setColor(color);
+
         tronViewAdapter.showOverlay("playerCount");
     }
 
