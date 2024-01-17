@@ -4,9 +4,9 @@ import haw.vs.common.Coordinate;
 import haw.vs.common.GameState;
 import haw.vs.view.javafx.TronViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Offers methods to trigger different view appearences
@@ -29,7 +29,7 @@ public class ViewFacade implements IViewFacade {
 
     /**
      * Starts the game view
-     * @param gameState
+     * @param gameState transfers all the game information
      */
     @Override
     public void startGameView(GameState gameState) {
@@ -38,7 +38,7 @@ public class ViewFacade implements IViewFacade {
 
     /**
      * Draws all the bikes and their lines and head
-     * @param gameState
+     * @param gameState all the game information
      */
     @Override
     public void updateView(GameState gameState) {
@@ -46,18 +46,18 @@ public class ViewFacade implements IViewFacade {
         //all colors with their bikes
         Map<String, List<Coordinate>> gameStateMap = gameState.getPlayerPositionMap();
         // all colors
-        List<String> playerColors = gameStateMap.keySet().stream().collect(Collectors.toList());
+        List<String> playerColors = new ArrayList<>(gameStateMap.keySet());
         // for very color, draw the bike
-        for (int i = 0; i < playerColors.size(); i++) {
-            tronViewAdapter.draw(gameStateMap.get(playerColors.get(i)), playerColors.get(i));
+        for (String playerColor : playerColors) {
+            tronViewAdapter.draw(gameStateMap.get(playerColor), playerColor);
         }
         //highlight the heads
         //all bikes
-        List<List<Coordinate>> allBikes = gameStateMap.values().stream().collect(Collectors.toList());
+        List<List<Coordinate>> allBikes = new ArrayList<>(gameStateMap.values());
         //all heads
-        for (int i = 0; i < allBikes.size(); i++) {
-            int lenght = allBikes.get(i).size();
-            Coordinate head = allBikes.get(i).get(lenght-1);
+        for (List<Coordinate> allBike : allBikes) {
+            int lenght = allBike.size();
+            Coordinate head = allBike.get(lenght - 1);
             //highlight them
             tronViewAdapter.highlightCell(head.x, head.y);
         }
@@ -65,7 +65,7 @@ public class ViewFacade implements IViewFacade {
 
     /**
      * Updates the gameView a last time. Shows the overlay to tell the user, that he lost
-     * @param gameState
+     * @param gameState transfers all the game information
      */
     @Override
     public void playerLostView(GameState gameState) {
@@ -75,7 +75,7 @@ public class ViewFacade implements IViewFacade {
     }
     /**
      * Updates the gameView a last time. Shows the overlay to tell the user, that he won
-     * @param gameState
+     * @param gameState object to transfer all the game information
      */
     @Override
     public void playerWonView(GameState gameState) {
@@ -86,8 +86,8 @@ public class ViewFacade implements IViewFacade {
     /**
      * Updates the Player Count Menu to show the player how many other players are waiting with them.
      * Their color is showed.
-     * @param playerCount
-     * @param targetPlayerCount
+     * @param playerCount how many players are there already
+     * @param targetPlayerCount target playercount
      */
     @Override
     public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount, String color) {
@@ -109,7 +109,7 @@ public class ViewFacade implements IViewFacade {
 
     /**
      * Sets the MatchId für the Player
-     * @param matchId
+     * @param matchId match id which is to be setted
      */
     @Override
     public void setMatchIdView(Long matchId) {
