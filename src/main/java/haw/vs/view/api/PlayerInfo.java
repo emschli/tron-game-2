@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.awt.*;
+
 /**
  * Datenstruktur um die Playerinfo zu haben
  */
@@ -17,12 +19,18 @@ public class PlayerInfo {
     private static int actualNoOfPlayers;
 
     public static String color;
+    public static StringProperty colorProperty;
+
+    public static StringProperty colorTextProperty;
     public static StringProperty waitingScreenText;
 
 
     static {
         waitingScreenText = new SimpleStringProperty("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
                 PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+        colorTextProperty = new SimpleStringProperty("Your color is: RED");
+        colorProperty = new SimpleStringProperty("CYAN");
+
     }
 
     public static long getPlayerId() {
@@ -65,12 +73,23 @@ public class PlayerInfo {
 
     public static void setColor(String color) {
         PlayerInfo.color = color;
+        updateColorTextProperty();
+        updateColorProperty();
     }
 
     private static void updateStringProperty() {
         Platform.runLater(() -> {
             waitingScreenText.set("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
                     PlayerInfo.getNoOfPlayers() + " Players ready. \n");
+        });
+    }
+    private static void updateColorTextProperty() {
+        Platform.runLater(() -> {
+            colorTextProperty.set("Your color is: " + PlayerInfo.getColor());
+        });
+    }   private static void updateColorProperty() {
+        Platform.runLater(() -> {
+            colorProperty.set(PlayerInfo.getColor());
         });
     }
 }

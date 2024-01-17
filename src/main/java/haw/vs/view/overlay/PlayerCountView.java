@@ -22,6 +22,10 @@ public class PlayerCountView extends VBox {
     //button to quit the (future) match and go back to main menu
     private final Button btnCancel;
 
+    //textfied for the color
+    private Text yourColor;
+    //color of the player
+
     public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
         this.getStylesheets().add(stylesheet);
@@ -33,6 +37,16 @@ public class PlayerCountView extends VBox {
 
         labelCount.textProperty().bind(PlayerInfo.waitingScreenText);
 
+        //text configuration
+        yourColor = new Text();
+        yourColor.textProperty().bind(PlayerInfo.colorTextProperty);
+        yourColor.setStyle("-fx-font: bold 20px \"Sans\";\n");
+
+        // add listener to show the changed color in the overlay
+        PlayerInfo.colorProperty.addListener((observable, oldValue, newValue) -> {
+            yourColor.setFill(Color.web(newValue.toString()));
+        });
+
         //Add the button to cancel/go back to main menu
         btnCancel = new Button("Cancel");
         btnCancel.setOnAction(event -> {
@@ -43,6 +57,7 @@ public class PlayerCountView extends VBox {
 
         //add all the elements to the overlay
         this.getChildren().add(labelCount);
+        this.getChildren().add(yourColor);
         this.getChildren().add(btnCancel);
 
     }

@@ -88,7 +88,6 @@ public class ViewFacade implements IViewFacade {
     @Override
     public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount, String color) {
         tronViewAdapter.hideOverlay();
-        System.out.println("Color: " + color);
         PlayerInfo.setNoOfPlayers(targetPlayerCount);
         PlayerInfo.setActualNoOfPlayers(playerCount);
         PlayerInfo.setColor(color);
