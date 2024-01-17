@@ -33,7 +33,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
 
     /**
      * Sends the pressedKey to the input controller to handle the game action (direction changes)
-     * @param pressedKey
+     * @param pressedKey the key the user pressed
      */
     @Override
     public void onKeyPressed(String pressedKey) {
@@ -71,7 +71,7 @@ public class PlayerInputHandler implements IPlayerInputHandler {
                 direction = Direction.DOWN;
                 break;
         }
-        if(direction.equals(null)){
+        if(direction == null){
             throw new RuntimeException("The direction is null");
         }
         return direction;
