@@ -1,6 +1,6 @@
 package haw.vs.model.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import haw.vs.middleware.common.DoNotLookHere;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -15,7 +15,14 @@ import java.util.concurrent.Executors;
 
 public class ReceiveSyncTcpThread implements Runnable {
     private static final int TCP_SYNC_PORT;
-    private static final int NO_OF_RECEIVE_SYNC_THREADS = 3;
+    private static final int NO_OF_RECEIVE_SYNC_THREADS;
+    static {
+        try {
+            NO_OF_RECEIVE_SYNC_THREADS = MiddlewarePropertiesHelper.getTcpSyncReceiveThreadCount();
+        } catch (MiddlewarePropertiesException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     static {
         try {

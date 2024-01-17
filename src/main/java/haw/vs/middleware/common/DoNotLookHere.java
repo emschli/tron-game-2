@@ -1,4 +1,4 @@
-package haw.vs.model.common;
+package haw.vs.middleware.common;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.annotation.JsonIgnore;

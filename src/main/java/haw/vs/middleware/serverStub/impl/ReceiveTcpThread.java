@@ -12,11 +12,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ReceiveTcpThread implements Runnable {
-    private static final int NO_OF_THREADS = 5;
+    private static final int NO_OF_THREADS;
+    static {
+        try {
+            NO_OF_THREADS = MiddlewarePropertiesHelper.getTcpAsyncReceiveThreadCount();
+        } catch (MiddlewarePropertiesException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private ReceiveQueue receiveQueue;
     private static final int TCP_PORT;
-    private final ExecutorService executorService;
-
     static {
         try {
             TCP_PORT = MiddlewarePropertiesHelper.getAsynchronousTcpPort();
@@ -24,6 +30,8 @@ public class ReceiveTcpThread implements Runnable {
             throw new RuntimeException(e);
         }
     }
+
+    private final ExecutorService executorService;
 
     public ReceiveTcpThread() {
 
