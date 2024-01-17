@@ -28,7 +28,7 @@ public class ViewFacade implements IViewFacade {
     }
 
     /**
-     * Starts the game view -> start the counter to show the color -> the overlay hides when counter is ready
+     * Starts the game view
      * @param gameState
      */
     @Override
@@ -37,7 +37,7 @@ public class ViewFacade implements IViewFacade {
     }
 
     /**
-     * Draws all the bikes and their lines and highlights their heads.
+     * Draws all the bikes and their lines and head
      * @param gameState
      */
     @Override
@@ -82,6 +82,7 @@ public class ViewFacade implements IViewFacade {
 
     /**
      * Updates the Player Count Menu to show the player how many other players are waiting with them.
+     * Their color is showed.
      * @param playerCount
      * @param targetPlayerCount
      */

@@ -10,6 +10,11 @@ import haw.vs.view.ViewFacadeAppStubConsumer;
 import haw.vs.view.ViewFacadeAppStubProvider;
 import haw.vs.view.mock.MockViewFacade;
 
+/**
+ * ViewFactory offers:
+ * - IViewFacade, depending on the case STANDALONE/DISTRIBUTED with different Stubbs
+ * - IInputHandler
+ */
 public class ViewFactory {
     public static IViewFacade getView(ComponentType isComp) {
         try {

@@ -31,13 +31,12 @@ public class PlayerCountView extends VBox {
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
 
+        //Label for the counting
         labelCount = new Label();
-
         labelCount.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
-
         labelCount.textProperty().bind(PlayerInfo.waitingScreenText);
 
-        //text configuration
+        //text configuration for the color text
         yourColor = new Text();
         yourColor.textProperty().bind(PlayerInfo.colorTextProperty);
         yourColor.setStyle("-fx-font: bold 20px \"Sans\";\n");

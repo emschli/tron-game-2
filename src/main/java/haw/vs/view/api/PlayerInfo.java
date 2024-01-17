@@ -24,7 +24,9 @@ public class PlayerInfo {
     public static StringProperty colorTextProperty;
     public static StringProperty waitingScreenText;
 
-
+    /**
+     * Creating the StringProperties to show the changed values in the overlay
+     */
     static {
         waitingScreenText = new SimpleStringProperty("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
                 PlayerInfo.getNoOfPlayers() + " Players ready. \n");
