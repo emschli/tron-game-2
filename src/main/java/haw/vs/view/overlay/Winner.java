@@ -26,7 +26,6 @@ public class Winner extends VBox {
 
         backToMain = new Button("Back To Main Menu");
         backToMain.setOnAction(event -> {
-            //TODO back to main anzeigen, funktioniert das?
             view.clear();
             view.hideOverlays();
             view.showOverlay("main");
