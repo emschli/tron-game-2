@@ -68,13 +68,13 @@ public class MiddlewarePropertiesHelper {
 
     public static synchronized int getTcpAsyncReceiveThreadCount() throws MiddlewarePropertiesException {
         load();
-        String threadCount = PROPERTIES.getProperty(TCP_ASYNC_RECEIVE_THREADS, "1");
+        String threadCount = PROPERTIES.getProperty(TCP_ASYNC_RECEIVE_THREADS, "2");
 
         int threads;
         try {
             threads = Integer.parseInt(threadCount);
         } catch (NumberFormatException e) {
-            return 1;
+            return 2;
         }
 
         return threads;
@@ -82,13 +82,13 @@ public class MiddlewarePropertiesHelper {
 
     public static synchronized int getTcpSyncReceiveThreadCount() throws MiddlewarePropertiesException {
         load();
-        String threadCount = PROPERTIES.getProperty(TCP_SYNC_RECEIVE_THREADS, "1");
+        String threadCount = PROPERTIES.getProperty(TCP_SYNC_RECEIVE_THREADS, "2");
 
         int threads;
         try {
             threads = Integer.parseInt(threadCount);
         } catch (NumberFormatException e) {
-            return 1;
+            return 2;
         }
 
         return threads;
