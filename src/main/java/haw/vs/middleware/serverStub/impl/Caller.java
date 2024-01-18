@@ -1,5 +1,6 @@
 package haw.vs.middleware.serverStub.impl;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
@@ -88,9 +89,12 @@ public class Caller implements ICaller, Runnable {
         try {
             jsonString = new String(data, StandardCharsets.UTF_8);
             request = objectMapper.readValue(data, JsonRequest.class);
-        } catch (IOException e) {
-            System.out.println("Error during unmarshalling: " + e.getMessage());
-            System.out.println("JSON String: " + jsonString);
+        }
+        catch (JsonParseException e) {
+            System.err.println("Json Parse Error! \n" + jsonString);
+        }catch (IOException e) {
+            System.err.println("Error during unmarshalling: " + e.getMessage());
+            System.err.println("JSON String: " + jsonString);
             e.printStackTrace();
         }
         return request;
