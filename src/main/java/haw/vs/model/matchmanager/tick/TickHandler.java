@@ -33,7 +33,7 @@ public class TickHandler implements ITickHandler {
         for (Match match : matches.getRunningMatches()) {
             Match matchCopy = match.copy();
             matchCopy.setTickStamp(TickCounter.getTickCounter());
-            gameStateProcessor.addTask(match.copy());
+            gameStateProcessor.addTask(matchCopy);
             TickSummary.addMatchesSentToGameLogic();
         }
 
