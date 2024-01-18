@@ -116,6 +116,9 @@ public class Matches {
         updateLock.lock();
         Match matchToUpdate = getRunningMatch(match.getMatchId());
 
+        if(matchToUpdate==null){
+            return;
+        }
         // Match has already been updated during more recent tick
         if (matchToUpdate.getTickTimeStamp() > match.getTickTimeStamp()) {
             updateLock.unlock();
