@@ -125,7 +125,7 @@ public class Matches {
         matchToUpdate.setState(match.getState());
         matchToUpdate.setMaxGridX(match.getMaxGridX());
         matchToUpdate.setMaxGridY(match.getMaxGridY());
-        matchToUpdate.setPlayers(match.getPlayers());
+        matchToUpdate.setPlayers(copyPlayers(match));
         matchToUpdate.setTickTimeStamp(match.getTickTimeStamp());
 
         switch (match.getState()) {
@@ -235,5 +235,15 @@ public class Matches {
 
     private void updateEndedMatch(Match match) {
         removeEndedMatch(match);
+    }
+
+    private List<Player> copyPlayers(Match match) {
+        List<Player> players = new ArrayList<>();
+
+        for (Player player : match.getPlayers()) {
+            players.add(player.copy());
+        }
+
+        return players;
     }
 }
