@@ -32,6 +32,7 @@ public class ReceiveUdpThread implements Runnable {
                 DatagramPacket packet = new DatagramPacket(receiveData, receiveData.length);
                 socket.receive(packet);
                 receiveQueue.put(packet.getData());
+                receiveData = new byte[32_000];
             }
 
         } catch (IOException e) {
