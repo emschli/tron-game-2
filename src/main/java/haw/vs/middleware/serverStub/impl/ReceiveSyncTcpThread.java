@@ -46,14 +46,13 @@ public class ReceiveSyncTcpThread implements Runnable {
             while (true) {
                 Socket syncSocket = welcomeSocket.accept();
 
-                Thread clientHandler = new Thread(() -> {
+                executorService.submit(()-> {
                     try {
                         dealWithSync(syncSocket);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 });
-                clientHandler.start();
             }
 
         } catch (Exception e) {
