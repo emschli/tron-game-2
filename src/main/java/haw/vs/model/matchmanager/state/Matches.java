@@ -161,10 +161,12 @@ public class Matches {
         inputLock.lock();
         Match match = getRunningMatch(matchId);
         if(match == null){
+            inputLock.unlock();
             return;
         }
         Player player = match.getPlayerById(playerId);
         if(player == null){
+            inputLock.unlock();
             return;
         }
         player.setNextDirection(direction);
