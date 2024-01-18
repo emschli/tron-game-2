@@ -7,6 +7,7 @@ import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.matchmanager.MatchManagerInfo;
+import haw.vs.model.matchmanager.tick.TickCounter;
 import haw.vs.model.matchmanager.tick.TickSummary;
 
 import java.util.*;
@@ -120,8 +121,8 @@ public class Matches {
             updateLock.unlock();
             return;
         }
-        // Match has already been updated during more recent tick
-        if (matchToUpdate.getTickTimeStamp() > match.getTickTimeStamp()) {
+        // Match belongs to old tick!
+        if (match.getTickStamp() < TickCounter.getTickCounter()) {
             updateLock.unlock();
             return;
         }
@@ -130,7 +131,7 @@ public class Matches {
         matchToUpdate.setMaxGridX(match.getMaxGridX());
         matchToUpdate.setMaxGridY(match.getMaxGridY());
         matchToUpdate.setPlayers(copyPlayers(match));
-        matchToUpdate.setTickTimeStamp(match.getTickTimeStamp());
+        matchToUpdate.setTickStamp(match.getTickStamp());
 
         switch (match.getState()) {
             case READY:

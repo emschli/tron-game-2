@@ -16,7 +16,7 @@ public class Match {
     private List<Player> players = new ArrayList<>();
 
     private Long matchManagerId;
-    private Long tickTimeStamp = 0L;
+    private Long tickStamp = 0L;
 
     public void addPlayer(Player player) {
         players.add(player);
@@ -90,12 +90,12 @@ public class Match {
         this.matchManagerId = matchManagerId;
     }
 
-    public Long getTickTimeStamp() {
-        return tickTimeStamp;
+    public Long getTickStamp() {
+        return tickStamp;
     }
 
-    public void setTickTimeStamp(Long tickTimeStamp) {
-        this.tickTimeStamp = tickTimeStamp;
+    public void setTickStamp(Long tickStamp) {
+        this.tickStamp = tickStamp;
     }
 
     @DoNotLookHere
@@ -147,7 +147,7 @@ public class Match {
         }
         match.setPlayers(players);
         match.setMatchManagerId(this.matchManagerId);
-        match.setTickTimeStamp(this.tickTimeStamp);
+        match.setTickStamp(this.tickStamp);
         return match;
     }
 }
