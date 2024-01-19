@@ -42,6 +42,7 @@ public class MainMenu extends VBox {
         labelMain = new Label(translationServiceAI.translateText("How many Players?"));
         labelMain.setStyle("-fx-text-fill: " + ViewUtility.getHexTriplet(Color.PAPAYAWHIP.brighter()) + ";");
         textField = new TextField();
+        textField.setMaxWidth(200);
 
         //add textfield and listener
         textField.textProperty().addListener(new ChangeListener<String>() {
