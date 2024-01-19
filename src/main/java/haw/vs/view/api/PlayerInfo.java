@@ -86,7 +86,7 @@ public class PlayerInfo {
 
     private static void updateStringProperty() {
         Platform.runLater(() -> {
-            waitingScreenText.set(translationServiceAI.translateText("Waiting for players to join.") + "\n"
+            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players.") + "\n"
                             + translationServiceAI.translateText("There are already") + " " +
                     PlayerInfo.getActualNoOfPlayers()+ " " + translationServiceAI.translateText("of") + " " +
                     PlayerInfo.getNoOfPlayers() + " " + translationServiceAI.translateText("Players ready.")+ "\n");
