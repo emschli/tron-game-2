@@ -34,10 +34,11 @@ public class PlayerInfo {
         waitingScreenText = new SimpleStringProperty(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") + " "+
                 PlayerInfo.getActualNoOfPlayers() + " " + translationServiceAI.translateText(" of ") + " "+
                 PlayerInfo.getNoOfPlayers() + " " + translationServiceAI.translateText(" Players ready. \n"));
-        waitingScreenText = new SimpleStringProperty("Waiting for more players to join the game.\nThere are already " + PlayerInfo.getActualNoOfPlayers() + " of " +
-                PlayerInfo.getNoOfPlayers() + " Players ready. \n");
-        colorTextProperty = new SimpleStringProperty("Your color is: RED");
-        colorProperty = new SimpleStringProperty("CYAN");
+        waitingScreenText = new SimpleStringProperty("Waiting for more players to join the game.\nThere are already"+ " " +
+                PlayerInfo.getActualNoOfPlayers() + " " + "of" + " " +
+                PlayerInfo.getNoOfPlayers() + " " + "Players ready. \n");
+        colorTextProperty = new SimpleStringProperty();
+        colorProperty = new SimpleStringProperty();
 
     }
 
@@ -87,14 +88,15 @@ public class PlayerInfo {
 
     private static void updateStringProperty() {
         Platform.runLater(() -> {
-            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already ") + " "+
-                    PlayerInfo.getActualNoOfPlayers()+ " " + translationServiceAI.translateText(" of ") + " " +
-                    PlayerInfo.getNoOfPlayers() + " "+ translationServiceAI.translateText(" Players ready. \n"));
+            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already#") + " " +
+                    PlayerInfo.getActualNoOfPlayers()+ " " + translationServiceAI.translateText("of") + " " +
+                    PlayerInfo.getNoOfPlayers() + " " + translationServiceAI.translateText(" Players ready. \n"));
         });
     }
     private static void updateColorTextProperty() {
         Platform.runLater(() -> {
-            colorTextProperty.set("Your color is: " + PlayerInfo.getColor());
+            colorTextProperty.set(translationServiceAI.translateText("Your color is:") + " "+
+                    translationServiceAI.translateText(PlayerInfo.getColor()));
         });
     }   private static void updateColorProperty() {
         Platform.runLater(() -> {
