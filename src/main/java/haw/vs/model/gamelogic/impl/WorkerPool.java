@@ -1,11 +1,33 @@
 package haw.vs.model.gamelogic.impl;
 
+import haw.vs.common.properties.PropertiesException;
+import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.model.common.Match;
 import haw.vs.model.gamelogic.IWorkerPool;
 
 import java.util.concurrent.*;
 
 public class WorkerPool implements IWorkerPool {
+
+    private static int THREAD_COUNT;
+    static {
+        String countString = null;
+        try {
+            countString = PropertiesHelper.getProperty("game_logic_thread_count");
+        } catch (PropertiesException e) {
+
+        }
+
+        int count = 1;
+
+        try {
+            count = Integer.parseInt(countString);
+        } catch (NumberFormatException e) {
+
+        }
+
+        THREAD_COUNT = count;
+    }
 
     private ArrayBlockingQueue<Runnable> queue;
     private ThreadPoolExecutor threadPoolExecutor;
@@ -16,8 +38,8 @@ public class WorkerPool implements IWorkerPool {
         this.gameLogic = new GameLogic(gameStateProcessedHandler);
         this.queue = new ArrayBlockingQueue<Runnable>(5);
         this.threadPoolExecutor = new ThreadPoolExecutor(
-                3,
-                5,
+                THREAD_COUNT,
+                THREAD_COUNT+3,
                 5000,
                 TimeUnit.MILLISECONDS,
                 queue);
@@ -42,38 +64,6 @@ public class WorkerPool implements IWorkerPool {
             Thread.currentThread().interrupt();
         }
     }
-
-//    public static void main(String[] args) {
-//        WorkerPool wp = new WorkerPool();
-//
-//        // Thread that adds tasks to the WorkerPool
-//        Thread taskAdderThread = new Thread(() -> {
-//            // Simulate adding tasks to the WorkerPool at intervals
-//            for (int i = 1; i <= 10; i++) {
-//                Match match = new Match(i); // Replace with your Match constructor
-//
-//                wp.addTask(match);
-//                System.out.println("Added Match_" + i + " to the worker pool.");
-//
-//                // Sleep for a short duration before adding the next task
-//                try {
-//                    Thread.sleep(1000); // Sleep for 1 second
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                }
-//            }
-//
-//            // Sleep for 5 seconds after adding all tasks to simulate no tasks being added
-//            try {
-//                Thread.sleep(5000); // Sleep for 5 seconds (no tasks added)
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//        });
-//
-//        taskAdderThread.start();
-//    }
-
 
 }
 

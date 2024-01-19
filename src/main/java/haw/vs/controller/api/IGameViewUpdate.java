@@ -16,7 +16,7 @@ public interface IGameViewUpdate {
     void playerLostController(Long playerId, GameState gameState);
 
     // Methode zur Aktualisierung der Spieleranzahl in der Ansicht für einen Spieler
-    void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount);
+    void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount, String color);
 
     // Methode, um das Hauptmenü für einen Spieler anzuzeigen
     void showMainMenuController(Long playerId);

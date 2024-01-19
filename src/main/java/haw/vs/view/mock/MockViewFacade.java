@@ -8,6 +8,10 @@ public class MockViewFacade implements IViewFacade {
     public void setPlayerId(long playerId) {
 
     }
+    @Override
+    public void setPlayerColor(String playerColor) {
+
+    }
 
     @Override
     public void startGameView(GameState gameState) {
@@ -30,8 +34,8 @@ public class MockViewFacade implements IViewFacade {
     }
 
     @Override
-    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
-        System.out.printf("ViewFacade:   updatePlayerCountView(%s, %s)\n", playerCount, targetPlayerCount);
+    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount, String color) {
+        System.out.printf("ViewFacade:   updatePlayerCountView(%s, %s, %s)\n", playerCount, targetPlayerCount, color);
     }
 
     @Override

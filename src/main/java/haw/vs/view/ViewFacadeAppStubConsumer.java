@@ -11,6 +11,8 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
     private IClientStub clientStub;
     private long playerId;
 
+    private String playerColor;
+
     public ViewFacadeAppStubConsumer(IClientStub clientStub) {
         this.clientStub = clientStub;
         this.playerId = 1;
@@ -27,6 +29,10 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
     @Override
     public void setPlayerId(long playerId) {
         this.playerId = playerId;
+    }
+    @Override
+    public void setPlayerColor(String playerColor) {
+        this.playerColor = playerColor;
     }
 
     @Override
@@ -52,8 +58,8 @@ public class ViewFacadeAppStubConsumer implements IViewFacade {
     }
 
     @Override
-    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount) {
-        invoke("updatePlayerCountViewView", ModeTypes.ASYNC_UDP, playerCount, targetPlayerCount);
+    public void updatePlayerCountViewView(Integer playerCount, Integer targetPlayerCount, String color) {
+        invoke("updatePlayerCountViewView", ModeTypes.ASYNC_UDP, playerCount, targetPlayerCount, color);
     }
 
     @Override

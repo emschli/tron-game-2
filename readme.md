@@ -15,6 +15,9 @@ app_type=STANDALONE
 # controller_test=true
 # game_logic_test=true
 
+# GameLogic threads
+# game_logic_thread_count=2
+
 ````
 
 To configure the middleware create file `middleware.properties` in folder `src/main/resources`. 
@@ -31,4 +34,8 @@ async_udp_port=...
 # Nameservice IP
 nameservice_host= ...
 nameservice_port= ...
+
+# Number of Receive Threads
+tcp_async_threads=2
+tcp_sync_threads=2
 ````

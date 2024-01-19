@@ -7,6 +7,7 @@ import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
 import haw.vs.model.matchmanager.MatchManagerInfo;
+import haw.vs.model.matchmanager.tick.TickCounter;
 import haw.vs.model.matchmanager.tick.TickSummary;
 
 import java.util.*;
@@ -116,8 +117,12 @@ public class Matches {
         updateLock.lock();
         Match matchToUpdate = getRunningMatch(match.getMatchId());
 
-        // Match has already been updated during more recent tick
-        if (matchToUpdate.getTickTimeStamp() > match.getTickTimeStamp()) {
+        if(matchToUpdate==null){
+            updateLock.unlock();
+            return;
+        }
+        // Match belongs to old tick!
+        if (match.getTickStamp() < TickCounter.getTickCounter()) {
             updateLock.unlock();
             return;
         }
@@ -125,8 +130,8 @@ public class Matches {
         matchToUpdate.setState(match.getState());
         matchToUpdate.setMaxGridX(match.getMaxGridX());
         matchToUpdate.setMaxGridY(match.getMaxGridY());
-        matchToUpdate.setPlayers(match.getPlayers());
-        matchToUpdate.setTickTimeStamp(match.getTickTimeStamp());
+        matchToUpdate.setPlayers(copyPlayers(match));
+        matchToUpdate.setTickStamp(match.getTickStamp());
 
         switch (match.getState()) {
             case READY:
@@ -156,10 +161,12 @@ public class Matches {
         inputLock.lock();
         Match match = getRunningMatch(matchId);
         if(match == null){
+            inputLock.unlock();
             return;
         }
         Player player = match.getPlayerById(playerId);
         if(player == null){
+            inputLock.unlock();
             return;
         }
         player.setNextDirection(direction);
@@ -235,5 +242,15 @@ public class Matches {
 
     private void updateEndedMatch(Match match) {
         removeEndedMatch(match);
+    }
+
+    private List<Player> copyPlayers(Match match) {
+        List<Player> players = new ArrayList<>();
+
+        for (Player player : match.getPlayers()) {
+            players.add(player.copy());
+        }
+
+        return players;
     }
 }

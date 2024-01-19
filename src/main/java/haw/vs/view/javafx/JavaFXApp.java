@@ -43,7 +43,7 @@ public class JavaFXApp extends Application {
                 }
             }
         });
-
+        //shows the first overlay
         tronView.showOverlay("main");
 
         viewStartedCountDownLatch.countDown();

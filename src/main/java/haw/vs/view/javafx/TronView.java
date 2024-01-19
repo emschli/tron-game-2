@@ -3,10 +3,7 @@ package haw.vs.view.javafx;
 import haw.vs.common.Coordinate;
 import haw.vs.view.api.IPlayerInputHandler;
 import haw.vs.view.api.ViewFactory;
-import haw.vs.view.overlay.Looser;
-import haw.vs.view.overlay.MainMenu;
-import haw.vs.view.overlay.PlayerCountView;
-import haw.vs.view.overlay.Winner;
+import haw.vs.view.overlay.*;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -24,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * TronView for creating the TronView and enshuring there is only one TronView by integrating Daniel Snarros Code.
+ */
 public class TronView implements ITronView {
     //The following Code was written by Author: Daniel Sarnow (daniel.sarnow@haw-hamburg.de)
     private Scene scene;
@@ -72,10 +72,10 @@ public class TronView implements ITronView {
         this.overlays = new HashMap<>();
         base = new StackPane();
 
-        gameBoard = new Canvas(WIDTH,HEIGHT);
+        gameBoard = new Canvas(WIDTH, HEIGHT);
         base.getChildren().add(gameBoard);
 
-        fog = new Rectangle(WIDTH, HEIGHT, Color.gray(0.2,0.8));
+        fog = new Rectangle(WIDTH, HEIGHT, Color.gray(0.2, 0.8));
         overlays.put("fog", fog);
         base.getChildren().add(fog);
 
@@ -85,7 +85,7 @@ public class TronView implements ITronView {
 
 
     public static synchronized ITronView getInstance() {
-        if(tronView == null){
+        if (tronView == null) {
             try {
                 tronView = new TronView(VIEW_CONFIG_FILE);
             } catch (IOException e) {
@@ -115,7 +115,13 @@ public class TronView implements ITronView {
             tronView.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
-                    inputHandler.onKeyPressed(event.getCode().toString());
+                    String pressedKey = event.getCode().toString();
+                    if(pressedKey.equals("DOWN")  ||
+                            pressedKey.equals("UP") ||
+                            pressedKey.equals("LEFT") ||
+                            pressedKey.equals("RIGHT")){
+                        inputHandler.onKeyPressed(event.getCode().toString());
+                    }
                 }
             });
 
@@ -145,27 +151,27 @@ public class TronView implements ITronView {
 
     @Override
     public void draw(List<Coordinate> bike, Color color) {
-        if(bike == null || color == null){
+        if (bike == null || color == null) {
             throw new NullPointerException();
         }
-        for(Coordinate pos : bike){
-            if(pos.x < 0 || pos.x >= COLUMNS){
+        for (Coordinate pos : bike) {
+            if (pos.x < 0 || pos.x >= COLUMNS) {
                 throw new IllegalArgumentException("x value out of bounds: x is " + pos.x + ", but should be 0 <= x < " + COLUMNS);
             }
-            if(pos.y < 0 || pos.y >= ROWS) {
+            if (pos.y < 0 || pos.y >= ROWS) {
                 throw new IllegalArgumentException("y value out of bounds: y is " + pos.y + ", but should be 0 <= y < " + ROWS);
             }
 
             // paint new bike position
             GraphicsContext g = gameBoard.getGraphicsContext2D();
             g.setFill(color); //Color.PAPAYAWHIP);
-            g.fillRect(pos.x*WIDTH/COLUMNS, pos.y*HEIGHT/ROWS, WIDTH/COLUMNS, HEIGHT/ROWS);
+            g.fillRect(pos.x * WIDTH / COLUMNS, pos.y * HEIGHT / ROWS, WIDTH / COLUMNS, HEIGHT / ROWS);
         }
     }
 
     @Override
     public <T extends Node> void registerOverlay(String name, T overlay) {
-        if(name == null || overlay == null){
+        if (name == null || overlay == null) {
             throw new NullPointerException();
         }
 
@@ -175,7 +181,7 @@ public class TronView implements ITronView {
 
     @Override
     public void showOverlay(String name) {
-        if(!overlays.keySet().contains(name)){
+        if (!overlays.keySet().contains(name)) {
             throw new IllegalArgumentException("An overlay mapped to " + name + " does not exist. Registered are " + overlays.keySet());
         }
 
@@ -185,7 +191,7 @@ public class TronView implements ITronView {
 
     @Override
     public void hideOverlays() {
-        for(Map.Entry<String,Node> entry : overlays.entrySet()){
+        for (Map.Entry<String, Node> entry : overlays.entrySet()) {
             entry.getValue().setVisible(false);
         }
     }
@@ -195,11 +201,11 @@ public class TronView implements ITronView {
         // highlight last bike position
         GraphicsContext g = gameBoard.getGraphicsContext2D();
         g.setFill(Color.RED.darker());
-        g.fillRect(cell.x*WIDTH/COLUMNS, cell.y*HEIGHT/ROWS, WIDTH/COLUMNS, HEIGHT/ROWS);
+        g.fillRect(cell.x * WIDTH / COLUMNS, cell.y * HEIGHT / ROWS, WIDTH / COLUMNS, HEIGHT / ROWS);
     }
 
     //Gets File from resources-Folder (works from within jar as well)
-    private InputStream getFileFromResourceAsStream(String fileName) throws IOException{
+    private InputStream getFileFromResourceAsStream(String fileName) throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
 

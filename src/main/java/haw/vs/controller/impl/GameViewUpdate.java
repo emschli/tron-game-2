@@ -36,9 +36,10 @@ public class GameViewUpdate implements IGameViewUpdate {
     }
 
     @Override
-    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount, String color) {
         viewFacade.setPlayerId(playerId);
-        viewFacade.updatePlayerCountViewView(playerCount, targetPlayerCount);
+        viewFacade.setPlayerColor(color);
+        viewFacade.updatePlayerCountViewView(playerCount, targetPlayerCount, color);
     }
 
     @Override

@@ -38,8 +38,8 @@ public class GameViewUpdateAppStubConsumer implements IGameViewUpdate {
     }
 
     @Override
-    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount) {
-        invoke("updatePlayerCountViewController", ModeTypes.ASYNC_TCP, playerId, playerCount, targetPlayerCount);
+    public void updatePlayerCountViewController(Long playerId, Integer playerCount, Integer targetPlayerCount, String color) {
+        invoke("updatePlayerCountViewController", ModeTypes.ASYNC_TCP, playerId, playerCount, targetPlayerCount, color);
     }
 
     @Override
