@@ -57,7 +57,7 @@ public class TranslationServiceAI {
 
     private void setupAccessApiKeyInResources() {
 
-        try (InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("tron-translationnn.json")) {
+        try (InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("tron-translation.json")) {
             if(resourceStream == null){
                 return;
             }
