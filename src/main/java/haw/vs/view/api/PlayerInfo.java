@@ -88,9 +88,10 @@ public class PlayerInfo {
 
     private static void updateStringProperty() {
         Platform.runLater(() -> {
-            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players to join the game.\nThere are already#") + " " +
+            waitingScreenText.set(translationServiceAI.translateText("Waiting for more players to join the game.") + "\n"
+                            + translationServiceAI.translateText("There are already") + " " +
                     PlayerInfo.getActualNoOfPlayers()+ " " + translationServiceAI.translateText("of") + " " +
-                    PlayerInfo.getNoOfPlayers() + " " + translationServiceAI.translateText(" Players ready. \n"));
+                    PlayerInfo.getNoOfPlayers() + " " + translationServiceAI.translateText("Players ready.")+ "\n");
         });
     }
     private static void updateColorTextProperty() {
