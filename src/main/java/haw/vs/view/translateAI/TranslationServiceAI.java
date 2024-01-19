@@ -8,6 +8,7 @@ import com.google.cloud.translate.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class TranslationServiceAI {
 
@@ -15,13 +16,21 @@ public class TranslationServiceAI {
     private  String targetLangauge;
 
     public TranslationServiceAI() {
-        setupAccess();
+        //setupAccessEnvVariable();
+        setupAccessApiKeyInResources();
         targetLangauge = getOperatingSystemLanguage();
     }
 
+
+
     public String translateText(String text) {
-        Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(targetLangauge));
-        return translation.getTranslatedText();
+        if(translate != null){
+            Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(targetLangauge));
+            return translation.getTranslatedText();
+        } else{
+            return text;
+        }
+
     }
 
     public String getOperatingSystemLanguage() {
@@ -30,7 +39,8 @@ public class TranslationServiceAI {
         return osLangauge;
     }
 
-    private  void setupAccess(){
+    private  void setupAccessEnvVariable(){
+
         String jsonFilePath = System.getenv("GCP_API_TRANSLATION_KEY");
         if (jsonFilePath == null) {
             System.err.println("GCP_API_TRANSLATION_KEY env variable not set.");
@@ -42,6 +52,20 @@ public class TranslationServiceAI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void setupAccessApiKeyInResources() {
+
+        try (InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("tron-translationnn.json")) {
+            if(resourceStream == null){
+                return;
+            }
+            GoogleCredentials googleCredentials = GoogleCredentials.fromStream(resourceStream);
+            this.translate = TranslateOptions.newBuilder().setCredentials(googleCredentials).build().getService();
+
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading credentials: " + e.getMessage(), e);
         }
     }
 }
