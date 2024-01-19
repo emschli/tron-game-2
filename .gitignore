@@ -41,3 +41,4 @@ build/
 # Config files
 src/main/resources/app.properties
 src/main/resources/middleware.properties
+/src/main/resources/tron-translation.json
