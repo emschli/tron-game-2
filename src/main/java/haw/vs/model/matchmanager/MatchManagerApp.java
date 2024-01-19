@@ -9,13 +9,13 @@ import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.model.matchmanager.api.GameStateUpdaterFactory;
 import haw.vs.model.matchmanager.api.MatchControllerFactory;
-import haw.vs.model.matchmanager.state.Matches;
-import haw.vs.model.matchmanager.tick.TickHandlerFactory;
-import haw.vs.model.matchmanager.tick.TickThread;
-import haw.vs.model.matchmanager.viewupdate.GameUpdateThread;
-import haw.vs.model.matchmanager.viewupdate.MatchUpdateHandlerFactory;
-import haw.vs.model.matchmanager.viewupdate.MenuUpdateThread;
-import haw.vs.view.api.IComponentApp;
+import haw.vs.model.matchmanager.impl.state.Matches;
+import haw.vs.model.matchmanager.impl.tick.TickHandlerFactory;
+import haw.vs.model.matchmanager.impl.tick.TickThread;
+import haw.vs.model.matchmanager.impl.viewupdate.GameUpdateThread;
+import haw.vs.model.matchmanager.impl.viewupdate.MatchUpdateHandlerFactory;
+import haw.vs.model.matchmanager.impl.viewupdate.MenuUpdateThread;
+import haw.vs.common.IComponentApp;
 
 import java.util.concurrent.CountDownLatch;
 

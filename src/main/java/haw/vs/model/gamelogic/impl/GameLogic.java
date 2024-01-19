@@ -6,7 +6,6 @@ import haw.vs.model.common.Match;
 import haw.vs.model.common.MatchState;
 import haw.vs.model.common.Player;
 import haw.vs.model.common.PlayerState;
-import haw.vs.model.gamelogic.IGameLogic;
 
 import java.util.*;
 

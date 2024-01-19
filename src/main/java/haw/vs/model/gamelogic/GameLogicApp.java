@@ -8,7 +8,7 @@ import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
 import haw.vs.model.gamelogic.api.GameStateProcessorFactory;
-import haw.vs.view.api.IComponentApp;
+import haw.vs.common.IComponentApp;
 
 import java.util.concurrent.CountDownLatch;
 

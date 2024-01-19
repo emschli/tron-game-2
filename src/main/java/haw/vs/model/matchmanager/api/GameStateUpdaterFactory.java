@@ -5,11 +5,11 @@ import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.middleware.clientStub.api.ClientStubFactory;
 import haw.vs.middleware.serverStub.impl.ServerStubFacade;
-import haw.vs.model.matchmanager.gamestateupdater.GameStateUpdater;
-import haw.vs.model.matchmanager.gamestateupdater.GameStateUpdaterAppStubConsumer;
-import haw.vs.model.matchmanager.gamestateupdater.GameStateUpdaterAppStubProvider;
-import haw.vs.model.matchmanager.mock.MockGameStateUpdater;
-import haw.vs.model.matchmanager.state.Matches;
+import haw.vs.model.matchmanager.impl.gamestateupdater.GameStateUpdater;
+import haw.vs.model.matchmanager.impl.gamestateupdater.GameStateUpdaterAppStubConsumer;
+import haw.vs.model.matchmanager.impl.gamestateupdater.GameStateUpdaterAppStubProvider;
+import haw.vs.model.matchmanager.impl.mock.MockGameStateUpdater;
+import haw.vs.model.matchmanager.impl.state.Matches;
 
 public class GameStateUpdaterFactory {
     public static IGameStateUpdater getGameStateUpdater(ComponentType forComponentType) {
