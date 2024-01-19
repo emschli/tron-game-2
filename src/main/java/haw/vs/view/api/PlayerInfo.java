@@ -31,10 +31,11 @@ public class PlayerInfo {
      * Creating the StringProperties to show the changed values in the overlay
      */
     static {
-        waitingScreenText = new SimpleStringProperty(translationServiceAI.translateText("Waaaaiting for more players to join the game.\nThere are already ") + " "+
+      /*  waitingScreenText = new SimpleStringProperty(translationServiceAI.translateText("Waaaaiting for more players to join the game.\nThere are already ") + " "+
                 PlayerInfo.getActualNoOfPlayers() + " " + translationServiceAI.translateText(" of ") + " "+
                 PlayerInfo.getNoOfPlayers() + " " + translationServiceAI.translateText(" Players ready. \n"));
-
+*/
+        waitingScreenText = new SimpleStringProperty();
         colorTextProperty = new SimpleStringProperty();
         colorProperty = new SimpleStringProperty();
 
