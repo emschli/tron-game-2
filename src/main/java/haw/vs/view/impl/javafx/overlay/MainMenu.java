@@ -1,8 +1,9 @@
 package haw.vs.view.impl.javafx.overlay;
 
 import haw.vs.common.ViewUtility;
+import haw.vs.view.api.ViewFactory;
+import haw.vs.view.impl.IPlayerInputHandler;
 import haw.vs.view.impl.PlayerInfo;
-import haw.vs.view.impl.javafx.TronView;
 import haw.vs.view.impl.javafx.ITronView;
 import haw.vs.view.translateAI.TranslationServiceAI;
 import javafx.beans.value.ChangeListener;
@@ -15,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import static haw.vs.view.javafx.TronView.inputHandler;
 
 /**
  * This Overlay is the Main Menu. The Player is asked about the PlayerCount (it should be within 1-4.
@@ -31,11 +31,14 @@ public class MainMenu extends VBox {
     private final Label feedbackLbl;
     private final Button btnJoin;
 
+    private final IPlayerInputHandler inputHandler;
+
     private final TextField textField;
     private TranslationServiceAI translationServiceAI;
 
     public MainMenu(String stylesheet, ITronView view) {
         super(20.0);
+        inputHandler = ViewFactory.getInputHandler();
         translationServiceAI = new TranslationServiceAI();
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);

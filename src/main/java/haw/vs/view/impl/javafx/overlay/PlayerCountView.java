@@ -1,6 +1,8 @@
 package haw.vs.view.impl.javafx.overlay;
 
 import haw.vs.common.ViewUtility;
+import haw.vs.view.api.ViewFactory;
+import haw.vs.view.impl.IPlayerInputHandler;
 import haw.vs.view.impl.PlayerInfo;
 import haw.vs.view.impl.javafx.TronView;
 import haw.vs.view.impl.javafx.ITronView;
@@ -25,12 +27,15 @@ public class PlayerCountView extends VBox {
     //counter which counts the number of Players
     private TranslationServiceAI translationServiceAI;
 
+    private final IPlayerInputHandler inputHandler;
+
     //textfied for the color
     private Text yourColor;
     //color of the player
 
     public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
+        inputHandler = ViewFactory.getInputHandler();
         translationServiceAI = new TranslationServiceAI();
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);

@@ -1,4 +1,4 @@
-## **Please note: The Usage of the Translation-Ai can be found in the branch `translate_ai_v0.1`**
+## **Please note: The Usage of the Translation-Ai can be found in the branch `translate_ai_v0.1` (but you need an API-Key which is not stored in this public repo)**
 
 ## Run the App
 To Play Alone on a single Node use Example Properties files below and set NameService IP and Ports. Then Start `Main`
@@ -9,6 +9,11 @@ Example `app.properties`:
 # App Types
 #app_type=STANDALONE
 app_type=DISTRIBUTED
+
+width=600
+height=600
+rows=40
+columns=40
 
 # If app_type=DISTRIBUTED, choose components that should be deployed:
 # Use Comments to disable unwanted components
