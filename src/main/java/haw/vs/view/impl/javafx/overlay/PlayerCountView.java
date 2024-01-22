@@ -1,6 +1,8 @@
 package haw.vs.view.impl.javafx.overlay;
 
 import haw.vs.common.ViewUtility;
+import haw.vs.view.api.ViewFactory;
+import haw.vs.view.impl.IPlayerInputHandler;
 import haw.vs.view.impl.PlayerInfo;
 import haw.vs.view.impl.javafx.TronView;
 import haw.vs.view.impl.javafx.ITronView;
@@ -25,8 +27,13 @@ public class PlayerCountView extends VBox {
     private Text yourColor;
     //color of the player
 
+    private final IPlayerInputHandler inputHandler;
+
     public PlayerCountView(String stylesheet, ITronView view) {
         super(20.0);
+
+        inputHandler = ViewFactory.getInputHandler();
+
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
 
@@ -50,7 +57,7 @@ public class PlayerCountView extends VBox {
         btnCancel.setOnAction(event -> {
             //call method in PlayerInputHandler to cancel the process of waiting and leave the (future) match
             view.hideOverlays();
-            TronView.inputHandler.onCancel();
+            inputHandler.onCancel();
         });
 
         //add all the elements to the overlay

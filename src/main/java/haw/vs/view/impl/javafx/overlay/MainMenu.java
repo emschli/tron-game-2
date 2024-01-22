@@ -1,6 +1,8 @@
 package haw.vs.view.impl.javafx.overlay;
 
 import haw.vs.common.ViewUtility;
+import haw.vs.view.api.ViewFactory;
+import haw.vs.view.impl.IPlayerInputHandler;
 import haw.vs.view.impl.PlayerInfo;
 import haw.vs.view.impl.javafx.TronView;
 import haw.vs.view.impl.javafx.ITronView;
@@ -28,10 +30,15 @@ public class MainMenu extends VBox {
     private final Label feedbackLbl;
     private final Button btnJoin;
 
+    private final IPlayerInputHandler inputHandler;
+
     private final TextField textField;
 
     public MainMenu(String stylesheet, ITronView view) {
         super(20.0);
+
+        inputHandler = ViewFactory.getInputHandler();
+
         this.getStylesheets().add(stylesheet);
         this.setAlignment(Pos.CENTER);
 
@@ -71,7 +78,7 @@ public class MainMenu extends VBox {
                 //get the IntegerValue of the text field
                 PlayerInfo.setNoOfPlayers(Integer.valueOf(textField.getText()));
                 //use PlayerInputHandler
-                TronView.inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
+                inputHandler.onGameStart(PlayerInfo.getNoOfPlayers());
             }
 
         });
