@@ -5,11 +5,11 @@ import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.middleware.clientStub.api.ClientStubFactory;
 import haw.vs.middleware.serverStub.impl.ServerStubFacade;
-import haw.vs.model.matchmanager.matchcontroller.MatchManager;
-import haw.vs.model.matchmanager.matchcontroller.MatchManagerAppStubConsumer;
-import haw.vs.model.matchmanager.matchcontroller.MatchManagerAppStubProvider;
-import haw.vs.model.matchmanager.mock.MockMatchController;
-import haw.vs.model.matchmanager.state.Matches;
+import haw.vs.model.matchmanager.impl.matchcontroller.MatchManager;
+import haw.vs.model.matchmanager.impl.matchcontroller.MatchManagerAppStubConsumer;
+import haw.vs.model.matchmanager.impl.matchcontroller.MatchManagerAppStubProvider;
+import haw.vs.model.matchmanager.impl.mock.MockMatchController;
+import haw.vs.model.matchmanager.impl.state.Matches;
 
 public class MatchControllerFactory {
     public static IMatchController getMatchController(ComponentType forComponentType) {

@@ -14,7 +14,7 @@ import haw.vs.model.matchmanager.api.GameStateUpdaterFactory;
 import haw.vs.model.matchmanager.api.IGameStateUpdater;
 import haw.vs.model.matchmanager.api.IMatchController;
 import haw.vs.model.matchmanager.api.MatchControllerFactory;
-import haw.vs.model.matchmanager.state.Colors;
+import haw.vs.model.matchmanager.impl.state.Colors;
 
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;

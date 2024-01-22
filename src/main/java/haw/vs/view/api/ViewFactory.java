@@ -6,9 +6,11 @@ import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.controller.api.InputFactory;
 import haw.vs.middleware.clientStub.api.ClientStubFactory;
 import haw.vs.middleware.serverStub.impl.ServerStubFacade;
-import haw.vs.view.ViewFacadeAppStubConsumer;
-import haw.vs.view.ViewFacadeAppStubProvider;
-import haw.vs.view.mock.MockViewFacade;
+import haw.vs.view.impl.*;
+import haw.vs.view.impl.viewfacade.ViewFacade;
+import haw.vs.view.impl.viewfacade.ViewFacadeAppStubConsumer;
+import haw.vs.view.impl.viewfacade.ViewFacadeAppStubProvider;
+import haw.vs.view.impl.mock.MockViewFacade;
 
 /**
  * ViewFactory offers:

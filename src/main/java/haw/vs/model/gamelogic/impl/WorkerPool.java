@@ -3,7 +3,6 @@ package haw.vs.model.gamelogic.impl;
 import haw.vs.common.properties.PropertiesException;
 import haw.vs.common.properties.PropertiesHelper;
 import haw.vs.model.common.Match;
-import haw.vs.model.gamelogic.IWorkerPool;
 
 import java.util.concurrent.*;
 

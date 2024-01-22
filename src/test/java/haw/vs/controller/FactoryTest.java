@@ -8,10 +8,10 @@ import haw.vs.controller.api.GameViewUpdateFactory;
 import haw.vs.controller.api.IGameViewUpdate;
 import haw.vs.controller.api.IInput;
 import haw.vs.controller.api.InputFactory;
-import haw.vs.controller.impl.GameViewUpdate;
-import haw.vs.controller.impl.InputHandler;
-import haw.vs.controller.mock.MockGameViewUpdate;
-import haw.vs.controller.mock.MockInput;
+import haw.vs.controller.impl.gameviewupdate.GameViewUpdate;
+import haw.vs.controller.impl.input.InputHandler;
+import haw.vs.controller.impl.mock.MockGameViewUpdate;
+import haw.vs.controller.impl.mock.MockInput;
 import org.junit.jupiter.api.Test;
 
 public class FactoryTest {

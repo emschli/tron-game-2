@@ -9,8 +9,8 @@ import haw.vs.middleware.MiddlewareApp;
 import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.model.gamelogic.GameLogicApp;
 import haw.vs.model.matchmanager.MatchManagerApp;
-import haw.vs.view.api.IComponentApp;
-import haw.vs.view.api.ViewApp;
+import haw.vs.common.IComponentApp;
+import haw.vs.view.ViewApp;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;

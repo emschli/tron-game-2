@@ -9,7 +9,7 @@ import haw.vs.controller.api.GameViewUpdateFactory;
 import haw.vs.controller.api.InputFactory;
 import haw.vs.middleware.common.exceptions.MethodNameAlreadyExistsException;
 import haw.vs.middleware.nameService.impl.exception.NameServiceException;
-import haw.vs.view.api.IComponentApp;
+import haw.vs.common.IComponentApp;
 
 import java.util.concurrent.CountDownLatch;
 
